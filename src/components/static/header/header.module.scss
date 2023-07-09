@@ -1,0 +1,38 @@
+.header{
+  width: 85vw;
+  height: 15vh;
+  background: whitesmoke;
+  right: 0;
+  position: fixed;
+}
+.topBlock{
+  width: 82.5vw;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #b7b7b7;
+  margin-left: 1.25vw;
+}
+.name{
+  margin-left: 1vw;
+}
+.user{
+  margin-right: 1vw;
+}
+.icoUser{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: black;
+}
+.bottomBlock{
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+}
+.href{
+  margin-left: 2.25vw;
+  font-size: 1.1em;
+}
