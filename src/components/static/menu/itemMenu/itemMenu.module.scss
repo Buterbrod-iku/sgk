@@ -1,0 +1,22 @@
+.main{
+  width: 100%;
+  height: auto;
+  padding: 1vh 1.5vw;
+  display: flex;
+  align-items: center;
+}
+.ico{
+  width: 30px;
+  height: 30px;
+  background: whitesmoke;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.text{
+  font-size: 1.3em;
+  transition: 0.3s;
+}
+.main:hover > .text{
+  color: white;
+  margin-left: 5px;
+}

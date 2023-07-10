@@ -4,6 +4,7 @@
   background: rgb(0, 66, 92);
   position: fixed;
   color: rgb(214, 225, 228);
+  z-index: 6;
 }
 .logoBlock{
   width: 100%;
@@ -16,4 +17,36 @@
   width: 12vw;
   height: auto;
   margin-left: 10px;
+}
+.itemBlock{
+  width: 100%;
+  height: auto;
+  margin-top: 3vh;
+}
+.userBlock{
+  width: 90%;
+  height: 8vh;
+  border-top: 2px solid rgb(17, 97, 129);
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  left: 5%;
+}
+.icoUser{
+  width: 50px;
+  height: 50px;
+  background: #b7b7b7;
+  border-radius: 50%;
+}
+.nameUser{
+  font-size: 1.1em;
+  margin-left: 10px;
+}
+.exit{
+  width: 30px;
+  height: 40px;
+  background: #b7b7b7;
+  position: absolute;
+  right: 0;
 }
