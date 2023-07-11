@@ -1,14 +1,10 @@
 import style from './page.module.scss'
-import Header from "@/components/static/header/header";
-import Menu from "@/components/static/menu/menu";
-import Form from "@/components/routing/form/form";
+import Request from "@/app/request/page";
 
 export default function Home() {
   return (
     <main>
-        <Header />
-        <Menu />
-        <Form />
+      <Request />
     </main>
   )
 }
