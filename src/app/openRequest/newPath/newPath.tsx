@@ -22,7 +22,7 @@ export default function NewPath(props) {
         }
         e.preventDefault();
         console.log("qwe")
-        setModal(modal.concat(<OpenRequest close={true} fun={close} newPath={true} style={style}/>))
+        setModal(modal.concat(<OpenRequest addStyle={{height: "75vh", width: "80vw"}} close={true} fun={close} newPath={true} style={style}/>))
     }
 
     return (

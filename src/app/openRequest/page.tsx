@@ -26,7 +26,7 @@ export default function OpenRequest(props) {
 
     return (
         <div className={style.main} style={props.style}>
-            <div className={style.block} style={props.styleOpasity}>
+            <div className={style.block} style={props.addStyle}>
                 <h4 className={style.title}>Барнул - Новосибирск</h4>
 
                 {
