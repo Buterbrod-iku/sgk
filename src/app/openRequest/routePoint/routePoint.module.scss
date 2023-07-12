@@ -1,0 +1,24 @@
+.main{
+  width: 80%;
+  height: auto;
+  margin-bottom: 30px;
+}
+.point{
+  position: relative;
+  padding-left: 30px;
+  font-size: 20px;
+}
+.point::before{
+  content: "●";
+  transform: scale(1.8);
+  position: absolute;
+  left: 2.5px;
+  top: -2.5px;
+}
+.point::after{
+  content: "|";
+  position: absolute;
+  left: 6px;
+  top: 28.5px;
+
+}

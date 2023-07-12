@@ -1,10 +1,10 @@
 "use client";
 
-import style from './form.module.scss'
+import style from './form.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {useState} from "react";
 import ButtonMenu from "./buttonMenu/buttonMenu";
-import it from "node:test";
+import {Context} from './context';
 
 export default function Form() {
     const [people, setPeople] = useState([]);
@@ -12,42 +12,54 @@ export default function Form() {
 
     const onAddBtnClick = (e) => {
         e.preventDefault();
-        setPeople(people.concat({block: <SectionInput text="Данные пассажира" key={performance.now()} need={true} input={inputPassenger} click={handleRemoveItem} close={true}/>, id: performance.now()}));
+        let date = performance.now();
+        setPeople([...people, {block: <SectionInput text="Данные пассажира" id={date} need={true} input={inputPassenger} close={true}/>, id: date}]);
     };
     const handleRemoveItem = (id) => {
-        setPeople(people.filter(item => item.id !== item.block.key));
+        setPeople(people.filter(item => {
+            console.log(item.id, id)
+            return item.id !== id;
+        }));
     };
 
     const onAddPoint = (e) => {
         e.preventDefault();
-        setEndPoint(endPoint.concat({block: <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]} key={performance.now()}  click={handleRemoveEndPoint} close={true}/>, id: performance.now()}));
+        let date = performance.now();
+        setEndPoint(endPoint.concat({block: <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]} id={date} close={true}/>, id: date}));
     };
-    const handleRemoveEndPoint = () => {
-        setEndPoint(endPoint.filter(item => item.id !== item.block.key));
+    const handleRemoveEndPoint = (id) => {
+        setEndPoint(endPoint.filter(item => {
+            console.log(item.id);
+            return item.id !== id;
+        }));
     };
 
 
     return (
-        <form className={style.form}>
-            <h3 className={style.title}>Составление заявки</h3>
-            <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
-            <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
-            <SectionInput text="Подача авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
-            <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
-            {
-                endPoint.map(item => item.block)
-            }
-            <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-            <SectionInput text="Груз и пассажиры" need={true} input={inputCargo} />
-            <SectionInput text="Данные пассажира" need={true} input={inputPassenger} />
-            {
-                people.map(item => item.block)
-            }
-            <ButtonMenu text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-            <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
+        <Context.Provider value={{
+            handleRemoveItem, handleRemoveEndPoint
+        }}>
+            <form className={style.form}>
+                <h3 className={style.title}>Составление заявки</h3>
+                <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
+                <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
+                <SectionInput text="Подача авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
+                <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
+                {
+                    endPoint.map(item => item.block)
+                }
+                <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+                <SectionInput text="Груз и пассажиры" need={true} input={inputCargo} />
+                <SectionInput text="Данные пассажира" need={true} input={inputPassenger} />
+                {
+                    people.map(item => item.block)
+                }
+                <ButtonMenu text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+                <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
 
-            <ButtonMenu text="Создать" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 168, 77)"}}/>
-        </form>
+                <ButtonMenu text="Создать" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 168, 77)"}}/>
+            </form>
+        </Context.Provider>
     )
 }
 
@@ -56,17 +68,20 @@ let dataTimeStart = [
     {
         text: "Дата подачи",
         check: true,
-        placeholder: "дд/мм/гггг"
+        placeholder: "дд/мм/гггг",
+        type: "date"
     },
     {
         text: "Время подачи",
         check: true,
-        placeholder: "00:00"
+        placeholder: "00:00",
+        type: "time"
     },
     {
         text: "Время ожидания",
         check: true,
-        placeholder: "00:00"
+        placeholder: "00:00",
+        type: "time"
     }
 ]
 
@@ -74,17 +89,20 @@ let dataTimeEnd = [
     {
         text: "Дата прибытия",
         check: false,
-        placeholder: "дд/мм/гггг"
+        placeholder: "дд/мм/гггг",
+        type: "date"
     },
     {
         text: "Время прибытия",
         check: false,
-        placeholder: "00:00"
+        placeholder: "00:00",
+        type: "time"
     },
     {
         text: "Время ожидания",
         check: false,
-        placeholder: "00:00"
+        placeholder: "00:00",
+        type: "time"
     }
 ]
 

@@ -1,5 +1,7 @@
 import style from './sectionInput.module.scss'
 import InputForm from "../inputForm/inputForm";
+import {Context} from "../context";
+import {useContext} from "react";
 
 const TextInput = (props) => {
     return(
@@ -8,6 +10,10 @@ const TextInput = (props) => {
 }
 
 export default function SectionInput(props) {
+    const {handleRemoveItem, handleRemoveEndPoint} = useContext(Context)
+
+    const id = props.id;
+
     return (
         <div className={style.main} style={props.checkbox ? {flexDirection: "row", justifyContent: "left", alignItems: "center"} : {}}>
             {
@@ -28,7 +34,7 @@ export default function SectionInput(props) {
                         {props.dataTimeArray.map((item) => (
                             <div>
                                 <TextInput need={item.check} text={item.text}/>
-                                <InputForm placeholder={item.placeholder}/>
+                                <InputForm typeInput={item.type} placeholder={item.placeholder}/>
                             </div>
                         ))}
                     </div>)
@@ -42,7 +48,7 @@ export default function SectionInput(props) {
             }
 
             {
-                props.close ? <p className={style.close} onClick={props.click}>+</p> : ""
+                props.close ? <p className={style.close} onClick={() => props.dataTime ? handleRemoveEndPoint(id) : handleRemoveItem(id)}>+</p> : ""
             }
         </div>
     )

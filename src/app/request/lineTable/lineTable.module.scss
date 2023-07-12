@@ -2,10 +2,11 @@
   display: grid;
   text-align: left;
   grid-template-columns: 1fr 2fr 5fr;
-  padding: 20px 20px;
-  font-size: 1.2em;
-  border-bottom: 2px solid rgb(231, 231, 231);
-
+  padding: 15px 20px;
+  font-size: 1.1em;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  cursor: pointer;
+  color: rgb(111, 111, 111);
 }
 .tr:last-child{
   border-bottom: none;

@@ -4,9 +4,9 @@ export default function LineTable(props) {
     return (
         <>
             <tr className={style.tr}>
-                <th className={style.th}>{props.date}</th>
-                <th className={style.th}>{props.name}</th>
-                <th className={style.th}>{props.path}</th>
+                <td className={style.th}>{props.date}</td>
+                <td className={style.th}>{props.name}</td>
+                <td className={style.th}>{props.path}</td>
             </tr>
         </>
     )

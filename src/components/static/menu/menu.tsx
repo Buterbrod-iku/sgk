@@ -12,8 +12,8 @@ export default function Menu() {
             </div>
 
             <div className={style.itemBlock}>
-                <Link href="/form"><ItemMenu item="Заявки"/></Link>
-                <Link href="/gap"><ItemMenu item="Отчёты"/></Link>
+                <Link href={"/"} className={style.Link}><ItemMenu item="Заявки"/></Link>
+                <Link href={"/gap"} className={style.Link}><ItemMenu item="Отчёты"/></Link>
                 <ItemMenu item="Связь с ТК"/>
             </div>
 
