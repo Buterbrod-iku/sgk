@@ -4,62 +4,55 @@ import style from './form.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {useState} from "react";
 import ButtonMenu from "./buttonMenu/buttonMenu";
-import {Context} from './context';
 
 export default function Form() {
     const [people, setPeople] = useState([]);
     const [endPoint, setEndPoint] = useState([]);
+    const [keys, setKeys] = useState(0);
 
     const onAddBtnClick = (e) => {
         e.preventDefault();
-        let date = performance.now();
-        setPeople([...people, {block: <SectionInput text="Данные пассажира" id={date} need={true} input={inputPassenger} close={true}/>, id: date}]);
+        setKeys(prevKeys => prevKeys + 1)
+        setPeople([...people, {block: <SectionInput key={keys} text="Данные пассажира" id={keys} need={true} input={inputPassenger} clickPeople={handleRemoveItem} close={true}/>, id: keys}]);
     };
-    const handleRemoveItem = (id) => {
-        setPeople(people.filter(item => {
-            console.log(item.id, id)
-            return item.id !== id;
-        }));
+    const handleRemoveItem = (event, id) => {
+        setPeople(prevPeople => {
+            return prevPeople.filter(item => item.id !== id);
+        });
     };
-
     const onAddPoint = (e) => {
         e.preventDefault();
-        let date = performance.now();
-        setEndPoint(endPoint.concat({block: <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]} id={date} close={true}/>, id: date}));
+        setKeys(prevKeys => prevKeys + 1)
+        setEndPoint(endPoint.concat({block: <SectionInput key={keys} text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} clickEndPoint={handleRemoveEndPoint}  input={["Адрес"]} id={keys} close={true}/>, id: keys}));
     };
-    const handleRemoveEndPoint = (id) => {
-        setEndPoint(endPoint.filter(item => {
-            console.log(item.id);
-            return item.id !== id;
-        }));
+    const handleRemoveEndPoint = (event, id) => {
+        setEndPoint(prevEndPoint => {
+            return prevEndPoint.filter(item => item.id !== id);
+        });
     };
 
 
     return (
-        <Context.Provider value={{
-            handleRemoveItem, handleRemoveEndPoint
-        }}>
-            <form className={style.form}>
-                <h3 className={style.title}>Составление заявки</h3>
-                <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
-                <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
-                <SectionInput text="Подача авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
-                <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
-                {
-                    endPoint.map(item => item.block)
-                }
-                <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-                <SectionInput text="Груз и пассажиры" need={true} input={inputCargo} />
-                <SectionInput text="Данные пассажира" need={true} input={inputPassenger} />
-                {
-                    people.map(item => item.block)
-                }
-                <ButtonMenu text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-                <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
+        <form className={style.form}>
+            <h3 className={style.title}>Составление заявки</h3>
+            <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
+            <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
+            <SectionInput text="Подача авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
+            <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
+            {
+                endPoint.map(item => item.block)
+            }
+            <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+            <SectionInput text="Груз и пассажиры" need={true} input={inputCargo} />
+            <SectionInput text="Данные пассажира" need={true} input={inputPassenger} />
+            {
+                people.map(item => item.block)
+            }
+            <ButtonMenu text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+            <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
 
-                <ButtonMenu text="Создать" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 168, 77)"}}/>
-            </form>
-        </Context.Provider>
+            <ButtonMenu text="Создать" color={{backgroundColor: "rgb(0, 168, 77)"}}/>
+        </form>
     )
 }
 

@@ -11,7 +11,7 @@ let state = {
     time: "15:15"
 }
 
-export default function OpenRequest() {
+export default function OpenRequest(props) {
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
 
@@ -25,9 +25,13 @@ export default function OpenRequest() {
     }
 
     return (
-        <div className={style.main}>
-            <div className={style.block}>
+        <div className={style.main} style={props.style}>
+            <div className={style.block} style={props.styleOpasity}>
                 <h4 className={style.title}>Барнул - Новосибирск</h4>
+
+                {
+                    props.close ? <p onClick={props.fun} className={style.close}>+</p> : ""
+                }
 
                 <div className={style.posInfo}>
                     <div className={style.info}>
@@ -69,15 +73,18 @@ export default function OpenRequest() {
                     </div>
                 </div>
 
-                <div className={style.newPath}>
-                    <div className={style.absolutTitle}>
-                        <p>Доступные маршруты</p>
-                    </div>
-                    <NewPath title="Барнуал-Бийск"/>
-                    <NewPath title="Барнуал-Бийск"/>
-                    <NewPath title="Барнуал-Бийск"/>
-                    <NewPath title="Барнуал-Бийск"/>
-                </div>
+                {
+                    props.newPath ? "" : (<div className={style.newPath}>
+                        <div className={style.absolutTitle}>
+                            <p>Доступные маршруты</p>
+                        </div>
+                        <NewPath title="Барнуал-Бийск"/>
+                        <NewPath title="Барнуал-Бийск"/>
+                        <NewPath title="Барнуал-Бийск"/>
+                        <NewPath title="Барнуал-Бийск"/>
+                    </div>)
+                }
+
             </div>
         </div>
     )
