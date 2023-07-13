@@ -20,7 +20,25 @@
 }
 .user{
   margin-right: 1vw;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
+.optionsButton{
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgb(0, 66, 92);
+  border-left-color: transparent;
+  border-top-color: transparent;
+  transform: rotate(45deg) translate(-3px, -3px);
+  transition: all 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1) rotate(45deg) translate(-3px, -3px);
+  }
+}
+
 .icoUser{
   width: 60px;
   height: 60px;

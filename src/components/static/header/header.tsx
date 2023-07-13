@@ -1,4 +1,5 @@
 import style from './header.module.scss'
+import userAvatar from '../../../assets/images/userAvatar.png'
 
 export default function Header() {
     return (
@@ -9,11 +10,12 @@ export default function Header() {
                 </div>
                 <div className={style.user}>
                     {/*заменить*/}
-                    <div className={style.icoUser}></div>
+                    <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar.src})`, backgroundSize: 'cover'}}></div>
+                    <div className={style.optionsButton}></div>
                 </div>
             </div>
             <div className={style.bottomBlock}>
-                <p className={style.href}>Главная - Завявки</p>
+                <p className={style.href}>Главная - Заявки</p>
             </div>
         </header>
     )

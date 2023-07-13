@@ -16,12 +16,22 @@ export default function SectionInput(props) {
                props.checkbox ? (<input type="checkbox" className={style.checkbox}/>) : ""
             }
 
-            <TextInput need={props.need} text={props.text} styles={props.checkbox ? {margin: "0"} : {}}/>
+            <TextInput need={props.need} required={props} text={props.text} styles={props.checkbox ? {margin: "0"} : {}}/>
 
+            {/* Подгрузка полей в зависимости от сложности структуры входных данных */}
             {
+                props.inputArray ?
+                props.inputArray.map((item) => (
+                    <InputForm typeInput={item.type} placeholder={item.text} styles={props.inputArray.length > 1 ? {marginTop: "10px"} : {}}/>
+                ))
+                : "" 
+            }
+            {
+                props.input ?
                 props.input.map((item) => (
                     <InputForm placeholder={item} styles={props.input.length > 1 ? {marginTop: "10px"} : {}}/>
-                ))
+                )) 
+                : ""
             }
 
             {
@@ -46,6 +56,7 @@ export default function SectionInput(props) {
             {
                 props.close ? <p className={style.close} onClick={(event) => props.dataTime ? props.clickEndPoint(event, id) : props.clickPeople(event, id)}>+</p> : ""
             }
+
         </div>
     )
 }
