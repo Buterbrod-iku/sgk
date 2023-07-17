@@ -35,13 +35,41 @@
 .input::placeholder{
   font-family: Arial;
 }
-.checkbox{
+.checkbox {
+  appearance: none;
   width: 20px;
   height: 20px;
   margin-right: 10px;
-}
-.checkbox:checked {
-  color: #e70404;
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+
+  &:after {
+    content: "✓";
+    font-size: 18px;
+    color: white;
+    display: none;
+    vertical-align: middle;
+  }
+  &:hover {
+    background-color: rgb(228, 228, 228);
+  }
+  &:checked {
+    background-color: #EF4056;
+    border: none;
+  }
+  &:checked:after {
+    display: block;
+  }
+
+  + label {
+    cursor: pointer;
+  }
 }
 .close{
   position: absolute;

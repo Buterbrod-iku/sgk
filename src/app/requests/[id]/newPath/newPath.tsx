@@ -1,5 +1,5 @@
 import style from './newPath.module.scss'
-import OpenRequest from "@/app/openRequest/page";
+import OpenRequest from "@/app/requests/[id]/page";
 import {useState} from "react";
 
 export default function NewPath(props) {
@@ -21,7 +21,6 @@ export default function NewPath(props) {
             setModal([])
         }
         e.preventDefault();
-        console.log("qwe")
         setModal(modal.concat(<OpenRequest addStyle={{height: "75vh", width: "80vw"}} close={true} fun={close} newPath={true} style={style}/>))
     }
 

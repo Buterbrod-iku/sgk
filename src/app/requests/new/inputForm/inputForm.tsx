@@ -24,7 +24,7 @@ export default function InputForm(props) {
 
     return (
         <>
-            <input {...additionalProps} type={props.typeInput ? props.typeInput : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
+            <input {...additionalProps} id={props.forID} type={props.typeInput ? props.typeInput : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
         </>
     )
 }

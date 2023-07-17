@@ -1,14 +1,16 @@
 "use client";
 
-import style from './form.module.scss';
+import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {useState} from "react";
 import ButtonMenu from "./buttonMenu/buttonMenu";
 
-export default function Form() {
+export default function New() {
     const [people, setPeople] = useState([]);
     const [endPoint, setEndPoint] = useState([]);
     const [keys, setKeys] = useState(0);
+
+    
 
     const onAddBtnClick = (e) => {
         e.preventDefault();
@@ -37,7 +39,7 @@ export default function Form() {
         e.preventDefault();
         const data = new FormData(e.target.parrentElement);
         console.log(data);
-
+        
         
     }
 
@@ -114,7 +116,8 @@ let inputCargo = [
         type: "integer"
     },
     {
-        text: "Количество пассажиров" 
+        text: "Количество пассажиров",
+        type: "integer"
     }  
 ]
 let inputPassenger = [

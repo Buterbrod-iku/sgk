@@ -1,20 +1,24 @@
 'use client'
 
 import style from './openRequest.module.scss'
-import NewPath from "@/app/openRequest/newPath/newPath";
-import InfoBlock from "@/app/openRequest/infoBlock/infoBlock";
+import NewPath from "@/app/requests/[id]/newPath/newPath";
+import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useState} from "react";
-import RoutePoint from "@/app/openRequest/routePoint/routePoint";
+import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 let state = {
     data: "10.10.2023",
     time: "15:15"
 }
 
+
+
 export default function OpenRequest(props) {
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
 
+    
     const swichInfo = (e) => {
         e.preventDefault()
         setOpenInfo(!openInfo);
@@ -23,11 +27,14 @@ export default function OpenRequest(props) {
         e.preventDefault()
         setMap(!map);
     }
+    
+
+    
 
     return (
         <div className={style.main} style={props.style}>
             <div className={style.block} style={props.addStyle}>
-                <h4 className={style.title}>Барнул - Новосибирск</h4>
+                <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params.id})</h4>
 
                 {
                     props.close ? <p onClick={props.fun} className={style.close}>+</p> : ""
@@ -80,10 +87,10 @@ export default function OpenRequest(props) {
                         <div className={style.absolutTitle}>
                             <p>Доступные маршруты</p>
                         </div>
-                        <NewPath title="Барнуал-Бийск"/>
-                        <NewPath title="Барнуал-Бийск"/>
-                        <NewPath title="Барнуал-Бийск"/>
-                        <NewPath title="Барнуал-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
                     </div>)
                 }
 

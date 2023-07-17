@@ -1,35 +1,38 @@
 import style from './sectionInput.module.scss'
 import InputForm from "../inputForm/inputForm";
 
-const TextInput = (props) => {
+const InputLabel = (props) => {
     return(
-        <p className={style.textPoint} style={props.styles}>{props.text} {props.need ? <span style={{color: "darkred"}}>*</span> : ""}</p>
+        <label htmlFor={props.forID} className={style.textPoint} style={props.styles}>{props.text} {props.need ? <span style={{color: "darkred"}}>*</span> : ""}</label>
     )
 }
 
 export default function SectionInput(props) {
     const id = props.id;
+    const inputForID = Math.random(); // TODO: Заменить на нормальное имя
 
     return (
         <div className={style.main} style={props.checkbox ? {flexDirection: "row", justifyContent: "left", alignItems: "center"} : {}}>
             {
-               props.checkbox ? (<input type="checkbox" className={style.checkbox}/>) : ""
+                props.checkbox ? (
+                    <input id={`${inputForID}`} type="checkbox" className={style.checkbox}/>
+                ) : ""
             }
 
-            <TextInput need={props.need} required={props} text={props.text} styles={props.checkbox ? {margin: "0"} : {}}/>
+            <InputLabel need={props.need} required={props} text={props.text} styles={props.checkbox ? {margin: "0"} : {}} forID={inputForID}/>
 
             {/* Подгрузка полей в зависимости от сложности структуры входных данных */}
             {
                 props.inputArray ?
                 props.inputArray.map((item) => (
-                    <InputForm typeInput={item.type} placeholder={item.text} styles={props.inputArray.length > 1 ? {marginTop: "10px"} : {}}/>
+                    <InputForm forID={inputForID} typeInput={item.type} placeholder={item.text} styles={props.inputArray.length > 1 ? {marginTop: "10px"} : {}}/>
                 ))
                 : "" 
             }
             {
                 props.input ?
                 props.input.map((item) => (
-                    <InputForm placeholder={item} styles={props.input.length > 1 ? {marginTop: "10px"} : {}}/>
+                    <InputForm forID={inputForID} placeholder={item} styles={props.input.length > 1 ? {marginTop: "10px"} : {}}/>
                 )) 
                 : ""
             }
@@ -39,8 +42,8 @@ export default function SectionInput(props) {
                     (<div className={style.position}>
                         {props.dataTimeArray.map((item) => (
                             <div>
-                                <TextInput need={item.check} text={item.text}/>
-                                <InputForm typeInput={item.type} placeholder={item.placeholder}/>
+                                <InputLabel need={item.check} text={item.text} forID={inputForID}/>
+                                <InputForm forID={inputForID} typeInput={item.type} placeholder={item.placeholder}/>
                             </div>
                         ))}
                     </div>)

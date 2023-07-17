@@ -14,11 +14,13 @@ export default function Menu() {
     return (
         <menu className={style.menu}>
             <div className={style.logoBlock}>
-                <Image src={logo} alt="" className={style.logo} />
+            {/* TODO: Из-за ссылки немного съехало лого. Пофиксить */}
+            <Link href={"/"}><Image src={logo} alt="" className={style.logo} /></Link> 
+            {/* <Image src={logo} alt="" className={style.logo} /> */}
             </div>
 
             <div className={style.itemBlock}>
-                <Link href={"/"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
+                <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
                 <Link href={"/gap"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
                 <ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/>
             </div>
