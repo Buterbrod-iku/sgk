@@ -1,0 +1,34 @@
+.main{
+  width: 80%;
+  height: auto;
+  margin-bottom: 30px;
+}
+.point{
+  position: relative;
+  padding-left: 30px;
+  font-size: 20px;
+
+  &::before{
+    content: "●";
+    transform: scale(1.8);
+    position: absolute;
+    left: 2.5px;
+    top: -2.5px;
+  }
+  &::after{
+    content: "|";
+    position: absolute;
+    left: 6px;
+    top: 28.5px;
+  }
+
+  &, &::before,&::after {
+    background-image: linear-gradient(black, grey);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+

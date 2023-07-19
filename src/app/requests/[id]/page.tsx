@@ -1,0 +1,100 @@
+'use client'
+
+import style from './openRequest.module.scss'
+import NewPath from "@/app/requests/[id]/newPath/newPath";
+import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
+import {useState} from "react";
+import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
+import { useRouter, useSearchParams } from 'next/navigation';
+
+let state = {
+    data: "10.10.2023",
+    time: "15:15"
+}
+
+
+
+export default function OpenRequest(props) {
+    const [openInfo, setOpenInfo] = useState(true);
+    const [map, setMap] = useState(true);
+
+    
+    const swichInfo = (e) => {
+        e.preventDefault()
+        setOpenInfo(!openInfo);
+    }
+    const swichMap = (e) => {
+        e.preventDefault()
+        setMap(!map);
+    }
+    
+
+    
+
+    return (
+        <div className={style.main} style={props.style}>
+            <div className={style.block} style={props.addStyle}>
+                <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params.id})</h4>
+
+                {
+                    props.close ? <p onClick={props.fun} className={style.close}>+</p> : ""
+                }
+
+                <div className={style.posInfo}>
+                    <div className={style.info}>
+                        <div className={style.buttonBlock}>
+                            <button onClick={swichInfo} disabled={openInfo} style={openInfo ? {backgroundColor: "rgb(0, 120, 168)", color: "white"} : {backgroundColor: "#ececec", color: "black"}}>Основное</button>
+                            <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Груз</button>
+                        </div>
+
+                        <div className={style.infoBlock} style={openInfo ? {display: "block"} : {display: "none"}}>
+                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
+                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
+                            <InfoBlock title="Подача авто" dataTime={state}/>
+                        </div>
+
+                        <div className={style.infoBlock} style={openInfo ? {display: "none"} : {display: "block"}}>
+                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
+                            <InfoBlock title="Подача авто" dataTime={state}/>
+                            <InfoBlock title="Подача авто" dataTime={state}/>
+                            <InfoBlock title="Подача авто" dataTime={state}/>
+                        </div>
+                    </div>
+
+                    <div className={style.path}>
+                        <div className={style.buttonBlock}>
+                            <button onClick={swichMap} disabled={map} style={map ? {backgroundColor: "rgb(0, 120, 168)", color: "white"} : {backgroundColor: "#ececec", color: "black"}}>Карта</button>
+                            <button onClick={swichMap} disabled={!map} style={map ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Маршрут</button>
+                        </div>
+
+                        <div className={style.map} style={map ? {display: "block"} : {display: "none"}}>
+                            <div className={style.mapBlock}>
+                                <iframe className={style.mapFrame} src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1196030.6502760502!2d82.12100431823762!3d54.16241036132776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x42dfe5e190cc4d97%3A0x9b3a0673e1d3e985!2z0J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0KDQvtGB0YHQuNGP!3m2!1d54.983269299999996!2d82.8963831!4m5!1s0x42dda1e8c72eeeab%3A0xb0e7bbef8d87b503!2z0JHQsNGA0L3QsNGD0LssINCQ0LvRgtCw0LnRgdC60LjQuSDQutGA0LDQuSwg0KDQvtGB0YHQuNGP!3m2!1d53.3497499!2d83.78357369999999!5e0!3m2!1sru!2suk!4v1689234669026!5m2!1sru!2suk" width="600" height="450" loading="lazy"></iframe>
+                            </div>
+                        </div>
+
+                        <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
+                            <RoutePoint point="Барнаул" />
+                            <RoutePoint point="Барнаул" />
+                            <RoutePoint point="Новосибирск" />
+                            <RoutePoint point="Новосибирск" />
+                        </div>
+                    </div>
+                </div>
+
+                {
+                    props.newPath ? "" : (<div className={style.newPath}>
+                        <div className={style.absolutTitle}>
+                            <p>Доступные маршруты</p>
+                        </div>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                        <NewPath title="Барнаул-Бийск"/>
+                    </div>)
+                }
+
+            </div>
+        </div>
+    )
+}
