@@ -14,6 +14,7 @@ const formatTime = (time) => {
 }
 
 export default function MainInfoRequest(props) {
+    // поправить
     const [fullPassenger, setFullPassenger] = useState(false);
     const [fullPoint, setFullPoint] = useState(false);
 
