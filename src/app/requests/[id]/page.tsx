@@ -141,3 +141,30 @@ let newRequest = {
     passengersAmount: 3,
     comment: " dolore doloribus eligendi error esse et harum illo ipsam laborum magni, maiores minus modi mollitia officia pariatur porro quis quod quos repellat repudiandae similique sit soluta suscipit totam ut vel vitae voluptate voluptatem. Adipisci culpa earum, ex explicabo harum ipsa nostrum odio perspiciatis saepe suscipit."
 }
+
+let request = {
+    id: 0,
+    devisionName: "Подразделение 1",
+    isPrivate: false,
+    carStartPoint: {
+        address: "656062, г. Барнаул, ул. Шукшина д. 15",
+        startDateTime: {
+            data: "10.10.2023",
+            time: "15:15"
+        }
+    },
+    destinationPoints: [
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15"
+        },
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15"
+        },
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15"
+        },
+    ]
+}
