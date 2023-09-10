@@ -39,3 +39,14 @@
   border: none;
   cursor: pointer;
 }
+@media (max-width: 768px) {
+  .title{
+    font-size: 1em;
+    width: 40%;
+    min-width: 40%;
+  }
+  .info{
+    width: auto;
+    margin-left: 5%;
+  }
+}

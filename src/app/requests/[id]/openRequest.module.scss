@@ -127,3 +127,23 @@
   top: 20px;
   font-size: 1.25em;
 }
+@media (max-width: 768px) {
+  .posInfo{
+    flex-direction: column;
+  }
+  .info{
+    width: 100%;
+    min-height:auto;
+    margin-right: 4%;
+  }
+  .path{
+    width: 100%;
+  }
+  .newPath{
+    grid-area: C;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+}

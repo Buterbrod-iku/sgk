@@ -55,3 +55,19 @@
   margin-left: 2.25vw;
   font-size: 1.1em;
 }
+@media (max-width: 768px) {
+  .header{
+    width: 100vw;
+    position: relative;
+    z-index: 99;
+  }
+  .topBlock{
+    width: 90vw;
+    height: 10vh;
+    margin-left: 5vw;
+  }
+  .href{
+    margin-left: 6vw;
+    font-size: 1.05em;
+  }
+}
