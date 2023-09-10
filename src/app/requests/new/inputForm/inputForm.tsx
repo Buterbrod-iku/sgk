@@ -10,21 +10,24 @@ export default function InputForm(props) {
     };
 
     // При необходимости добавление атрибутов обработки форматирования к элементам
-    if (["tel","integer"].includes(props.typeInput)) {
+    if (["tel","integer"].includes(props.type)) {
         additionalProps['onChange'] = function(e) {
-            if (props.typeInput == "tel") {
+            if (props.type == "tel") {
                 setInputValue(phoneFormatter(e.target.value, inputValue));
-            } else if (props.typeInput == "integer") {
+            } else if (props.type == "integer") {
                 setInputValue(integerFormatter(e.target.value, inputValue));
             }
+            props.onChange(e);
         },
         additionalProps['value'] = inputValue
+    } else {
+        additionalProps['onChange'] = props.onChange;
     }
 
 
     return (
         <>
-            <input {...additionalProps} id={props.forID} type={props.typeInput ? props.typeInput : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
+            <input {...additionalProps} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
         </>
     )
 }
@@ -44,7 +47,6 @@ function phoneFormatter(value, prevValue) : string {
     }
     const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneLength = phoneNumber.length;
-    console.log(phoneNumber);
 
     if (phoneLength < 2) return `+${phoneNumber}`;
     if (phoneLength < 5) return `+${phoneNumber.slice(0,1)} (${phoneNumber.slice(1)}`;

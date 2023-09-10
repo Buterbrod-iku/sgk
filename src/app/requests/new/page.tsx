@@ -3,130 +3,367 @@
 import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {useState} from "react";
-import ButtonMenu from "./buttonMenu/buttonMenu";
+import InputButton from "./inputButton/inputButton";
 
 export default function New() {
-    const [people, setPeople] = useState([]);
-    const [endPoint, setEndPoint] = useState([]);
-    const [keys, setKeys] = useState(0);
+    // const [people, setPeople] = useState([]);
+    // const [endPoint, setEndPoint] = useState([]);
+    // const [keys, setKeys] = useState(0);
+
+    const [values, setValues] = useState({
+        // devisionName: "",
+        // isPrivate: false,
+        // carStartPoint: {
+        //     address: "",
+        //     startDateTime: 0,
+        //     waiting: 0
+        // },
+        // destinationPoints: [
+        //     // {
+        //     //     id: 0,
+        //     //     address: "",
+        //     //     startDateTime: 0,
+        //     //     waiting: 0
+        //     // },
+        // ],
+        // cargoWeight: 0,
+        // passengersAmount: 0,
+        // passengersInfo: [
+        //     // {
+        //     //     id: 0,
+        //     //     fullname: "",
+        //     //     phoneNumber: ""
+        //     // },
+        // ],
+        // comment: ""
+    });
+
+    // key и id будут определены в цикле
+    const sectionsInputs = [
+        {
+            component: "section",
+            sectionLabel: "Структурное подразделение",
+            require: true,
+            inputs: [
+                {
+                    name: "devisionName",
+                    type: "text",
+                    placeholder: "Название"
+                }
+            ]
+        },
+        {
+            component: "section",
+            sectionLabel: "Приватная поездка",
+            require: true,
+            customStruct: "checkbox",
+            inputs: [
+                {
+                    name: "isPrivate",
+                    type: "checkbox"
+                }
+            ]
+        },
+        {
+            component: "section",
+            sectionLabel: "Место подачи авто",
+            require: true,
+            customStruct: "dateTime",
+            inputs: [
+                {
+                    name: "carStartPoint_address",
+                    type: "text",
+                    placeholder: "Адрес"
+                },
+                {
+                    name: "carStartPoint_date",
+                    type: "date",
+                    inputLabel: "Дата подачи",
+                    require: true
+                },
+                {
+                    name: "carStartPoint_arriveTime",
+                    type: "time",
+                    inputLabel: "Время подачи",
+                    require: true
+                },
+                {
+                    name: "carStartPoint_waitingTime",
+                    type: "time",
+                    inputLabel: "Время ожидания",
+                    require: true
+                }
+            ]
+        },
+        {
+            component: "distPointsSection"
+        },
+        {
+            component: "input",
+            type: "button",
+            value: "+ Добавить пункт назначения",
+            onClick: addDistPointHandler,
+        },
+        {
+            component: "section",
+            sectionLabel: "Груз и пассажиры",
+            require: true,
+            inputs: [
+                {
+                    name: "cargoWeight",
+                    type: "integer",
+                    placeholder: "Багаж кг/м3"
+                },
+                {
+                    name: "passengersAmount",
+                    type: "integer",
+                    placeholder: "Количество пассажиров"
+                }
+            ]
+        },
+        {
+            component: "section",
+            sectionLabel: "Данные пассажира",
+            require: true,
+            inputs: [
+                {
+                    name: "passengersInfo_fullName_1",
+                    type: "text",
+                    placeholder: "ФИО сотрудника"
+                },
+                {
+                    name: "passengersInfo_phoneNumber_1",
+                    type: "tel",
+                    placeholder: "Номер телефона"
+                }
+            ]
+        },
+        {
+            component: "input",
+            type: "button",
+            value: "+ Добавить пассажира",
+            onClick: addDistPassengerHandler,
+        },
+        {
+            component: "section",
+            sectionLabel: "Дополнительная информация",
+            require: true,
+            inputs: [
+                {
+                    name: "comment",
+                    type: "text",
+                    placeholder: "Комментарий",
+                    textarea: true
+                }
+            ]
+        },
+        {
+            component: "input",
+            type: "submit",
+            value: "Создать",
+            onClick: submitHandler,
+        }
+
+    ]
+    // Объект с точками назначения
+    const [distPoints, setDistPoints] = useState([
+        
+    ]);
 
     
+    function addDistPointHandler (e) {
+        console.log('point added');
 
-    const onAddBtnClick = (e) => {
-        e.preventDefault();
-        setKeys(prevKeys => prevKeys + 1)
-        setPeople([...people, {block: <SectionInput key={keys} text="Данные пассажира" id={keys} need={true} inputArray={inputPassenger} clickPeople={handleRemoveItem} close={true}/>, id: keys}]);
-    };
-    const handleRemoveItem = (event, id) => {
-        setPeople(prevPeople => {
-            return prevPeople.filter(item => item.id !== id);
-        });
-    };
-    const onAddPoint = (e) => {
-        e.preventDefault();
-        setKeys(prevKeys => prevKeys + 1)
-        setEndPoint(endPoint.concat({block: <SectionInput key={keys} text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} clickEndPoint={handleRemoveEndPoint}  input={["Адрес"]} id={keys} close={true}/>, id: keys}));
-    };
-    const handleRemoveEndPoint = (event, id) => {
-        setEndPoint(prevEndPoint => {
-            return prevEndPoint.filter(item => item.id !== id);
-        });
-    };
-
-
-    // Обработка сбора, проверки и отправки заявки на сервер
-    const sendRequestHandler = (e) => {
-        e.preventDefault();
-        const data = new FormData(e.target.parrentElement);
-        console.log(data);
-        
-        
+        let repObjStruct = {
+            component: "section",
+            sectionLabel: "Пункт назначения",
+            require: true,
+            closable: true,
+            customStruct: "dateTime",
+            inputs: [
+                {
+                    // name: "destinationPoint_address_1",
+                    type: "text",
+                    placeholder: "Адрес"
+                },
+                {
+                    // name: "destinationPoint_date_1",
+                    type: "date",
+                    inputLabel: "Дата подачи"
+                },
+                {
+                    // name: "destinationPoint_arriveTime_1",
+                    type: "time",
+                    inputLabel: "Время подачи"
+                },
+                {
+                    // name: "destinationPoint_waitingTime_1",
+                    type: "time",
+                    inputLabel: "Время ожидания"
+                }
+            ]
+        }
+    
+        let idKey = "dist_" + (distPoints.length + 1);
+        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeDistHandler={closeDistHandler} {...repObjStruct} />])
     }
+
+    function closeDistHandler(e, id) {
+        console.log("closed " + id);
+        setDistPoints(prevEndPoint => {
+            return prevEndPoint.filter(item => {
+                return item.key !== id
+            });
+        });
+    }
+    
+    function addDistPassengerHandler (e) {
+        console.log('passenger added');
+    }
+
+    function submitHandler (e) {
+        e.preventDefault();
+        console.log('sending data...');
+        console.log(values);
+    }
+    
+    const onInputChange = (e) => {
+        setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    // const onAddBtnClick = (e) => {
+    //     e.preventDefault();
+    //     setKeys(prevKeys => prevKeys + 1)
+    //     setPeople([...people, {block: <SectionInput key={keys} text="Данные пассажира" id={keys} need={true} inputArray={inputPassenger} clickPeople={handleRemoveItem} close={true}/>, id: keys}]);
+    // };
+    // const handleRemoveItem = (event, id) => {
+    //     setPeople(prevPeople => {
+    //         return prevPeople.filter(item => item.id !== id);
+    //     });
+    // };
+    // const onAddPoint = (e) => {
+    //     e.preventDefault();
+    //     setKeys(prevKeys => prevKeys + 1)
+    //     setEndPoint(endPoint.concat({block: <SectionInput key={keys} text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} clickEndPoint={handleRemoveEndPoint}  input={["Адрес"]} id={keys} close={true}/>, id: keys}));
+    // };
+    // const handleRemoveEndPoint = (event, id) => {
+    //     setEndPoint(prevEndPoint => {
+    //         return prevEndPoint.filter(item => item.id !== id);
+    //     });
+    // };
+
+    // console.clear();
+    console.log(values);
+
 
     return (
         <form className={style.form}>
             <h3 className={style.title}>Составление заявки</h3>
-            <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
-            <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
-            <SectionInput text="Место подачи авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
-            <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
             {
-                endPoint.map(item => item.block)
-            }
-            <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-            <SectionInput text="Груз и пассажиры" need={true} inputArray={inputCargo} />
-            <SectionInput text="Данные пассажира" need={true} inputArray={inputPassenger} />
-            {
-                people.map(item => item.block)
-            }
-            <ButtonMenu name="" text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-            <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
+                sectionsInputs.map((item, index) => {
+                    if (item.component == "section") {
+                        return <SectionInput key={`${index}`} id={index} {...item} onChange={onInputChange}/>
+                    }
 
-            <ButtonMenu onClick={sendRequestHandler} text="Создать" color={{backgroundColor: "rgb(0, 168, 77)"}}/>
+                    // Кнопки (например добавление пункта назначения) 
+                    if (item.component == "input") {
+                        return <InputButton key={`${index}`} id={index} {...item} />
+                    }
+
+                    // Раздел для подразделов пассажиров
+                    if (item.component == "distPointsSection") {
+                        return <div key={`${index}`}>
+                            {distPoints}
+                        </div> 
+                    }
+                })
+            }
         </form>
+
+
+        // <form className={style.form}>
+        //     <h3 className={style.title}>Составление заявки</h3>
+        //     <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
+        //     <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
+        //     <SectionInput text="Место подачи авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
+        //     <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
+        //     {
+        //         endPoint.map(item => item.block)
+        //     }
+        //     <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+        //     <SectionInput text="Груз и пассажиры" need={true} inputArray={inputCargo} />
+        //     <SectionInput text="Данные пассажира" need={true} inputArray={inputPassenger} />
+        //     {
+        //         people.map(item => item.block)
+        //     }
+        //     <ButtonMenu name="" text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
+        //     <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
+
+        //     <ButtonMenu onClick={sendRequestHandler} text="Создать" color={{backgroundColor: "rgb(0, 168, 77)"}}/>
+        // </form>
     )
 }
 
 // расширяем на валидацию инпутов для времени и даты
-let dataTimeStart = [
-    {
-        text: "Дата подачи",
-        check: true,
-        placeholder: "дд/мм/гггг",
-        type: "date"
-    },
-    {
-        text: "Время подачи",
-        check: true,
-        placeholder: "00:00",
-        type: "time"
-    },
-    {
-        text: "Время ожидания",
-        check: true,
-        placeholder: "00:00",
-        type: "time"
-    }
-]
+// let dataTimeStart = [
+//     {
+//         text: "Дата подачи",
+//         check: true,
+//         placeholder: "дд/мм/гггг",
+//         type: "date"
+//     },
+//     {
+//         text: "Время подачи",
+//         check: true,
+//         placeholder: "00:00",
+//         type: "time"
+//     },
+//     {
+//         text: "Время ожидания",
+//         check: true,
+//         placeholder: "00:00",
+//         type: "time"
+//     }
+// ]
 
-let dataTimeEnd = [
-    {
-        text: "Дата прибытия",
-        check: false,
-        placeholder: "дд/мм/гггг",
-        type: "date"
-    },
-    {
-        text: "Время прибытия",
-        check: false,
-        placeholder: "00:00",
-        type: "time"
-    },
-    {
-        text: "Время ожидания",
-        check: false,
-        placeholder: "00:00",
-        type: "time"
-    }
-]
+// let dataTimeEnd = [
+//     {
+//         text: "Дата прибытия",
+//         check: false,
+//         placeholder: "дд/мм/гггг",
+//         type: "date"
+//     },
+//     {
+//         text: "Время прибытия",
+//         check: false,
+//         placeholder: "00:00",
+//         type: "time"
+//     },
+//     {
+//         text: "Время ожидания",
+//         check: false,
+//         placeholder: "00:00",
+//         type: "time"
+//     }
+// ]
 
-let inputCargo = [
-    {
-        text: "Багаж кг/м3",
-        type: "integer"
-    },
-    {
-        text: "Количество пассажиров",
-        type: "integer"
-    }  
-]
-let inputPassenger = [
-    {
-        text: "ФИО сотрудника" 
-    },
-    {
-        text: "Номер телефона",
-        type: "tel"
-    }
-]
+// let inputCargo = [
+//     {
+//         text: "Багаж кг/м3",
+//         type: "integer"
+//     },
+//     {
+//         text: "Количество пассажиров",
+//         type: "integer"
+//     }  
+// ]
+// let inputPassenger = [
+//     {
+//         text: "ФИО сотрудника" 
+//     },
+//     {
+//         text: "Номер телефона",
+//         type: "tel"
+//     }
+// ]
 

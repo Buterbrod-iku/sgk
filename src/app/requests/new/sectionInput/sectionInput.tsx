@@ -3,63 +3,67 @@ import InputForm from "../inputForm/inputForm";
 
 const InputLabel = (props) => {
     return(
-        <label htmlFor={props.forID} className={style.textPoint} style={props.styles}>{props.text} {props.need ? <span style={{color: "darkred"}}>*</span> : ""}</label>
+        <label htmlFor={props.forID} className={style.textPoint} style={props.styles}>
+            {props.text} {props.require ? <span style={{color: "darkred"}}>*</span> : ""}
+        </label>
     )
 }
 
 export default function SectionInput(props) {
-    const id = props.id;
-    const inputForID = Math.random(); // TODO: Заменить на нормальное имя
+
+
+    const isCheckbox = (props.customStruct == "checkbox");
 
     return (
-        <div className={style.main} style={props.checkbox ? {flexDirection: "row", justifyContent: "left", alignItems: "center"} : {}}>
+        
+        <div className={style.main} style={isCheckbox ? {flexDirection: "row", justifyContent: "left", alignItems: "center"} : {}}>
+            
+            {/* Чекбокс на всю секцию */}
             {
-                props.checkbox ? (
-                    <input id={`${inputForID}`} type="checkbox" className={style.checkbox}/>
-                ) : ""
+                (isCheckbox) ?
+                    <input id={props.id} type="checkbox" name={props.inputs[0].name} className={style.checkbox} onChange={props.onChange}/>
+                : ""
             }
 
-            <InputLabel need={props.need} required={props} text={props.text} styles={props.checkbox ? {margin: "0"} : {}} forID={inputForID}/>
+            {/* Универсальный заголовок секции */}
+            <InputLabel require={props.require} text={props.sectionLabel} styles={(isCheckbox) ? {margin: "0"} : {}} forID={props.id}/>
 
-            {/* Подгрузка полей в зависимости от сложности структуры входных данных */}
+            {/* Создание полей без уникальных лейблов (стандартная структура) */}
             {
-                props.inputArray ?
-                props.inputArray.map((item) => (
-                    <InputForm forID={inputForID} typeInput={item.type} placeholder={item.text} styles={props.inputArray.length > 1 ? {marginTop: "10px"} : {}}/>
+                (!props.customStruct) ?
+                props.inputs.map((item, index) => (
+                    (!item.textarea) ? (
+                        <InputForm key={`${props.id}_${index}`} forID={`${props.id}_${index}`} name={item.name} type={item.type} placeholder={item.placeholder} styles={props.inputs.length > 1 ? {marginTop: "10px"} : {}} onChange={props.onChange}/>
+                    ) 
+                    : <textarea key={`${props.id}_${index}`} placeholder={props.inputArea} className={style.input} onChange={props.onChange}></textarea>
                 ))
-                : "" 
-            }
-            {
-                props.input ?
-                props.input.map((item) => (
-                    <InputForm forID={inputForID} placeholder={item} styles={props.input.length > 1 ? {marginTop: "10px"} : {}}/>
-                )) 
                 : ""
             }
 
+            {/* Созданий полей для структуры, содержащей дату и время с подписями лейблов */}
             {
-                props.dataTime ?
-                    (<div className={style.position}>
-                        {props.dataTimeArray.map((item) => (
-                            <div>
-                                <InputLabel need={item.check} text={item.text} forID={inputForID}/>
-                                <InputForm forID={inputForID} typeInput={item.type} placeholder={item.placeholder}/>
-                            </div>
-                        ))}
-                    </div>)
+                (props.customStruct == "dateTime") ? <>
+                <InputForm forID={`${props.id}`} name={props.inputs[0].name} type={props.inputs[0].type} placeholder={props.inputs[0].placeholder} onChange={props.onChange}/>
+                <div className={style.position}>
+                    {props.inputs.map((item, index) => (
+                        (index != 0) ?
+                        <div key={`${props.id}_${index}`}>
+                            <InputLabel require={item.require} text={item.inputLabel} forID={`${props.id}_${index}`} />
+                            <InputForm forID={`${props.id}_${index}`} type={item.type} placeholder={item.placeholder} name={item.name} onChange={props.onChange}/>
+                        </div> 
+                        : ""
+                    ))}
+                </div>
+                </>
                 : ""
             }
 
+            {/* Кнопка удаления элемента */}
             {
-                props.textarea ?
-                    (<textarea placeholder={props.inputArea} className={style.input}></textarea>)
-                    : ""
-            }
-
-            {
-                props.close ? <p className={style.close} onClick={(event) => props.dataTime ? props.clickEndPoint(event, id) : props.clickPeople(event, id)}>+</p> : ""
+                props.closable ? <p className={style.close} onClick={(event) => props.closeDistHandler(event, props.id)}>+</p> : ""
             }
 
         </div>
     )
+
 }

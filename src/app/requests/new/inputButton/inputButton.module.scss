@@ -6,4 +6,8 @@
   color: white;
   margin-bottom: 10px;
   font-size: 1.1em;
+  
+  &[type=submit] {
+    background: rgb(0, 168, 77);
+  }
 }
