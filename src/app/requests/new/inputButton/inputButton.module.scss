@@ -11,3 +11,9 @@
     background: rgb(0, 168, 77);
   }
 }
+
+@media (max-width: 768px) {
+  .button{
+    width: 90vw;
+  }
+}

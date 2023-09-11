@@ -1,0 +1,29 @@
+.main{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+}
+.ul{
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  list-style-type: none;
+  justify-content: end;
+  margin-right: 5%;
+}
+.li{
+  width: 30px;
+  height: 30px;
+  border: 1px solid #001c41;
+  border-radius: 10px;
+  margin: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.a{
+  text-decoration: none;
+  color: black;
+}

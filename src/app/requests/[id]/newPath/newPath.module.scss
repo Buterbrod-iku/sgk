@@ -41,3 +41,14 @@
 .accept:hover{
   background-color: rgb(0, 197, 91);
 }
+@media (max-width: 768px) {
+  .main{
+    padding: 20px 10px;
+  }
+  .check{
+    font-size: 15px;
+  }
+  .title{
+    font-size: 18px;
+  }
+}

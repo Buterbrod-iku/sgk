@@ -1,3 +1,5 @@
+"use client"
+
 import style from './menu.module.scss'
 import Image from "next/image";
 import logo from '../../../assets/images/logo_1.svg'
@@ -9,26 +11,43 @@ import requestIcon from '../../../assets/images/menu_request_icon.svg'
 import statsIcon from '../../../assets/images/menu_stats_icon.svg'
 import exitIcon from '../../../assets/images/menu_exit_icon.svg'
 import userAvatar from '../../../assets/images/userAvatar.png'
+import {useState} from "react";
 
 export default function Menu() {
+    const [burgerMenu, setBurgerMenu] = useState(false);
+
+    const OpenMenu = () => {
+        setBurgerMenu(!burgerMenu);
+    }
+
+    const width = useState(window.screen.width);
+
     return (
         <menu className={style.menu}>
             <div className={style.logoBlock}>
-            {/* TODO: Из-за ссылки немного съехало лого. Пофиксить */}
-            <Link href={"/"}><Image src={logo} alt="" className={style.logo} /></Link> 
-            {/* <Image src={logo} alt="" className={style.logo} /> */}
+                {/* TODO: Из-за ссылки немного съехало лого. Пофиксить */}
+                <Link href={"/"}><Image src={logo} alt="" className={style.logo} /></Link>
+                {/* <Image src={logo} alt="" className={style.logo} /> */}
+                <label className={style.close} htmlFor="check">
+                    <input type="checkbox" id="check" onClick={OpenMenu}/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
             </div>
 
-            <div className={style.itemBlock}>
-                <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
-                <Link href={"/gap"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
-                <ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/>
-            </div>
+            <div className={style.burger} style={burgerMenu ? {height: "35vh"} : width < 800 ? {height: "0", transition: "0.3s"} : {}}>
+                <div className={style.itemBlock} style={burgerMenu ? {display: "block"} : {}}>
+                    <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
+                    <Link href={"/gap"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
+                    <ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/>
+                </div>
 
-            <div className={style.userBlock}>
-                <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar.src})`, backgroundSize: 'cover'}}></div>
-                <p className={style.nameUser}>Мелков Илья</p>
-                <div className={style.exit} style={{backgroundImage: `url(${exitIcon.src})`, backgroundSize: 'cover'}}></div>
+                <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>
+                    <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar.src})`, backgroundSize: 'cover'}}></div>
+                    <p className={style.nameUser}>Мелков Илья</p>
+                    <div className={style.exit} style={{backgroundImage: `url(${exitIcon.src})`, backgroundSize: 'cover'}}></div>
+                </div>
             </div>
         </menu>
     )
