@@ -28,8 +28,6 @@ const Pagination = ({totalCount, perPage, paginate, nextPage, prevPage}) => {
         pageNumbers.push(i)
     }
 
-    let [count, setCount] = useState(0);
-
     return (
         <div className={style.main}>
             <ul className={style.ul} style={{gridTemplateColumns: `repeat(${pageNumbers.length}, 1fr)`}}>
