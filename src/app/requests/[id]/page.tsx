@@ -6,19 +6,13 @@ import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useState} from "react";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import { useRouter, useSearchParams } from 'next/navigation';
-
-let state = {
-    data: "10.10.2023",
-    time: "15:15"
-}
-
-
+import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest";
 
 export default function OpenRequest(props) {
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
 
-    
+
     const swichInfo = (e) => {
         e.preventDefault()
         setOpenInfo(!openInfo);
@@ -27,13 +21,11 @@ export default function OpenRequest(props) {
         e.preventDefault()
         setMap(!map);
     }
-    
-
-    
 
     return (
         <div className={style.main} style={props.style}>
             <div className={style.block} style={props.addStyle}>
+                {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                 <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params.id})</h4>
 
                 {
@@ -47,18 +39,7 @@ export default function OpenRequest(props) {
                             <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Груз</button>
                         </div>
 
-                        <div className={style.infoBlock} style={openInfo ? {display: "block"} : {display: "none"}}>
-                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
-                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
-                            <InfoBlock title="Подача авто" dataTime={state}/>
-                        </div>
-
-                        <div className={style.infoBlock} style={openInfo ? {display: "none"} : {display: "block"}}>
-                            <InfoBlock title="Структурное подразделение" info="ТКТКТКТКТК"/>
-                            <InfoBlock title="Подача авто" dataTime={state}/>
-                            <InfoBlock title="Подача авто" dataTime={state}/>
-                            <InfoBlock title="Подача авто" dataTime={state}/>
-                        </div>
+                        <MainInfoRequest openInfo={openInfo} allInfo={newRequest}/>
                     </div>
 
                     <div className={style.path}>
@@ -97,4 +78,66 @@ export default function OpenRequest(props) {
             </div>
         </div>
     )
+}
+
+let newRequest = {
+    devisionName: "Подразделение 1",
+    isPrivate: false,
+    carStartPoint: {
+        address: "656062, г. Барнаул, ул. Шукшина д. 15",
+        startDateTime: {
+            data: "10.10.2023",
+            time: "15:15"
+        },
+        waiting: "2332"
+    },
+    destinationPoints: [
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15",
+            endDateTime: {
+                data: "10.10.2023",
+                time: "15:15"
+            },
+            waiting: "2345"
+        },
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15",
+            endDateTime: {
+                data: "10.10.2023",
+                time: "15:15"
+            },
+            waiting: "2345"
+        },
+        {
+            id: 0,
+            address: "656062, г. Барнаул, ул. Шукшина д. 15",
+            endDateTime: {
+                data: "10.10.2023",
+                time: "15:15"
+            },
+            waiting: "2345"
+        },
+    ],
+    passengersInfo: [
+        {
+            id: 1,
+            fullname: "Шипугин Никита Олегович",
+            phoneNumber: "+7 999 999 99 99"
+        },
+        {
+            id: 2,
+            fullname: "Шипугин Никита Олегович",
+            phoneNumber: "+7 999 999 99 99"
+        },
+        {
+            id: 3,
+            fullname: "Шипугин Никита Олегович",
+            phoneNumber: "+7 999 999 99 99"
+        },
+    ],
+    cargoWeight: 1555,
+    passengersAmount: 3,
+    comment: " dolore doloribus eligendi error esse et harum illo ipsam laborum magni, maiores minus modi mollitia officia pariatur porro quis quod quos repellat repudiandae similique sit soluta suscipit totam ut vel vitae voluptate voluptatem. Adipisci culpa earum, ex explicabo harum ipsa nostrum odio perspiciatis saepe suscipit."
 }

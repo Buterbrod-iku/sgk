@@ -12,10 +12,175 @@ export const metadata: Metadata = {
   title: 'About',
 }
 
+let array = [
+    {
+        requestID: "99",
+        date: "1",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "2",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "3",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "4",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "5",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "6",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "7",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "8",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "9",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение A",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Б",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение В",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Г",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Д",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Е",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Л",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Ф",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение К",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Ц",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+    {
+        requestID: "99",
+        date: "15.07.2023",
+        name: "Подразделение Д",
+        path: "Москва - Казань - Екатеринбург - Тюмень",
+    },
+]
+
 export default function Request() {
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const perPage = 6
+    const perPage = 3
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
@@ -25,74 +190,10 @@ export default function Request() {
         setCurrentPage(pageNumber)
     }
 
-    let array = [
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение A",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Б",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение В",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Г",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Д",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Е",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Л",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Ф",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение К",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Ц",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-        {
-            requestID: "99",
-            date: "15.07.2023",
-            name: "Подразделение Д",
-            path: "Москва - Казань - Екатеринбург - Тюмень",
-        },
-    ]
+    const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev + 1)
+    const nextPage = () => setCurrentPage(prev => prev >= array.length / 3 ? prev : prev + 1)
+
+
     current = array.slice(firstIndex, lastIndex)
 
     // const [request, setRequest] = useState([
@@ -130,7 +231,7 @@ export default function Request() {
                     }
                 </tbody>
             </table>
-            <Pagination perPage={perPage} totalCount={array.length} paginate={paginate}/>
+            <Pagination perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
         </div>
     )
 }

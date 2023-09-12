@@ -11,7 +11,7 @@ import requestIcon from '../../../assets/images/menu_request_icon.svg'
 import statsIcon from '../../../assets/images/menu_stats_icon.svg'
 import exitIcon from '../../../assets/images/menu_exit_icon.svg'
 import userAvatar from '../../../assets/images/userAvatar.png'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Menu() {
     const [burgerMenu, setBurgerMenu] = useState(false);
@@ -20,7 +20,11 @@ export default function Menu() {
         setBurgerMenu(!burgerMenu);
     }
 
-    const width = useState(window.screen.width);
+    const [width, setWidth] = useState<number>();
+
+    useEffect(() => {
+        setWidth(window.screen.width);
+    }, []);
 
     return (
         <menu className={style.menu}>

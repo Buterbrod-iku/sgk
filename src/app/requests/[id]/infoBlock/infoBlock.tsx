@@ -21,7 +21,7 @@ export default function InfoBlock(props) {
                     <div className={style.dataTime}>
                         <p className={style.info}>{props.dataTime.data}</p>
                         <span>|</span>
-                            <p className={style.info}>{props.dataTime.time}</p>
+                        <p className={style.info}>{props.dataTime.time}</p>
                         <span>|</span>
                     </div>
                 ) : ""
