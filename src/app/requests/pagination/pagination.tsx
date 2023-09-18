@@ -30,7 +30,7 @@ const Pagination = ({totalCount, perPage, paginate, nextPage, prevPage}) => {
 
     return (
         <div className={style.main}>
-            <ul className={style.ul} style={{gridTemplateColumns: `repeat(${pageNumbers.length}, 1fr)`}}>
+            <ul className={style.ul} style={{gridTemplateColumns: `repeat(${8}, 1fr)`}}>
                 <li className={style.li} onClick={prevPage} style={{cursor: "pointer"}}>
                     {"<"}
                 </li>

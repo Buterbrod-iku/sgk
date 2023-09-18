@@ -26,7 +26,7 @@ export default function OpenRequest(props) {
         <div className={style.main} style={props.style}>
             <div className={style.block} style={props.addStyle}>
                 {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
-                <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params.id})</h4>
+                <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params?.id})</h4>
 
                 {
                     props.close ? <p onClick={props.fun} className={style.close}>+</p> : ""

@@ -180,7 +180,7 @@ let array = [
 export default function Request() {
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const perPage = 3
+    const perPage = 5
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
@@ -190,7 +190,7 @@ export default function Request() {
         setCurrentPage(pageNumber)
     }
 
-    const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev + 1)
+    const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev - 1)
     const nextPage = () => setCurrentPage(prev => prev >= array.length / 3 ? prev : prev + 1)
 
 
