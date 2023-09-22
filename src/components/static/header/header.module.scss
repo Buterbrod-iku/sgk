@@ -21,8 +21,9 @@
 .user{
   margin-right: 1vw;
   display: flex;
+  justify-content: left;
   align-items: center;
-  gap: 15px;
+  flex-direction: column;
 }
 .optionsButton{
   width: 18px;
@@ -55,6 +56,21 @@
   margin-left: 2.25vw;
   font-size: 1.1em;
 }
+.text{
+  font-size: 1.2em;
+  color: #001c41;
+  cursor: pointer;
+}
+.borderBottom{
+  width: 0;
+  height: 2px;
+  background: #001c41;
+  transition: 0.3s;
+}
+.user:hover > .borderBottom{
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .header{
     width: 100vw;

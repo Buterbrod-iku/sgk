@@ -1,5 +1,5 @@
 import style from './header.module.scss'
-import userAvatar from '../../../assets/images/userAvatar.png'
+import Link from "next/link";
 
 export default function Header() {
     return (
@@ -10,8 +10,10 @@ export default function Header() {
                 </div>
                 <div className={style.user}>
                     {/*заменить*/}
-                    <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar.src})`, backgroundSize: 'cover'}}></div>
-                    <div className={style.optionsButton}></div>
+                    <Link href={"/signIn"} style={{textDecoration: "none"}}><p className={style.text}>Авторизация</p></Link>
+                    <div className={style.borderBottom}></div>
+                    {/*<div className={style.optionsButton}></div>*/}
+
                 </div>
             </div>
             <div className={style.bottomBlock}>
