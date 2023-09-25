@@ -122,27 +122,13 @@ export default function New() {
             ]
         },
         {
-            component: "section",
-            sectionLabel: "Данные пассажира",
-            require: true,
-            inputs: [
-                {
-                    name: "passengersInfo_fullName_1",
-                    type: "text",
-                    placeholder: "ФИО сотрудника"
-                },
-                {
-                    name: "passengersInfo_phoneNumber_1",
-                    type: "tel",
-                    placeholder: "Номер телефона"
-                }
-            ]
+            component: "passengersSection"
         },
         {
             component: "input",
             type: "button",
             value: "+ Добавить пассажира",
-            onClick: addDistPassengerHandler,
+            onClick: addPassengerHandler,
         },
         {
             component: "section",
@@ -204,8 +190,8 @@ export default function New() {
             ]
         }
     
-        let idKey = "dist_" + (distPoints.length + 1);
-        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeDistHandler={closeDistHandler} {...repObjStruct} />])
+       let idKey = "dist_" + (distPoints.length + 1);
+        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} />])
     }
 
     function closeDistHandler(e, id) {
@@ -216,6 +202,49 @@ export default function New() {
             });
         });
     }
+
+
+
+    // Объект с пассажирами
+    const [passengers, setPassengers] = useState([
+        
+    ]);
+
+    function addPassengerHandler (e) {
+        console.log('passenger added');
+
+        let repObjStruct = {
+            component: "section",
+            sectionLabel: "Данные пассажира",
+            require: true,
+            closable: true,
+            inputs: [
+                {
+                    name: "passengersInfo_fullName_1",
+                    type: "text",
+                    placeholder: "ФИО сотрудника"
+                },
+                {
+                    name: "passengersInfo_phoneNumber_1",
+                    type: "tel",
+                    placeholder: "Номер телефона"
+                }
+            ]
+        }
+    
+       let idKey = "passenger_" + (passengers.length + 1);
+       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} />])
+    }
+ 
+    function closePassengerHandler(e, id) {
+        console.log("closed " + id);
+        setPassengers(prevEndPoint => {
+            return prevEndPoint.filter(item => {
+                return item.key !== id
+            });
+        });
+    }
+    
     
     function addDistPassengerHandler (e) {
         console.log('passenger added');
@@ -270,10 +299,17 @@ export default function New() {
                         return <InputButton key={`${index}`} id={index} {...item} />
                     }
 
-                    // Раздел для подразделов пассажиров
+                    // Раздел для подразделов точек назначения
                     if (item.component == "distPointsSection") {
                         return <div key={`${index}`}>
                             {distPoints}
+                        </div> 
+                    }
+
+                    // Раздел для подразделов пассажиров
+                    if (item.component == "passengersSection") {
+                        return <div key={`${index}`}>
+                            {passengers}
                         </div> 
                     }
                 })

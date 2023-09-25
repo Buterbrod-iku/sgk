@@ -40,7 +40,7 @@ export default function SectionInput(props) {
                 : ""
             }
 
-            {/* Созданий полей для структуры, содержащей дату и время с подписями лейблов */}
+            {/* Создание полей для структуры, содержащей дату и время с подписями лейблов */}
             {
                 (props.customStruct == "dateTime") ? <>
                 <InputForm forID={`${props.id}`} name={props.inputs[0].name} type={props.inputs[0].type} placeholder={props.inputs[0].placeholder} onChange={props.onChange}/>
@@ -60,7 +60,7 @@ export default function SectionInput(props) {
 
             {/* Кнопка удаления элемента */}
             {
-                props.closable ? <p className={style.close} onClick={(event) => props.closeDistHandler(event, props.id)}>+</p> : ""
+                props.closable ? <p className={style.close} onClick={(event) => props.closeHandler(event, props.id)}>+</p> : ""
             }
 
         </div>

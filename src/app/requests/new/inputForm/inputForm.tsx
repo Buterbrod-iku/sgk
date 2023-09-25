@@ -17,9 +17,11 @@ export default function InputForm(props) {
             } else if (props.type == "integer") {
                 setInputValue(integerFormatter(e.target.value, inputValue));
             }
-            props.onChange(e);
+            if (props.onChange) { // должно позволить накидывать onChange извне и запускать после форматирования
+                props.onChange(e);  
+            } 
         },
-        additionalProps['value'] = inputValue
+        additionalProps['value'] = inputValue;
     } else {
         additionalProps['onChange'] = props.onChange;
     }
@@ -55,7 +57,7 @@ function phoneFormatter(value, prevValue) : string {
     return `+${phoneNumber.slice(0,1)} (${phoneNumber.slice(1,4)}) ${phoneNumber.slice(4,7)}-${phoneNumber.slice(7,9)}-${phoneNumber.slice(9,11)}`;
 }
 
-// Функция форматирование вещественных чисел
+// Функция форматирования вещественных чисел
 function integerFormatter(value, prevValue) : string {
     if (!value) return value;
     
