@@ -60,8 +60,9 @@ export default function SectionInput(props) {
 
             {/* Кнопка удаления элемента */}
             {
-                props.closable ? <p className={style.close} onClick={(event) => props.closeHandler(event, props.id)}>+</p> : ""
+                (props.closable) ? <p className={`${style.close} close`} onClick={(event) => props.closeHandler(event, props.id)}>+</p> : ""
             }
+            
 
         </div>
     )

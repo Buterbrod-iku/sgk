@@ -2,7 +2,7 @@
 
 import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
 
 export default function New() {
@@ -156,6 +156,19 @@ export default function New() {
         
     ]);
 
+    // Необходим для скрывания крестика удаления компонента
+    const [isOnlyOneDist, setIsOnlyOneDist] = useState(false);
+
+    // Обновляет isOnlyOneDist
+    useEffect(() => {
+        console.log("length is ", distPoints.length)
+        if (distPoints.length === 1) {
+            setIsOnlyOneDist(true)
+        } else {
+            setIsOnlyOneDist(false)
+        }
+    }, [distPoints])
+
     
     function addDistPointHandler (e) {
         console.log('point added');
@@ -301,7 +314,7 @@ export default function New() {
 
                     // Раздел для подразделов точек назначения
                     if (item.component == "distPointsSection") {
-                        return <div key={`${index}`}>
+                        return <div className={`${isOnlyOneDist ? "close_btn_hidden" : ""}`} key={`${index}`}>
                             {distPoints}
                         </div> 
                     }

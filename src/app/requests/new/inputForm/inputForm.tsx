@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import style from './inputForm.module.scss'
 
 export default function InputForm(props) {
     // Вспомогательный стейт для обработки телефонного номера / чисел
     const [inputValue, setInputValue] = useState("");
+    const [event, setEvent] = useState("");
 
     const additionalProps = {
         // style: { backgroundColor: 'black'}
@@ -12,20 +13,26 @@ export default function InputForm(props) {
     // При необходимости добавление атрибутов обработки форматирования к элементам
     if (["tel","integer"].includes(props.type)) {
         additionalProps['onChange'] = function(e) {
+            setEvent(e);
+
             if (props.type == "tel") {
                 setInputValue(phoneFormatter(e.target.value, inputValue));
             } else if (props.type == "integer") {
                 setInputValue(integerFormatter(e.target.value, inputValue));
             }
-            if (props.onChange) { // должно позволить накидывать onChange извне и запускать после форматирования
-                props.onChange(e);  
-            } 
-        },
+        }
         additionalProps['value'] = inputValue;
     } else {
         additionalProps['onChange'] = props.onChange;
     }
 
+    // Данный useEffect необходим для активация внешнего onChange только после форматирования текста в поле
+    // Очень нужно для того, чтобы присылать в формирующий форму values актуальную информацию 
+    useEffect(() => {
+        if (event && props.onChange) { // должно позволить накидывать onChange извне и запускать после форматирования
+            props.onChange(event);
+        }
+    }, [inputValue, event]);
 
     return (
         <>
