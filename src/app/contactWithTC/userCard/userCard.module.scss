@@ -1,0 +1,49 @@
+.main{
+  width: auto;
+  min-height: 450px;
+  background: linear-gradient(135deg, rgba(177,178,207,1) 0%, rgba(242,242,242,1) 30%);
+  border-radius: 20px;
+  padding: 10px;
+  font-family: "Calibri Light";
+  transition: 0.3s;
+  position: relative;
+}
+.logo{
+  width: min-content;
+  font-size: 4vw;
+  font-weight: lighter;
+  position: relative;
+  top: -10px;
+  left: -10px;
+  padding: 0 5px;
+  border-radius: 20px 0 0 0;
+  background: linear-gradient(135deg, rgba(54,54,54,0.8995973389355743) 0%, rgba(120,120,120,1) 66%, rgba(184,184,184,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.3s;
+}
+.main:hover > .logo{
+  left: -3px;
+}
+.main:hover{
+  box-shadow: 20px 20px 40px #bbbbbb;
+}
+.title{
+  font-size: 1.6em;
+  margin: 0;
+}
+.info{
+  margin: 10px 0;
+  text-align: justify;
+}
+.contact{
+  font-size: 1.05em;
+  p{
+    margin: 5px 0;
+  }
+}
+.text{
+  outline: none;
+  background: none;
+  border: none;
+}

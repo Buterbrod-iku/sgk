@@ -1,0 +1,29 @@
+.main{
+  width: 100%;
+  height: auto;
+  padding-bottom: 10vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+.title{
+  margin: 20px 0 10px 0;
+  font-family: Arial;
+  font-weight: lighter;
+  font-size: 1.5em;
+}
+.note{
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  font-family: "Calibri Light";
+}
+.noteSpan{
+  margin-right: 20px;
+}
+.position{
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}
