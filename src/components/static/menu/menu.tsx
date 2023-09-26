@@ -44,7 +44,7 @@ export default function Menu() {
                 <div className={style.itemBlock} style={burgerMenu ? {display: "block"} : {}}>
                     <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
                     <Link href={"/gap"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
-                    <ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/>
+                    <Link href={"/contactWithTC"} className={style.Link}><ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/></Link>
                 </div>
 
                 <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>
