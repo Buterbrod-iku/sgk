@@ -2,7 +2,7 @@
 
 import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
-import {useEffect, useState} from "react";
+import {use, useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
 
 export default function New() {
@@ -18,23 +18,23 @@ export default function New() {
         //     startDateTime: 0,
         //     waiting: 0
         // },
-        // destinationPoints: [
-        //     // {
-        //     //     id: 0,
-        //     //     address: "",
-        //     //     startDateTime: 0,
-        //     //     waiting: 0
-        //     // },
-        // ],
+        destinationPoints: [
+            // {
+            //     id: 0,
+            //     address: "",
+            //     startDateTime: 0,
+            //     waiting: 0
+            // },
+        ],
         // cargoWeight: 0,
         // passengersAmount: 0,
-        // passengersInfo: [
-        //     // {
-        //     //     id: 0,
-        //     //     fullname: "",
-        //     //     phoneNumber: ""
-        //     // },
-        // ],
+        passengersInfo: [
+            // {
+            //     id: 0,
+            //     fullname: "",
+            //     phoneNumber: ""
+            // },
+        ],
         // comment: ""
     });
 
@@ -161,7 +161,6 @@ export default function New() {
 
     // Обновляет isOnlyOneDist
     useEffect(() => {
-        console.log("length is ", distPoints.length)
         if (distPoints.length === 1) {
             setIsOnlyOneDist(true)
         } else {
@@ -181,22 +180,22 @@ export default function New() {
             customStruct: "dateTime",
             inputs: [
                 {
-                    // name: "destinationPoint_address_1",
+                    name: "destinationPoint_address",
                     type: "text",
                     placeholder: "Адрес"
                 },
                 {
-                    // name: "destinationPoint_date_1",
+                    name: "destinationPoint_date",
                     type: "date",
                     inputLabel: "Дата подачи"
                 },
                 {
-                    // name: "destinationPoint_arriveTime_1",
+                    name: "destinationPoint_arriveTime",
                     type: "time",
                     inputLabel: "Время подачи"
                 },
                 {
-                    // name: "destinationPoint_waitingTime_1",
+                    name: "destinationPoint_waitingTime",
                     type: "time",
                     inputLabel: "Время ожидания"
                 }
@@ -204,7 +203,7 @@ export default function New() {
         }
     
        let idKey = "dist_" + (distPoints.length + 1);
-        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} />])
+        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} onChange={onInputInSectionChange}/>])
     }
 
     function closeDistHandler(e, id) {
@@ -233,12 +232,12 @@ export default function New() {
             closable: true,
             inputs: [
                 {
-                    name: "passengersInfo_fullName_1",
+                    // name: "passengersInfo_fullName_1",
                     type: "text",
                     placeholder: "ФИО сотрудника"
                 },
                 {
-                    name: "passengersInfo_phoneNumber_1",
+                    // name: "passengersInfo_phoneNumber_1",
                     type: "tel",
                     placeholder: "Номер телефона"
                 }
@@ -246,7 +245,7 @@ export default function New() {
         }
     
        let idKey = "passenger_" + (passengers.length + 1);
-       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} />])
+       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={onInputInSectionChange}/>])
     }
  
     function closePassengerHandler(e, id) {
@@ -269,9 +268,33 @@ export default function New() {
         console.log(values);
     }
     
+    // Заполняет объект значений полей при изменении (обычные инпуты)
     const onInputChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
     }
+
+    // 
+    const [distValues, setDistValues] = useState([
+        
+    ]);
+
+    // Заполняет массив точек назначения / пассажиров в объекте значений полей при изменении (вложенные инпуты)
+    const onInputInSectionChange = (e) => {
+
+
+        // TODO: Описать эту конструкцию
+        setValues(
+            {...values, 
+                "destinationPoints": {...values.destinationPoints, 
+                    [e.target.getAttribute('data-section-id')]: {
+                        ...values.destinationPoints[e.target.getAttribute('data-section-id')],
+                        [e.target.name]: e.target.value,
+                    },
+                },
+            })
+    }
+
+    
 
     // const onAddBtnClick = (e) => {
     //     e.preventDefault();
@@ -309,7 +332,7 @@ export default function New() {
 
                     // Кнопки (например добавление пункта назначения) 
                     if (item.component == "input") {
-                        return <InputButton key={`${index}`} id={index} {...item} />
+                        return <InputButton key={`${index}`} id={index} {...item}/>
                     }
 
                     // Раздел для подразделов точек назначения

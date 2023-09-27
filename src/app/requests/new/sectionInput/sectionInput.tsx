@@ -33,9 +33,9 @@ export default function SectionInput(props) {
                 (!props.customStruct) ?
                 props.inputs.map((item, index) => (
                     (!item.textarea) ? (
-                        <InputForm key={`${props.id}_${index}`} forID={`${props.id}_${index}`} name={item.name} type={item.type} placeholder={item.placeholder} styles={props.inputs.length > 1 ? {marginTop: "10px"} : {}} onChange={props.onChange}/>
+                        <InputForm dataSectionID={`${props.id}`} key={`${props.id}_${index}`} forID={`${props.id}_${index}`} name={item.name} type={item.type} placeholder={item.placeholder} styles={props.inputs.length > 1 ? {marginTop: "10px"} : {}} onChange={props.onChange}/>
                     ) 
-                    : <textarea key={`${props.id}_${index}`} placeholder={props.inputArea} className={style.input} onChange={props.onChange}></textarea>
+                    : <textarea key={`${props.id}_${index}`} placeholder={props.inputArea} name={item.name} className={style.input} onChange={props.onChange}></textarea>
                 ))
                 : ""
             }
@@ -43,13 +43,13 @@ export default function SectionInput(props) {
             {/* Создание полей для структуры, содержащей дату и время с подписями лейблов */}
             {
                 (props.customStruct == "dateTime") ? <>
-                <InputForm forID={`${props.id}`} name={props.inputs[0].name} type={props.inputs[0].type} placeholder={props.inputs[0].placeholder} onChange={props.onChange}/>
+                <InputForm dataSectionID={`${props.id}`} forID={`${props.id}`} name={props.inputs[0].name} type={props.inputs[0].type} placeholder={props.inputs[0].placeholder} onChange={props.onChange}/>
                 <div className={style.position}>
                     {props.inputs.map((item, index) => (
                         (index != 0) ?
                         <div key={`${props.id}_${index}`}>
                             <InputLabel require={item.require} text={item.inputLabel} forID={`${props.id}_${index}`} />
-                            <InputForm forID={`${props.id}_${index}`} type={item.type} placeholder={item.placeholder} name={item.name} onChange={props.onChange}/>
+                            <InputForm dataSectionID={`${props.id}`} forID={`${props.id}_${index}`} type={item.type} placeholder={item.placeholder} name={item.name} onChange={props.onChange}/>
                         </div> 
                         : ""
                     ))}
