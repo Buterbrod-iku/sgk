@@ -191,25 +191,11 @@ export default function Request() {
     }
 
     const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev - 1)
-    const nextPage = () => setCurrentPage(prev => prev >= array.length / 3 ? prev : prev + 1)
+    const nextPage = () => setCurrentPage(prev => prev > array.length / perPage ? prev : prev + 1)
+    const startPage = () => setCurrentPage(1)
 
 
     current = array.slice(firstIndex, lastIndex)
-
-    // const [request, setRequest] = useState([
-    //     <LineTable requestID="99" date="15.07.2023" name="Подразделение A" path="Москва - Казань - Екатеринбург - Тюмень" />,
-    //     <LineTable requestID="98" date="14.07.2023" name="Подразделение B" path="Санкт-Петербург - Самара - Уфа - Челябинск - Екатеринбург" />,
-    //     <LineTable requestID="97" date="13.07.2023" name="Подразделение C" path="Новосибирск - Омск - Челябинск" />,
-    //     <LineTable requestID="96" date="12.07.2023" name="Подразделение A" path="Владивосток - Хабаровск - Иркутск" />,
-    //     <LineTable requestID="95" date="11.07.2023" name="Подразделение B" path="Ростов-на-Дону - Волгоград - Нижний Новгород" />,
-    //     <LineTable requestID="94" date="10.07.2023" name="Подразделение C" path="Пермь - Красноярск - Саратов" />,
-    //     <LineTable requestID="93" date="09.07.2023" name="Подразделение A" path="Казань - Уфа - Оренбург - Пермь" />,
-    //     <LineTable requestID="92" date="08.07.2023" name="Подразделение B" path="Самара - Волгоград - Ярославль" />,
-    //     <LineTable requestID="91" date="07.07.2023" name="Подразделение C" path="Омск - Челябинск - Воронеж" />,
-    //     <LineTable requestID="90" date="06.07.2023" name="Подразделение A" path="Краснодар - Новосибирск - Тольятти" />,
-    //     <LineTable requestID="89" date="05.07.2023" name="Подразделение B" path="Красноярск - Саратов - Кемерово - Иркутск" />,
-    //     <LineTable requestID="88" date="04.07.2023" name="Подразделение C" path="Иркутск - Пермь - Тюмень" />
-    // ]);
 
     return (
         <div className={style.main}>
@@ -231,7 +217,7 @@ export default function Request() {
                     }
                 </tbody>
             </table>
-            <Pagination perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
+            <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
         </div>
     )
 }
