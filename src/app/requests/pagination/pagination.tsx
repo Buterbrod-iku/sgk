@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import style from './pagination.module.scss';
 
-const PointPagination = ({number, paginate}) => {
+const PointPagination = ({number, paginate, focus}) => {
     return(
         <>
             <a href="!#" onClick={(e) => {e.preventDefault(); paginate(number)}} className={style.a}>
-                <li key={number} className={style.li}>
+                <li key={number} className={style.li} style={focus ? {background: "red"} : {}}>
                     {number}
                 </li>
             </a>
@@ -21,34 +21,41 @@ const CenterPagination = () => {
     );
 };
 
-const Pagination = ({totalCount, perPage, paginate, nextPage, prevPage}) => {
+const Pagination = ({currentPage, totalCount, perPage, paginate, nextPage, prevPage, startPage}) => {
     const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(totalCount / perPage); i++) {
         pageNumbers.push(i)
     }
 
+    let dynamicPagination
+
+    if(currentPage <= 3){
+        dynamicPagination = pageNumbers.slice(1, 5)
+    } else if(currentPage >= pageNumbers.length - 1){
+        dynamicPagination = pageNumbers.slice(pageNumbers.length - 5, pageNumbers.length + 1)
+    } else {
+        dynamicPagination = pageNumbers.slice(currentPage - 3, currentPage + 3)
+    }
+
     return (
         <div className={style.main}>
-            <ul className={style.ul} style={{gridTemplateColumns: `repeat(${8}, 1fr)`}}>
-                <li className={style.li} onClick={prevPage} style={{cursor: "pointer"}}>
-                    {"<"}
-                </li>
-
+            <li className={style.li} onClick={prevPage}>
+                Предыдущая
+            </li>
+            <ul className={style.ul}>
+                <PointPagination focus={currentPage === 1} number={1} paginate={startPage}/>
                 {
-                    pageNumbers.map(number => number <= 4 ? (
-                        <PointPagination number={number} paginate={paginate}/>
-                    ) : "")
+                    dynamicPagination.map(number =>  (
+                        <PointPagination focus={currentPage === number} number={number} paginate={paginate}/>
+                    ))
                 }
+                <PointPagination focus={currentPage === pageNumbers[pageNumbers.length-1]} number={pageNumbers[pageNumbers.length-1]} paginate={paginate}/>
 
-                <CenterPagination />
-
-                <PointPagination number={pageNumbers[pageNumbers.length-1]} paginate={paginate}/>
-
-                <li className={style.li} onClick={nextPage} style={{cursor: "pointer"}}>
-                    {">"}
-                </li>
             </ul>
+            <li className={style.li} onClick={nextPage}>
+                Следующая
+            </li>
         </div>
     );
 };

@@ -1,8 +1,10 @@
 .main{
-  width: 100%;
+  width: 90%;
+  margin-right: 5%;
+  background:   pink;
   height: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   float: right;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -11,22 +13,38 @@
   user-select: none;
 }
 .ul{
-  width: auto;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  width: 90%;
+  background: red;
+  display: flex;
   list-style-type: none;
   justify-content: end;
-  margin-right: 5%;
+  margin: 10px 5% 0 0;
+  position: relative;
 }
 .li{
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border: 1px solid #001c41;
   border-radius: 10px;
   margin: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+.liStart{
+  width: auto;
+  min-height: 30px;
+  padding: 0 5px;
+  border: 1px solid #001c41;
+  border-radius: 10px;
+  margin: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  left: -95px;
 }
 .a{
   text-decoration: none;
