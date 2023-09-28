@@ -18,14 +18,14 @@ export default function New() {
         //     startDateTime: 0,
         //     waiting: 0
         // },
-        destinationPoints: [
+        destinationPoints: {
             // {
             //     id: 0,
             //     address: "",
             //     startDateTime: 0,
             //     waiting: 0
             // },
-        ],
+        },
         // cargoWeight: 0,
         // passengersAmount: 0,
         passengersInfo: [
@@ -213,6 +213,14 @@ export default function New() {
                 return item.key !== id
             });
         });
+
+        setValues(prev => {
+            return {...prev,
+                "destinationPoints": {...prev.destinationPoints,
+                    [id]: null,
+                },
+            }
+        })
     }
 
 
@@ -282,16 +290,18 @@ export default function New() {
     const onInputInSectionChange = (e) => {
 
 
-        // TODO: Описать эту конструкцию
-        setValues(
-            {...values, 
-                "destinationPoints": {...values.destinationPoints, 
+        // Обновляет объект destinationPoints, создавая или дополняя внутренний
+        // объект с названием очередной секции (по атрибуту section-id)
+        setValues(prev => {
+            return {...prev,
+                "destinationPoints": {...prev.destinationPoints,
                     [e.target.getAttribute('data-section-id')]: {
-                        ...values.destinationPoints[e.target.getAttribute('data-section-id')],
+                        ...prev.destinationPoints[e.target.getAttribute('data-section-id')],
                         [e.target.name]: e.target.value,
                     },
                 },
-            })
+            }
+        })
     }
 
     
