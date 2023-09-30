@@ -1,9 +1,9 @@
 .main{
   width: 90%;
   margin-right: 5%;
-  background:   pink;
   height: auto;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   float: right;
   -webkit-user-select: none;
@@ -14,23 +14,51 @@
 }
 .ul{
   width: 90%;
-  background: red;
   display: flex;
   list-style-type: none;
-  justify-content: end;
-  margin: 10px 5% 0 0;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5% 0 0;
   position: relative;
 }
 .li{
-  width: 50px;
-  height: 50px;
-  border: 1px solid #001c41;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
   margin: 7px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: .2s;
+  &:hover{
+    background: #d0d0d0;
+  }
+}
+.liCenter{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+.liPrev{
+  width: auto;
+  height: 40px;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .2s;
+  &:hover{
+    background: #d0d0d0;
+  }
 }
 .liStart{
   width: auto;
