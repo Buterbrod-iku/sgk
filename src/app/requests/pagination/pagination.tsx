@@ -5,7 +5,7 @@ const PointPagination = ({number, paginate, focus}) => {
     return(
         <>
             <a href="!#" onClick={(e) => {e.preventDefault(); paginate(number)}} className={style.a}>
-                <li key={number} className={style.li} style={focus ? {background: "rgb(0, 66, 92)", color: "white"} : {}}>
+                <li className={style.li} style={focus ? {background: "rgb(0, 66, 92)", color: "white"} : {}}>
                     {number}
                 </li>
             </a>
@@ -64,25 +64,25 @@ const Pagination = ({currentPage, totalCount, perPage, paginate, nextPage, prevP
                         dynamicPagination.length === 4 ?
                             // для рендера начала или конца списка
                             (dynamicPagination.map((number, index) =>  (
-                                <>
-                                    {(index === 0 && pageNumbers.length > 6 && currentPage > pageNumbers.length - 3) ? <CenterPagination/> : ''}
+                                <React.Fragment key={index}>
+                                    {(index === 0 && pageNumbers.length > 6 && currentPage > pageNumbers.length - 3) ? <CenterPagination /> : ''}
                                     <PointPagination focus={currentPage === number} number={number} paginate={paginate}/>
-                                    {(index === dynamicPagination.length - 1 && pageNumbers.length > 6 && currentPage < pageNumbers.length - 2) ? <CenterPagination/> : ''}
-                                </>
+                                    {(index === dynamicPagination.length - 1 && pageNumbers.length > 6 && currentPage < pageNumbers.length - 2) ? <CenterPagination /> : ''}
+                                </React.Fragment>
                             )))
                             :
                             // для середины списка чтобы отображать текущий и 2 ближних
                             dynamicPagination.map((number, index) =>  (
-                                <>
-                                    {index === 0 ? <CenterPagination/> : ''}
+                                <React.Fragment key={index}>
+                                    {index === 0 ? <CenterPagination /> : ''}
                                     <PointPagination focus={currentPage === number} number={number} paginate={paginate}/>
-                                    {index === dynamicPagination.length - 1  ? <CenterPagination/> : ''}
-                                </>
+                                    {index === dynamicPagination.length - 1  ? <CenterPagination /> : ''}
+                                </React.Fragment>
                             ))
-                    :
+                        :
                         // обычная пагинация для < 6
-                        pageNumbers.map(number => (
-                            <PointPagination focus={currentPage === number} number={number} paginate={paginate} />
+                        pageNumbers.map((number, index) => (
+                            <PointPagination key={index} focus={currentPage === number} number={number} paginate={paginate} />
                         ))
                 }
 

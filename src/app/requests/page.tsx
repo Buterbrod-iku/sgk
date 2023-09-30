@@ -408,7 +408,8 @@ export default function Request() {
                 </thead>
                 <tbody>
                     {
-                        current.map(item => <LineTable requestID={item.requestID} date={item.date} name={item.name} path={item.path} />)
+                        // index
+                        current.map((item, index) => <LineTable key={index} requestID={item.requestID} date={item.date} name={item.name} path={item.path} />)
                     }
                 </tbody>
             </table>

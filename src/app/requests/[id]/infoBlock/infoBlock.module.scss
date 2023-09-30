@@ -9,7 +9,7 @@
 }
 .main:last-child{
   border: none;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
 }
 .title{
   font-size: 1.2em;
@@ -38,6 +38,7 @@
   background-position: center;
   border: none;
   cursor: pointer;
+  transition: 0.2s;
 }
 @media (max-width: 768px) {
   .title{

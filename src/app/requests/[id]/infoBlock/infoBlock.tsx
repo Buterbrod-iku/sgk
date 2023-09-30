@@ -28,7 +28,7 @@ export default function InfoBlock(props) {
             }
 
             {
-                props.close ? <button className={style.close} onClick={openClose}></button> : ''
+                props.close ? <button className={style.close} onClick={openClose} style={props.bool ? {transform: "rotate(-180deg)"} : {}}></button> : ''
             }
         </div>
     )

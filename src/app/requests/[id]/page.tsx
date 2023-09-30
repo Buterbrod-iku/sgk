@@ -24,7 +24,9 @@ export default function OpenRequest(props) {
 
     return (
         <div className={style.main} style={props.style}>
+
             <div className={style.block} style={props.addStyle}>
+                <div style={{position: "absolute", right: '5px', top: '5px', width: "20px", height: '20px', background: 'red', zIndex: "99"}}></div>
                 {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                 <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params?.id})</h4>
 

@@ -29,22 +29,21 @@ export default function MainInfoRequest(props) {
                 <InfoBlock title="Остановки" close={true} bool={fullPoint} setBool={setFullPoint}/>
 
                 {
-                    fullPoint ? props.allInfo.destinationPoints.map((point) => (
-                        <div>
+                    fullPoint ? props.allInfo.destinationPoints.map((point, index) => (
+                        <div key={index} className={style.openInfo}>
                             <InfoBlock title="Адрес назначения авто" info={point.address} noBorder={true}/>
                             <InfoBlock title="Прибытие авто" dataTime={point.endDateTime} noBorder={true}/>
                             <InfoBlock title="Время ожидания" info={point.waiting} noBorder={true}/>
-                            <hr className={style.hr}/>
                         </div>)) : ''
                 }
 
                 <InfoBlock title="Пассажиры" close={true} bool={fullPassenger} setBool={setFullPassenger}/>
                 {
                     fullPassenger ? props.allInfo.passengersInfo.map((passenger, index) => (
-                        <div>
+                        <div key={index} className={style.openInfo}>
                             <InfoBlock title="ФИО сотрудника" info={passenger.fullname} noBorder={true}/>
                             <InfoBlock title="Телефон для оповещения" info={passenger.phoneNumber} noBorder={true}/>
-                            {index+1 !== props.allInfo.passengersInfo.length ? <hr className={style.hr}/> : ''}
+                            {/*{index+1 !== props.allInfo.passengersInfo.length ? <hr className={style.hr}/> : ''}*/}
                         </div>)) : ''
                 }
 
