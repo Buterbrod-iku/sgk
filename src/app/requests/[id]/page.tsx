@@ -83,63 +83,104 @@ export default function OpenRequest(props) {
 }
 
 let newRequest = {
-    devisionName: "Подразделение 1",
-    isPrivate: false,
-    carStartPoint: {
-        address: "656062, г. Барнаул, ул. Шукшина д. 15",
-        startDateTime: {
-            data: "10.10.2023",
-            time: "15:15"
+    "route": {
+        "route": {},
+        "car": {
+            "tsNumber": "a123bc",
+            "specialMarks": "Lada Vesta",
+            "driver": "Ivanov Ivan Ivanovich",
+            "loadCapacity": 510,
+            "numberOfSeats": 4
         },
-        waiting: "2332"
+        "date": 1696204800,
+        "isSingle": false,
+        "cargoInRoute": "100",
+        "passengersInRoute": "3",
+        "comment": "что-то написано"
     },
-    destinationPoints: [
+    "orders": [
         {
-            id: 0,
-            address: "656062, г. Барнаул, ул. Шукшина д. 15",
-            endDateTime: {
-                data: "10.10.2023",
-                time: "15:15"
+            "date": {
+                "loadingTime": 1696271100,
+                "unloadingTime": 1696282080,
+                "loadingWaiting": 20,
+                "unloadingWaiting": 65
             },
-            waiting: "2345"
-        },
-        {
-            id: 0,
-            address: "656062, г. Барнаул, ул. Шукшина д. 15",
-            endDateTime: {
-                data: "10.10.2023",
-                time: "15:15"
+            "route": {
+                "loadingAddress": {
+                    "address": "Барнаул",
+                    "latitude": "83.354673",
+                    "longitude": "54.37832",
+                    "word": "koords"
+                },
+                "unloadingAddress": {
+                    "address": "Новосибирск",
+                    "latitude": "83.354673",
+                    "longitude": "54.37832",
+                    "word": "koords"
+                }
             },
-            waiting: "2345"
+            "order": {
+                "typeOfTransportation": "all",
+                "devisionName": "qweqweqweqwe",
+                "client": "Сотрудник Петров",
+                "passengers": [
+                    {
+                        "fullName": "Мелков Илья",
+                        "phoneNumber": "+79095079956"
+                    },
+                    {
+                        "fullName": "Никита",
+                        "phoneNumber": "+72322322165"
+                    },
+                    {
+                        "fullName": "Антон",
+                        "phoneNumber": "+72222222222"
+                    }
+                ]
+            }
         },
         {
-            id: 0,
-            address: "656062, г. Барнаул, ул. Шукшина д. 15",
-            endDateTime: {
-                data: "10.10.2023",
-                time: "15:15"
+            "date": {
+                "createdAt": 1695263542,
+                "loadingTime": 1696271100,
+                "unloadingTime": 1696544940,
+                "loadingWaiting": 20,
+                "unloadingWaiting": 150
             },
-            waiting: "2345"
-        },
-    ],
-    passengersInfo: [
-        {
-            id: 1,
-            fullname: "Шипугин Никита Олегович",
-            phoneNumber: "+7 999 999 99 99"
-        },
-        {
-            id: 2,
-            fullname: "Шипугин Никита Олегович",
-            phoneNumber: "+7 999 999 99 99"
-        },
-        {
-            id: 3,
-            fullname: "Шипугин Никита Олегович",
-            phoneNumber: "+7 999 999 99 99"
-        },
-    ],
-    cargoWeight: 1555,
-    passengersAmount: 3,
-    comment: " dolore doloribus eligendi error esse et harum illo ipsam laborum magni, maiores minus modi mollitia officia pariatur porro quis quod quos repellat repudiandae similique sit soluta suscipit totam ut vel vitae voluptate voluptatem. Adipisci culpa earum, ex explicabo harum ipsa nostrum odio perspiciatis saepe suscipit."
+            "route": {
+                "loadingAddress": {
+                    "address": "Барнаул",
+                    "latitude": "83.354673",
+                    "longitude": "54.37832",
+                    "word": "koords"
+                },
+                "unloadingAddress": {
+                    "address": "Бийск",
+                    "latitude": "83.354673",
+                    "longitude": "54.37832",
+                    "word": "koords"
+                }
+            },
+            "order": {
+                "typeOfTransportation": "all",
+                "devisionName": "qweqweqweqwe",
+                "client": "Сотрудник Петров",
+                "passengers": [
+                    {
+                        "fullName": "Мелков Илья",
+                        "phoneNumber": "+79095079956"
+                    },
+                    {
+                        "fullName": "Никита",
+                        "phoneNumber": "+72322322165"
+                    },
+                    {
+                        "fullName": "Антон",
+                        "phoneNumber": "+72222222222"
+                    }
+                ]
+            }
+        }
+    ]
 }
