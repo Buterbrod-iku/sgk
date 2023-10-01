@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import { Metadata } from 'next'
 import Pagination from "./pagination/pagination";
+import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
  
 export const metadata: Metadata = {
   title: 'About',
@@ -391,6 +392,8 @@ export default function Request() {
 
 
     current = array.slice(firstIndex, lastIndex)
+
+    ObjectRestructuring();
 
     return (
         <div className={style.main}>
