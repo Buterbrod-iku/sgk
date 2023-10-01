@@ -324,15 +324,8 @@ export default function New() {
         })
     }
 
-    
-
-
-
-
-
     // console.clear();
     console.log(values);
-
 
     return (
         <form className={style.form}>

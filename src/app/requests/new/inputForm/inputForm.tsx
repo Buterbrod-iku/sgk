@@ -26,6 +26,9 @@ export default function InputForm(props) {
         additionalProps['onChange'] = props.onChange;
     }
 
+    // Добавляет ограничение для поля date
+    if (props.type == "date" && props.max) additionalProps['max'] = props.max;
+
     // Данный useEffect необходим для активация внешнего onChange только после форматирования текста в поле
     // Очень нужно для того, чтобы присылать в формирующий форму values актуальную информацию 
     useEffect(() => {
