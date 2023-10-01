@@ -1,4 +1,3 @@
-
 const TransformationWaitingTime = (waiting: string) => {
     if (!(/^\d{2}:\d{2}$/.test(waiting))) return -1;
 
@@ -46,57 +45,53 @@ function ReformatPhoneNumber(formattedPhone: string) {
     return formattedPhone.slice(0,2) + formattedPhone.slice(4,7) + formattedPhone.slice(9,12) + formattedPhone.slice(13,15) + formattedPhone.slice(16,18);
 }
 
-export const ObjectRestructuring = () => {
-    let firstObject = {
-        "destinationPoints": {
-            "dist_1": {
-                "destinationPoint_address": "г. Барнаул ул. шукшы 2",
-                "destinationPoint_date": "2023-12-15",
-                "destinationPoint_arriveTime": "11:34",
-                "destinationPoint_waitingTime": "06:00"
-            },
-            "dist_2": {
-                "destinationPoint_address": "г. Барнаул ул. шукшы 3",
-                "destinationPoint_date": "2023-12-20",
-                "destinationPoint_arriveTime": "12:13",
-                "destinationPoint_waitingTime": "02:15"
-            }
-        },
-        "passengersInfo": {
-            "passenger_1": {
-                "passengersInfo_fullName": "Кук ку кукс",
-                "passengersInfo_phoneNumber": "+7 (123) 456-78-90"
-            },
-            "passenger_2": {
-                "passengersInfo_fullName": "Кукс2 ку2 кс2",
-                "passengersInfo_phoneNumber": "+7 (132) 131-45-14"
-            },
-            "passenger_3": {
-                "passengersInfo_fullName": "ка3 аап3 аа3",
-                "passengersInfo_phoneNumber": "+7 (546) 456-45-66"
-            }
-        },
-        "isSingle": true,
-        "devisionName": "Подр 1",
-        "carStartPoint_address": "г. Барнаул ул. шукшы",
-        "carStartPoint_date": "2023-12-13",
-        "carStartPoint_arriveTime": "09:11",
-        "carStartPoint_waitingTime": "00:05",
-        "cargoWeight": "5",
-        "passengersAmount": "3",
-        "comment": "ничего необычного"
-    };
+export const ObjectRestructuring = (firstObject) => {
+    // let firstObject = {
+    //     "destinationPoints": {
+    //         "dist_1": {
+    //             "destinationPoint_address": "г. Барнаул ул. шукшы 2",
+    //             "destinationPoint_date": "2023-12-15",
+    //             "destinationPoint_arriveTime": "11:34",
+    //             "destinationPoint_waitingTime": "06:00"
+    //         },
+    //         "dist_2": {
+    //             "destinationPoint_address": "г. Барнаул ул. шукшы 3",
+    //             "destinationPoint_date": "2023-12-20",
+    //             "destinationPoint_arriveTime": "12:13",
+    //             "destinationPoint_waitingTime": "02:15"
+    //         }
+    //     },
+    //     "passengersInfo": {
+    //         "passenger_1": {
+    //             "passengersInfo_fullName": "Кук ку кукс",
+    //             "passengersInfo_phoneNumber": "+7 (123) 456-78-90"
+    //         },
+    //         "passenger_2": {
+    //             "passengersInfo_fullName": "Кукс2 ку2 кс2",
+    //             "passengersInfo_phoneNumber": "+7 (132) 131-45-14"
+    //         },
+    //         "passenger_3": {
+    //             "passengersInfo_fullName": "ка3 аап3 аа3",
+    //             "passengersInfo_phoneNumber": "+7 (546) 456-45-66"
+    //         }
+    //     },
+    //     "isSingle": true,
+    //     "devisionName": "Подр 1",
+    //     "carStartPoint_address": "г. Барнаул ул. шукшы",
+    //     "carStartPoint_date": "2023-12-13",
+    //     "carStartPoint_arriveTime": "09:11",
+    //     "carStartPoint_waitingTime": "00:05",
+    //     "cargoWeight": "5",
+    //     "passengersAmount": "3",
+    //     "comment": "ничего необычного"
+    // };
 
     let patternObject = {};
     let ordersArray = [];
     let passengers = [];
 
     patternObject["route"] = {
-        "route": {
-            "orders": '',
-            "boxes": '',
-            "distance": 0
-        },
+        "route": {},
         "car": {
             "tsNumber": "a123bc",
             "specialMarks": "Lada Vesta",
@@ -105,7 +100,6 @@ export const ObjectRestructuring = () => {
             "numberOfSeats": 4
         },
         "date": ConvertToUnixTime(firstObject.carStartPoint_date), // unix
-        "isPrivate": true, // ---
         "isSingle": firstObject.isSingle,
         "cargoInRoute": firstObject.cargoWeight,
         "passengersInRoute": firstObject.passengersAmount,
@@ -123,7 +117,6 @@ export const ObjectRestructuring = () => {
     for (let item in firstObject.destinationPoints){
         let addOrdersObject = {
             "date": {
-                "createdAt": 1695263542, // ---
                 "loadingTime": ConvertToUnixTime(firstObject.carStartPoint_date, firstObject.carStartPoint_arriveTime), // start
                 "unloadingTime" : ConvertToUnixTime(firstObject.destinationPoints[item].destinationPoint_date, firstObject.destinationPoints[item].destinationPoint_arriveTime), // unix; end
                 "loadingWaiting": TransformationWaitingTime(firstObject.carStartPoint_waitingTime), // 60 - 1ч
@@ -142,7 +135,6 @@ export const ObjectRestructuring = () => {
                     "longitude": "54.37832", // либо ворд либо это
                     "word": "koords"
                 },
-                "distance": "5234" // ---
             },
             "order": {
                 "typeOfTransportation": TypeOfTransportation(firstObject.cargoWeight, firstObject.passengersAmount), // либо пассажрыгруз
@@ -157,6 +149,5 @@ export const ObjectRestructuring = () => {
 
     patternObject['orders'] = ordersArray;
 
-    console.log(patternObject);
     return patternObject;
 }

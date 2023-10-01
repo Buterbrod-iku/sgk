@@ -4,6 +4,7 @@ import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {use, useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
+import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
 
 export default function New() {
     const [keys, setKeys] = useState(0);
@@ -267,8 +268,10 @@ export default function New() {
 
     function submitHandler (e) {
         e.preventDefault();
-        console.log('sending data...');
+        console.log('первая версия...');
         console.log(values);
+        console.log('результат...');
+        console.log(ObjectRestructuring(values));
     }
     
     // Заполняет объект значений полей при изменении (обычные инпуты)

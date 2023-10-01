@@ -393,8 +393,6 @@ export default function Request() {
 
     current = array.slice(firstIndex, lastIndex)
 
-    ObjectRestructuring();
-
     return (
         <div className={style.main}>
             <div className={style.position}>
