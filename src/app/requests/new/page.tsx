@@ -6,35 +6,22 @@ import {use, useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
 
 export default function New() {
-    // const [people, setPeople] = useState([]);
-    // const [endPoint, setEndPoint] = useState([]);
-    // const [keys, setKeys] = useState(0);
+    const [keys, setKeys] = useState(0);
 
     const [values, setValues] = useState({
         // devisionName: "",
-        // isPrivate: false,
+        isSingle: false,
         // carStartPoint: {
         //     address: "",
         //     startDateTime: 0,
         //     waiting: 0
         // },
         destinationPoints: {
-            // {
-            //     id: 0,
-            //     address: "",
-            //     startDateTime: 0,
-            //     waiting: 0
-            // },
         },
         // cargoWeight: 0,
         // passengersAmount: 0,
-        passengersInfo: [
-            // {
-            //     id: 0,
-            //     fullname: "",
-            //     phoneNumber: ""
-            // },
-        ],
+        passengersInfo: {
+        },
         // comment: ""
     });
 
@@ -59,7 +46,7 @@ export default function New() {
             customStruct: "checkbox",
             inputs: [
                 {
-                    name: "isPrivate",
+                    name: "isSingle",
                     type: "checkbox"
                 }
             ]
@@ -240,12 +227,12 @@ export default function New() {
             closable: true,
             inputs: [
                 {
-                    // name: "passengersInfo_fullName_1",
+                    name: "passengersInfo_fullName",
                     type: "text",
                     placeholder: "ФИО сотрудника"
                 },
                 {
-                    // name: "passengersInfo_phoneNumber_1",
+                    name: "passengersInfo_phoneNumber",
                     type: "tel",
                     placeholder: "Номер телефона"
                 }
@@ -253,7 +240,7 @@ export default function New() {
         }
     
        let idKey = "passenger_" + (passengers.length + 1);
-       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={onInputInSectionChange}/>])
+       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={onInputPassengerInSectionChange}/>])
     }
  
     function closePassengerHandler(e, id) {
@@ -263,6 +250,14 @@ export default function New() {
                 return item.key !== id
             });
         });
+
+        setValues(prev => {
+            return {...prev,
+                "passengersInfo": {...prev.passengersInfo,
+                    [id]: null,
+                },
+            }
+        })
     }
     
     
@@ -278,6 +273,13 @@ export default function New() {
     
     // Заполняет объект значений полей при изменении (обычные инпуты)
     const onInputChange = (e) => {
+        // Обработка чекбокса
+        if (e.target.type && e.target.type === 'checkbox') {
+            setValues({...values, [e.target.name]: e.target.checked});
+            return;
+        } 
+
+        // Обработка остальных стандартных инпутов
         setValues({...values, [e.target.name]: e.target.value})
     }
 
@@ -304,32 +306,26 @@ export default function New() {
         })
     }
 
-    
+    // Дублирует предыдущую функцию для пассажиров (TODO: объединить в одну функцию)
+    const onInputPassengerInSectionChange = (e) => {
 
-    // const onAddBtnClick = (e) => {
-    //     e.preventDefault();
-    //     setKeys(prevKeys => prevKeys + 1)
-    //     setPeople([...people, {block: <SectionInput key={keys} text="Данные пассажира" id={keys} need={true} inputArray={inputPassenger} clickPeople={handleRemoveItem} close={true}/>, id: keys}]);
-    // };
-    // const handleRemoveItem = (event, id) => {
-    //     setPeople(prevPeople => {
-    //         return prevPeople.filter(item => item.id !== id);
-    //     });
-    // };
-    // const onAddPoint = (e) => {
-    //     e.preventDefault();
-    //     setKeys(prevKeys => prevKeys + 1)
-    //     setEndPoint(endPoint.concat({block: <SectionInput key={keys} text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} clickEndPoint={handleRemoveEndPoint}  input={["Адрес"]} id={keys} close={true}/>, id: keys}));
-    // };
-    // const handleRemoveEndPoint = (event, id) => {
-    //     setEndPoint(prevEndPoint => {
-    //         return prevEndPoint.filter(item => item.id !== id);
-    //     });
-    // };
+
+        // Обновляет объект passengersInfo, создавая или дополняя внутренний
+        // объект с названием очередной секции (по атрибуту section-id)
+        setValues(prev => {
+            return {...prev,
+                "passengersInfo": {...prev.passengersInfo,
+                    [e.target.getAttribute('data-section-id')]: {
+                        ...prev.passengersInfo[e.target.getAttribute('data-section-id')],
+                        [e.target.name]: e.target.value,
+                    },
+                },
+            }
+        })
+    }
 
     // console.clear();
     console.log(values);
-
 
     return (
         <form className={style.form}>
@@ -361,91 +357,5 @@ export default function New() {
                 })
             }
         </form>
-
-
-        // <form className={style.form}>
-        //     <h3 className={style.title}>Составление заявки</h3>
-        //     <SectionInput text="Структурное подразделение" need={true} input={["Название"]} />
-        //     <SectionInput text="Приватная поездка" need={true} input={[]} checkbox={true}/>
-        //     <SectionInput text="Место подачи авто" dataTimeArray={dataTimeStart} dataTime={true} need={true} input={["Адрес"]} />
-        //     <SectionInput text="Пункт назначения" dataTimeArray={dataTimeEnd} dataTime={true} need={true} input={["Адрес"]}/>
-        //     {
-        //         endPoint.map(item => item.block)
-        //     }
-        //     <ButtonMenu text="+ Добавить пункт назначения" onClick={onAddPoint} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-        //     <SectionInput text="Груз и пассажиры" need={true} inputArray={inputCargo} />
-        //     <SectionInput text="Данные пассажира" need={true} inputArray={inputPassenger} />
-        //     {
-        //         people.map(item => item.block)
-        //     }
-        //     <ButtonMenu name="" text="+ Добавить пассажира" onClick={onAddBtnClick} color={{backgroundColor: "rgb(0, 120, 168)"}}/>
-        //     <SectionInput text="Дополнительная информация" need={true} input={[]} inputArea="Комментарий" textarea={true}/>
-
-        //     <ButtonMenu onClick={sendRequestHandler} text="Создать" color={{backgroundColor: "rgb(0, 168, 77)"}}/>
-        // </form>
     )
 }
-
-// расширяем на валидацию инпутов для времени и даты
-// let dataTimeStart = [
-//     {
-//         text: "Дата подачи",
-//         check: true,
-//         placeholder: "дд/мм/гггг",
-//         type: "date"
-//     },
-//     {
-//         text: "Время подачи",
-//         check: true,
-//         placeholder: "00:00",
-//         type: "time"
-//     },
-//     {
-//         text: "Время ожидания",
-//         check: true,
-//         placeholder: "00:00",
-//         type: "time"
-//     }
-// ]
-
-// let dataTimeEnd = [
-//     {
-//         text: "Дата прибытия",
-//         check: false,
-//         placeholder: "дд/мм/гггг",
-//         type: "date"
-//     },
-//     {
-//         text: "Время прибытия",
-//         check: false,
-//         placeholder: "00:00",
-//         type: "time"
-//     },
-//     {
-//         text: "Время ожидания",
-//         check: false,
-//         placeholder: "00:00",
-//         type: "time"
-//     }
-// ]
-
-// let inputCargo = [
-//     {
-//         text: "Багаж кг/м3",
-//         type: "integer"
-//     },
-//     {
-//         text: "Количество пассажиров",
-//         type: "integer"
-//     }  
-// ]
-// let inputPassenger = [
-//     {
-//         text: "ФИО сотрудника" 
-//     },
-//     {
-//         text: "Номер телефона",
-//         type: "tel"
-//     }
-// ]
-

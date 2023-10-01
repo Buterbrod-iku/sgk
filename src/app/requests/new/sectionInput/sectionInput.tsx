@@ -49,7 +49,7 @@ export default function SectionInput(props) {
                         (index != 0) ?
                         <div key={`${props.id}_${index}`}>
                             <InputLabel require={item.require} text={item.inputLabel} forID={`${props.id}_${index}`} />
-                            <InputForm dataSectionID={`${props.id}`} forID={`${props.id}_${index}`} type={item.type} placeholder={item.placeholder} name={item.name} onChange={props.onChange}/>
+                            <InputForm dataSectionID={`${props.id}`} forID={`${props.id}_${index}`} type={item.type} max={"2050-12-31"} placeholder={item.placeholder} name={item.name} onChange={props.onChange}/>
                         </div> 
                         : ""
                     ))}
