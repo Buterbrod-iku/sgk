@@ -1,4 +1,5 @@
 import style from './infoBlock.module.scss'
+import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 
 const Waiting = (time) => {
     if(time < 60){
@@ -15,8 +16,9 @@ export default function InfoBlock(props) {
         e.preventDefault();
         props.setBool(!props.bool);
     }
-
     const dateTime = new Date(props.dataTime * 1000);
+
+    // редачим дату из unixTime
     let date = (dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()) + '.' + (dateTime.getUTCMonth() < 10 ? '0' + dateTime.getUTCMonth() : dateTime.getUTCMonth()) + '.' + dateTime.getUTCFullYear();
     let time = (dateTime.getUTCHours() < 10 ? '0' + dateTime.getUTCHours() : dateTime.getUTCHours()) + ":" + dateTime.getUTCMinutes();
 
@@ -24,16 +26,21 @@ export default function InfoBlock(props) {
         <div className={style.main} style={props.noBorder ? {border: "none"} : {}}>
             <p className={style.title}>{props.title}</p>
             {
-                props.info ? (<div><p className={style.info}>{props.waiting ? Waiting(props.info) : props.info}</p></div>) : ""
+                props.info ? (<div><p className={style.info}>{props.edit ? (<InputEdit value={(props.waiting ? Waiting(props.info) : props.info)}/>) : (props.waiting ? Waiting(props.info) : props.info)}</p></div>) : ""
             }
 
             {
                 props.dataTime ? (
                     <div className={style.dataTime}>
-                        <p className={style.info}>{date}</p>
-                        <span>|</span>
-                        <p className={style.info}>{time}</p>
-                        <span>|</span>
+                        {/*пофиксить чтоб при переходе на инпут значением выдавало дату*/}
+                        <p className={style.info}>{props.edit ? (<InputEdit value={date} type='date'/>) : date}</p>
+                        {
+                            props.edit ? '' : <span>|</span>
+                        }
+                        <p className={style.info} style={props.edit ? {margin: '-2px 20px'} : {}}>{props.edit ? (<InputEdit value={time} type='time'/>) : time}</p>
+                        {
+                            props.edit ? '' : <span>|</span>
+                        }
                     </div>
                 ) : ""
             }

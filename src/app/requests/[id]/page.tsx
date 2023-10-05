@@ -7,11 +7,18 @@ import {useState} from "react";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import { useRouter, useSearchParams } from 'next/navigation';
 import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest";
+import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 
 export default function OpenRequest(props) {
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
+    const [edit, setEdit] = useState(false);
 
+    const startEdit = (e) => {
+        e.preventDefault()
+        setEdit(!edit)
+        setMap(false)
+    }
 
     const swichInfo = (e) => {
         e.preventDefault()
@@ -26,7 +33,7 @@ export default function OpenRequest(props) {
         <div className={style.main} style={props.style}>
 
             <div className={style.block} style={props.addStyle}>
-                <div style={{position: "absolute", right: '5px', top: '5px', width: "20px", height: '20px', background: 'red', zIndex: "99"}}></div>
+                <div onClick={startEdit} style={{position: "absolute", right: '5px', top: '5px', width: "20px", height: '20px', background: 'red', zIndex: "99"}}></div>
                 {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                 <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params?.id})</h4>
 
@@ -41,7 +48,7 @@ export default function OpenRequest(props) {
                             <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Груз</button>
                         </div>
 
-                        <MainInfoRequest openInfo={openInfo} allInfo={newRequest}/>
+                        <MainInfoRequest edit={edit} openInfo={openInfo} allInfo={newRequest}/>
                     </div>
 
                     <div className={style.path}>
@@ -57,10 +64,14 @@ export default function OpenRequest(props) {
                         </div>
 
                         <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
-                            <RoutePoint point="Барнаул" />
-                            <RoutePoint point="Барнаул" />
-                            <RoutePoint point="Новосибирск" />
-                            <RoutePoint point="Новосибирск" />
+                            {/*промежуточные точки*/}
+                            
+                            <RoutePoint point={newRequest.orders[0].route.loadingAddress.address} edit={edit}/>
+                            {
+                                newRequest.orders.map((item, index) => (
+                                    <RoutePoint key={index} point={item.route.unloadingAddress.address} edit={edit}/>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
@@ -100,6 +111,7 @@ let newRequest = {
     },
     "orders": [
         {
+            "_id": 'string',
             "date": {
                 "loadingTime": 1696271100,
                 "unloadingTime": 1696282080,

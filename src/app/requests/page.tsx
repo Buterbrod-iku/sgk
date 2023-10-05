@@ -4,6 +4,7 @@ import style from './request.module.scss'
 import LineTable from "@/app/requests/lineTable/lineTable";
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import axios from "axios";
 
 import { Metadata } from 'next'
 import Pagination from "./pagination/pagination";
