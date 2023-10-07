@@ -4,20 +4,36 @@ import style from './openRequest.module.scss'
 import NewPath from "@/app/requests/[id]/newPath/newPath";
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useState} from "react";
-import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import { useRouter, useSearchParams } from 'next/navigation';
 import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest";
 import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
+import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
+import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
+
+const ReversRoutePoint = (request) => {
+    let result = request.orders[0].route.loadingAddress.address
+
+    request.orders.map(item => (
+        result += ' - ' + item.route.unloadingAddress.address
+    ))
+
+    return result
+}
 
 export default function OpenRequest(props) {
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
     const [edit, setEdit] = useState(false);
+    const [confirm, setConfirm] = useState(false);
+
+    const openConfirm = (e) => {
+        e.preventDefault()
+        setConfirm(!confirm)
+    }
 
     const startEdit = (e) => {
         e.preventDefault()
         setEdit(!edit)
-        setMap(false)
     }
 
     const swichInfo = (e) => {
@@ -31,11 +47,18 @@ export default function OpenRequest(props) {
 
     return (
         <div className={style.main} style={props.style}>
-
+            {
+                confirm ? <ModalConfirm setConfirm={openConfirm}/> : ""
+            }
             <div className={style.block} style={props.addStyle}>
-                <div onClick={startEdit} style={{position: "absolute", right: '5px', top: '5px', width: "20px", height: '20px', background: 'red', zIndex: "99"}}></div>
+                <button onClick={openConfirm} className={style.cancelButton}>Отменить заявку</button>
+
                 {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
-                <h4 className={style.title}>Барнаул - Новосибирск (id = {props.params?.id})</h4>
+                <h4 className={style.title}>
+                    {newRequest.route.isSingle ? (<div className={style.locked}></div>) : ''}
+
+                    {ReversRoutePoint(newRequest)}
+                </h4>
 
                 {
                     props.close ? <p onClick={props.fun} className={style.close}>+</p> : ""
@@ -65,27 +88,37 @@ export default function OpenRequest(props) {
 
                         <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
                             {/*промежуточные точки*/}
-                            
-                            <RoutePoint point={newRequest.orders[0].route.loadingAddress.address} edit={edit}/>
+                            <RoutePoint point={newRequest.orders[0].route.loadingAddress.address}/>
                             {
                                 newRequest.orders.map((item, index) => (
-                                    <RoutePoint key={index} point={item.route.unloadingAddress.address} edit={edit}/>
+                                    <RoutePoint key={index} point={item.route.unloadingAddress.address}/>
                                 ))
                             }
                         </div>
                     </div>
                 </div>
+                {
+                    props.buttonEdit ? "" : (
+                        <div className={style.editRequestPosition}>
+                            <button onClick={startEdit} className={style.editRequestButton} style={edit ? {backgroundColor: "#f8fa13"} : {backgroundColor: "#f6ebae"}}>{edit ? "Сохранить" : "Изменить заявку"}</button>
+                        </div>)
+                }
+
 
                 {
-                    props.newPath ? "" : (<div className={style.newPath}>
-                        <div className={style.absolutTitle}>
-                            <p>Доступные маршруты</p>
-                        </div>
-                        <NewPath title="Барнаул-Бийск"/>
-                        <NewPath title="Барнаул-Бийск"/>
-                        <NewPath title="Барнаул-Бийск"/>
-                        <NewPath title="Барнаул-Бийск"/>
-                    </div>)
+                    newRequest.route.isSingle ?
+                        ""
+                        :
+                        props.newPath ? "" : (
+                        <div className={style.newPath}>
+                            <div className={style.absolutTitle}>
+                                <p>Доступные маршруты</p>
+                            </div>
+                            <NewPath title="Барнаул-Бийск"/>
+                            <NewPath title="Барнаул-Бийск"/>
+                            <NewPath title="Барнаул-Бийск"/>
+                            <NewPath title="Барнаул-Бийск"/>
+                        </div>)
                 }
 
             </div>
