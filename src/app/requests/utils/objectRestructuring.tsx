@@ -115,6 +115,7 @@ export const ObjectRestructuring = (firstObject) => {
 
 
     for (let item in firstObject.destinationPoints){
+        console.log(firstObject.destinationPoints);
         let addOrdersObject = {
             "date": {
                 "loadingTime": ConvertToUnixTime(firstObject.carStartPoint_date, firstObject.carStartPoint_arriveTime), // start
@@ -125,15 +126,15 @@ export const ObjectRestructuring = (firstObject) => {
             "route": {
                 "loadingAddress": {
                     "address": firstObject.carStartPoint_address,
-                    "latitude": "83.354673", // geocoder!! || word
-                    "longitude": "54.37832", // geocoder!! || word
-                    "word": "koords" // ---
+                    "latitude": firstObject.carStartPoint_coords.lat, // geocoder!! || word
+                    "longitude": firstObject.carStartPoint_coords.long, // geocoder!! || word
+                    "word": "" // ---
                 },
                 "unloadingAddress": {
                     "address": firstObject.destinationPoints[item].destinationPoint_address,
-                    "latitude": "83.354673",
-                    "longitude": "54.37832", // либо ворд либо это
-                    "word": "koords"
+                    "latitude": firstObject.destinationPoints[item].Coords.lat,
+                    "longitude": firstObject.destinationPoints[item].Coords.long, // либо ворд либо это
+                    "word": ""
                 },
             },
             "order": {

@@ -5,6 +5,8 @@ import SectionInput from "./sectionInput/sectionInput";
 import {use, useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
 import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
+import axios from 'axios';
+import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
 
 export default function New() {
     const [keys, setKeys] = useState(0);
@@ -266,12 +268,74 @@ export default function New() {
         console.log('passenger added');
     }
 
-    function submitHandler (e) {
+
+
+    // Получение адреса с символом "-" вместо пробелов (вспомогательная для submitHandler)
+    function getFormattedAddress(prevAddress) {
+        let newAddress = prevAddress.
+            split(' ').
+            join('-');
+
+        return encodeURI(newAddress);
+    }
+
+    // Отправка запроса для получения геоданных от Яндекса
+    function getCoordsByAddress(address) {
+        return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=09ffa4b8-a280-4606-a6f2-91f74c2bba7b&geocode=${getFormattedAddress(address)}`)
+        .then(response => {
+            let coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember.GeoObject.Point.pos.split(' ');
+            return (
+                {
+                    long: coordsArr[0],
+                    lat: coordsArr[1]
+                }
+            )
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    // Получение координат через геокодер Яндекса 
+    // TODO: заменить на собственный
+    const parser = new XMLParser();
+    
+    async function submitHandler (e) {
         e.preventDefault();
+        // 1. Попытка получения геоданных из всех адресов
+        let startCoords = await getCoordsByAddress(values.carStartPoint_address);
+        console.log('startCoords: ', startCoords);
+        
+        let valuesCopy = values; // Не изменяем values, а дополняем копию
+    
+        // Перебор всех пунктов назначения (создание объекта)
+        // TODO: Проверка на !null
+        let destinationsCoords = {} 
+        for (let value in valuesCopy.destinationPoints) {
+            destinationsCoords[value] = await getCoordsByAddress(valuesCopy.destinationPoints[value].destinationPoint_address);
+        }
+        console.log(destinationsCoords);
+        // TODO: Добавить проверки на удачное получение координат и прекратить отправку запроса в случае неудачи
+
+        // 2. Изменение valuesCopy
+        valuesCopy.carStartPoint_coords = startCoords;
+        for (let destinationPointID in destinationsCoords) {
+            valuesCopy.destinationPoints[destinationPointID].Coords = destinationsCoords[destinationPointID];
+        }
+
+        // 3. Реструктурирование values в требуемый вид и вывод данных
         console.log('первая версия...');
-        console.log(values);
+        console.log(valuesCopy);
         console.log('результат...');
-        console.log(ObjectRestructuring(values));
+        console.log(ObjectRestructuring(valuesCopy));
+
+        
+
+        
+
+
+        // console.log('start_cord_lat: ', values.carStartPoint_address);
+        // console.log('start_cord_long: ', values.carStartPoint_address);
     }
     
     // Заполняет объект значений полей при изменении (обычные инпуты)
