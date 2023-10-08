@@ -39,7 +39,7 @@ export default function InputForm(props) {
 
     return (
         <>
-            <input {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
+            <input value={props.value} {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
         </>
     )
 }

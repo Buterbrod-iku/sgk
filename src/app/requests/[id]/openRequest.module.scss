@@ -1,5 +1,6 @@
 .main{
   width: 100%;
+  min-height: 85vh;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -7,13 +8,21 @@
   background-color: #ececec;
   padding-bottom: 5vh;
 }
+.locked{
+  width: 25px;
+  height: 25px;
+  background-image: url("../../../assets/images/locked.png");
+  background-size: cover;
+  background-position: center;
+  margin-right: 10px;
+}
 .block{
   width: 90%;
   height: auto;
   background-color: white;
   margin-top: 5vh;
   border-radius: 20px;
-  padding: 40px 20px 20px 20px;
+  padding: 50px 20px 20px 20px;
   position: relative;
   overflow: hidden auto;
   box-shadow: 0 0 80px #ffffff;
@@ -36,6 +45,8 @@
   top: 10px;
   font-size: 1.3em;
   font-weight: normal;
+  display: flex;
+  align-items: center;
 }
 .posInfo{
   width: 100%;
@@ -131,6 +142,33 @@
   left: 20px;
   top: 20px;
   font-size: 1.25em;
+}
+.cancelButton{
+  width: auto;
+  height: auto;
+  background: #940000;
+  padding: 10px;
+  border: 1px solid #001c41;
+  color: #e0e0e0;
+  cursor: pointer;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.editRequestPosition{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3vh;
+}
+.editRequestButton{
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 @media (max-width: 768px) {
   .posInfo{

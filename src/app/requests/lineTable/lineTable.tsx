@@ -11,6 +11,9 @@ export default function LineTable(props) {
     return (
         <>
             <tr onClick={openRequestHandler} className={style.tr}>
+                {
+                    props.isSingle ? (<div className={style.close}></div>) : ''
+                }
                 <td className={style.th}>{props.date}</td>
                 <td className={style.th}>{props.name}</td>
                 <td className={style.th}>{props.path}</td>

@@ -4,380 +4,548 @@ import style from './request.module.scss'
 import LineTable from "@/app/requests/lineTable/lineTable";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import axios from "axios";
-
-import { Metadata } from 'next'
 import Pagination from "./pagination/pagination";
-import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
- 
-export const metadata: Metadata = {
-  title: 'About',
-}
 
 let array = [
     {
-        requestID: "99",
-        date: "1",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "2",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "3",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "4",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "5",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "6",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "7",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "8",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "9",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
     {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
+        "route": {
+            "isSingle": true,
+        },
+        "orders": [
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696282080,
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Новосибирск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100,
+                    "unloadingTime": 1696544940
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул",
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск",
+                    }
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                }
+            }
+        ]
     },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение В",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Г",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },{
-        requestID: "99",
-        date: "6",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "7",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "8",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "9",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение В",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Г",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },{
-        requestID: "99",
-        date: "6",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "7",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "8",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "9",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение В",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Г",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },{
-        requestID: "99",
-        date: "6",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "7",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "8",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "9",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение Б",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
-    {
-        requestID: "99",
-        date: "15.07.2023",
-        name: "Подразделение A",
-        path: "Москва - Казань - Екатеринбург - Тюмень",
-    },
+
 ]
+
+const ReversDateTime = (dataTime) => {
+    const dateTime = new Date(dataTime * 1000);
+
+    return (dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()) + '.' + (dateTime.getUTCMonth() < 10 ? '0' + dateTime.getUTCMonth() : dateTime.getUTCMonth()) + '.' + dateTime.getUTCFullYear();
+}
+
+const ReversRoutePoint = (request) => {
+    let result = request.orders[0].route.loadingAddress.address
+
+    request.orders.map(item => (
+        result += ' - ' + item.route.unloadingAddress.address
+    ))
+
+    return result
+}
 
 export default function Request() {
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const perPage = 5
+    const perPage = 10
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
@@ -393,6 +561,7 @@ export default function Request() {
 
 
     current = array.slice(firstIndex, lastIndex)
+
 
     return (
         <div className={style.main}>
@@ -411,11 +580,13 @@ export default function Request() {
                 <tbody>
                     {
                         // index
-                        current.map((item, index) => <LineTable key={index} requestID={item.requestID} date={item.date} name={item.name} path={item.path} />)
+                        current.map((item, index) => <LineTable key={index} requestID={item.requestID} date={ReversDateTime(item.orders[0].date.loadingTime)} name={item.orders[0].order.devisionName} path={ReversRoutePoint(item)} isSingle={item.route.isSingle}/>)
                     }
                 </tbody>
             </table>
-            <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
+            {
+                array.length < perPage ? "" : <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
+            }
         </div>
     )
 }

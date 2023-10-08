@@ -32,7 +32,7 @@ export default function MainInfoRequest(props) {
                     fullPassenger ? props.allInfo.orders[0].order.passengers.map((passenger, index) => (
                         <div key={index} className={style.openInfo}>
                             <InfoBlock title="ФИО сотрудника" info={passenger.fullName} noBorder={true} edit={props.edit}/>
-                            <InfoBlock title="Телефон для оповещения" info={passenger.phoneNumber} noBorder={true} edit={props.edit}/>
+                            <InfoBlock title="Телефон для оповещения" phone={true} info={passenger.phoneNumber} noBorder={true} edit={props.edit}/>
                             {/*{index+1 !== props.allInfo.passengersInfo.length ? <hr className={style.hr}/> : ''}*/}
                         </div>)) : ''
                 }

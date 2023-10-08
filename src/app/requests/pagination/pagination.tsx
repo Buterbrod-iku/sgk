@@ -49,7 +49,7 @@ const Pagination = ({currentPage, totalCount, perPage, paginate, nextPage, prevP
 
     return (
         <div className={style.main}>
-            <li className={style.liPrev} onClick={prevPage}>
+            <li className={style.liPrev} onClick={prevPage} style={currentPage === 1 ? {visibility: 'hidden'} : {visibility: 'visible'}}>
                 Предыдущая
             </li>
 
@@ -90,7 +90,8 @@ const Pagination = ({currentPage, totalCount, perPage, paginate, nextPage, prevP
                 {typeCountPageNumbers ? <PointPagination focus={currentPage === pageNumbers[pageNumbers.length - 1]} number={pageNumbers[pageNumbers.length - 1]} paginate={paginate}/> : ''}
             </ul>
 
-            <li className={style.liPrev} onClick={nextPage}>
+
+            <li className={style.liPrev} onClick={nextPage} style={currentPage === pageNumbers[pageNumbers.length - 1] ? {visibility: 'hidden'} : {visibility: 'visible'}}>
                 Следующая
             </li>
         </div>

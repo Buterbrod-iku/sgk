@@ -48,8 +48,8 @@ export default function Menu() {
                 </div>
 
                 <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>
-                    <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar.src})`, backgroundSize: 'cover'}}></div>
-                    <p className={style.nameUser}>Мелков Илья</p>
+                    <div className={style.icoUser}></div>
+                    <p className={style.nameUser}>Иванов Иван</p>
                     <div className={style.exit} style={{backgroundImage: `url(${exitIcon.src})`, backgroundSize: 'cover'}}></div>
                 </div>
             </div>
