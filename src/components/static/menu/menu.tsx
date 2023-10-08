@@ -10,7 +10,7 @@ import contactsIcon from '../../../assets/images/menu_contacts_icon.svg'
 import requestIcon from '../../../assets/images/menu_request_icon.svg'
 import statsIcon from '../../../assets/images/menu_stats_icon.svg'
 import exitIcon from '../../../assets/images/menu_exit_icon.svg'
-import userAvatar from '../../../assets/images/userAvatar.png'
+import userAvatar2 from '../../../assets/images/userAvatar2.png'
 import {useEffect, useState} from "react";
 
 export default function Menu() {
@@ -48,8 +48,8 @@ export default function Menu() {
                 </div>
 
                 <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>
-                    <div className={style.icoUser}></div>
-                    <p className={style.nameUser}>Иванов Иван</p>
+                    <div className={style.icoUser} style={{backgroundImage: `url(${userAvatar2.src})`, backgroundSize: 'cover'}}></div>
+                    <p className={style.nameUser}>Иван Арбузович</p>
                     <div className={style.exit} style={{backgroundImage: `url(${exitIcon.src})`, backgroundSize: 'cover'}}></div>
                 </div>
             </div>

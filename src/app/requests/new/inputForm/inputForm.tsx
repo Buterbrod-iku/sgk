@@ -6,6 +6,9 @@ export default function InputForm(props) {
     const [inputValue, setInputValue] = useState("");
     const [event, setEvent] = useState("");
 
+
+    const [firstCreated, setFirstCreated] = useState(true); // необходимо, чтобы однократно задать стандартное значение инпуту в том случае, если есть props.value 
+
     const additionalProps = {
         // style: { backgroundColor: 'black'}
     };
@@ -16,14 +19,23 @@ export default function InputForm(props) {
             setEvent(e);
 
             if (props.type == "tel") {
-                setInputValue(phoneFormatter(e.target.value, inputValue));
+                setInputValue(phoneFormatter(e.target.value));
             } else if (props.type == "integer") {
                 setInputValue(integerFormatter(e.target.value, inputValue));
             }
         }
-        additionalProps['value'] = inputValue;
+
+        if (firstCreated) { // задание стандартного значения инпуту при первой запуске
+            if (props.type == "tel") {
+                setInputValue(phoneFormatter(props.value));
+            }
+            setFirstCreated(false);
+        } else { 
+            additionalProps['value'] = inputValue;
+        }        
     } else {
         additionalProps['onChange'] = props.onChange;
+        additionalProps['defaultValue'] = props.value;
     }
 
     // Добавляет ограничение для поля date
@@ -39,13 +51,13 @@ export default function InputForm(props) {
 
     return (
         <>
-            <input value={props.value} {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
+            <input {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
         </>
     )
 }
 
 // Функция форматирования номера 
-function phoneFormatter(value, prevValue) : string {
+function phoneFormatter(value) : string {
     if (!value) return value;
     
     if (value.length == 1) {
