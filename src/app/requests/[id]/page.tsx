@@ -3,12 +3,13 @@
 import style from './openRequest.module.scss'
 import NewPath from "@/app/requests/[id]/newPath/newPath";
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
-import {useState} from "react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import {useEffect, useState} from "react";
 import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest";
 import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
+import axios from "axios";
+import {usePathname} from "next/navigation";
 
 const ReversRoutePoint = (request) => {
     let result = request.orders[0].route.loadingAddress.address
@@ -21,6 +22,20 @@ const ReversRoutePoint = (request) => {
 }
 
 export default function OpenRequest(props) {
+
+    const router = usePathname()
+    let fullURL = router.split('/')
+    let routeId = fullURL[fullURL.length - 1]
+
+    const [request, setRequest] = useState()
+
+    useEffect(() => {
+        axios('http://localhost:5000/routes/complex/652285b5051487ef3ceaf652').then(res => setRequest(res.data[0]))
+    }, [setRequest])
+
+    console.log(request)
+
+
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
     const [edit, setEdit] = useState(false);
@@ -126,106 +141,83 @@ export default function OpenRequest(props) {
     )
 }
 
-let newRequest = {
-    "route": {
-        "route": {},
-        "car": {
-            "tsNumber": "a123bc",
-            "specialMarks": "Lada Vesta",
-            "driver": "Ivanov Ivan Ivanovich",
-            "loadCapacity": 510,
-            "numberOfSeats": 4
-        },
-        "date": 1696204800,
-        "isSingle": false,
-        "cargoInRoute": "100",
-        "passengersInRoute": "3",
-        "comment": "что-то написано"
-    },
-    "orders": [
-        {
-            "_id": 'string',
-            "date": {
-                "loadingTime": 1696271100,
-                "unloadingTime": 1696282080,
-                "loadingWaiting": 20,
-                "unloadingWaiting": 65
-            },
+let newRequest =
+    {
+        "route": {
             "route": {
-                "loadingAddress": {
-                    "address": "Барнаул",
-                    "latitude": "83.354673",
-                    "longitude": "54.37832",
-                    "word": "koords"
-                },
-                "unloadingAddress": {
-                    "address": "Новосибирск",
-                    "latitude": "83.354673",
-                    "longitude": "54.37832",
-                    "word": "koords"
-                }
-            },
-            "order": {
-                "typeOfTransportation": "all",
-                "devisionName": "qweqweqweqwe",
-                "client": "Сотрудник Петров",
-                "passengers": [
-                    {
-                        "fullName": "Мелков Илья",
-                        "phoneNumber": "+79095079956"
-                    },
-                    {
-                        "fullName": "Никита",
-                        "phoneNumber": "+72322322165"
-                    },
-                    {
-                        "fullName": "Антон",
-                        "phoneNumber": "+72222222222"
-                    }
+                "orders": [
+                    "652295d9be2edcb754beeaa5"
+                ],
+                "boxes": [
+                    "0c5Cp7vM",
+                    "0c5YD.N0",
+                    "0c6aM53m",
+                    "0c6cbErf",
+                    "0c6rWJxE",
+                    "0c95k3eL",
+                    "0c954OGE"
                 ]
-            }
+            },
+            "car": {
+                "tsNumber": "a123bc",
+                "specialMarks": "Lada Vesta",
+                "driver": "Ivanov Ivan Ivanovich",
+                "loadCapacity": 510,
+                "numberOfSeats": 4
+            },
+            "_id": "652295dabe2edcb754beeaae",
+            "date": 1696723202,
+            "isSingle": false,
+            "cargoInRoute": 100,
+            "passengersInRoute": 3,
+            "comment": "что-то написано",
+            "__v": 0
         },
-        {
-            "date": {
-                "createdAt": 1695263542,
-                "loadingTime": 1696271100,
-                "unloadingTime": 1696544940,
-                "loadingWaiting": 20,
-                "unloadingWaiting": 150
-            },
-            "route": {
-                "loadingAddress": {
-                    "address": "Барнаул",
-                    "latitude": "83.354673",
-                    "longitude": "54.37832",
-                    "word": "koords"
+        "orders": [
+            {
+                "date": {
+                    "createdAt": 1696765401.903,
+                    "loadingTime": 1696723202,
+                    "unloadingTime": 1696282080,
+                    "loadingWaiting": 20,
+                    "unloadingWaiting": 65
                 },
-                "unloadingAddress": {
-                    "address": "Бийск",
-                    "latitude": "83.354673",
-                    "longitude": "54.37832",
-                    "word": "koords"
-                }
-            },
-            "order": {
-                "typeOfTransportation": "all",
-                "devisionName": "qweqweqweqwe",
-                "client": "Сотрудник Петров",
-                "passengers": [
-                    {
-                        "fullName": "Мелков Илья",
-                        "phoneNumber": "+79095079956"
+                "route": {
+                    "loadingAddress": {
+                        "address": "Бердск",
+                        "latitude": "54.8464",
+                        "longitude": "83.0646"
                     },
-                    {
-                        "fullName": "Никита",
-                        "phoneNumber": "+72322322165"
-                    },
-                    {
-                        "fullName": "Антон",
-                        "phoneNumber": "+72222222222"
+                    "unloadingAddress": {
+                        "address": "Тальменка",
+                        "latitude": "53.943",
+                        "longitude": "83.436"
                     }
-                ]
+                },
+                "order": {
+                    "typeOfTransportation": "all",
+                    "devisionName": "qweqweqweqwe",
+                    "client": "Сотрудник Петров",
+                    "passengers": [
+                        {
+                            "fullName": "Мелков Илья",
+                            "phoneNumber": "+79095079956",
+                            "_id": "65228aacc5818d554bda38a9"
+                        },
+                        {
+                            "fullName": "Никита",
+                            "phoneNumber": "+72322322165",
+                            "_id": "65228aacc5818d554bda38aa"
+                        },
+                        {
+                            "fullName": "Антон",
+                            "phoneNumber": "+72222222222",
+                            "_id": "65228aacc5818d554bda38ab"
+                        }
+                    ]
+                },
+                "_id": "652295d9be2edcb754beeaa5",
+                "__v": 0
             }
-        }
-    ]
-}
+        ]
+    }
