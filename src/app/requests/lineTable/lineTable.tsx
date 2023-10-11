@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 import style from './lineTable.module.scss'
-import Link from "next/link";
 
 export default function LineTable(props) {
     const router = useRouter();

@@ -17,7 +17,7 @@ const addZero = (dateTime, type) => {
     } else if(type === 'month'){
         return dateTime.getUTCMonth() < 10 ? '0' + dateTime.getUTCMonth() : dateTime.getUTCMonth()
     } else {
-        return '0'
+        return '00'
     }
 
 }
@@ -33,7 +33,7 @@ export default function InfoBlock(props) {
     // редачим дату из unixTime
     let date = addZero(dateTime, 'date') + '.' + addZero(dateTime, 'month') + '.' + dateTime.getUTCFullYear();
     let dateInput = dateTime.getUTCFullYear() + '-' +  addZero(dateTime, 'month') + '-' + addZero(dateTime, 'date') ;
-    let time = (dateTime.getUTCHours() < 10 ? '0' + dateTime.getUTCHours() : dateTime.getUTCHours()) + ":" + dateTime.getUTCMinutes();
+    let time = (dateTime.getUTCHours() < 10 ? '0' + dateTime.getUTCHours() : dateTime.getUTCHours()) + ":" + (dateTime.getUTCMinutes() < 10 ? '0' + dateTime.getUTCMinutes() : dateTime.getUTCMinutes());
 
     return (
         <div className={style.main} style={props.noBorder ? {border: "none"} : {}}>

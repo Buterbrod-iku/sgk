@@ -6,6 +6,9 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import Pagination from "./pagination/pagination";
 import axios from "axios";
+import {useFetching} from "@/app/hooks/useFetching";
+import PostService from "@/app/API/postService";
+import Loading from "@/app/requests/loading/loading";
 
 // let array = [
 //     {
@@ -548,16 +551,18 @@ export default function Request() {
     // import data allRequest from server
     const [appState, setAppState] = useState([]);
 
-    useEffect(() => {
-        const apiUrl = 'http://localhost:5000/routes/complex/';
-        axios.get(apiUrl).then((resp) => {
-            const allPersons = resp.data;
-            setAppState(allPersons);
-        });
-    }, [setAppState]);
+    const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
+        const response = await PostService.getAll()
+        setAppState(response)
+    })
 
-    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        fetchPostGetAll()
+    }, [])
+
+    // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
+    // perPage - сколько объектов будет на одной странице
     const perPage = 10
 
     const lastIndex = currentPage * perPage
@@ -568,6 +573,7 @@ export default function Request() {
         setCurrentPage(pageNumber)
     }
 
+    // функции для кнопок в пагинации
     const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev - 1)
     const nextPage = () => setCurrentPage(prev => prev >= appState.length / perPage ? prev : prev + 1)
     const startPage = () => setCurrentPage(1)
@@ -592,12 +598,16 @@ export default function Request() {
                 </thead>
                 <tbody>
                     {
-                        // index
-                        current.map((item, index) => <LineTable key={index} requestID={item.route._id} date={ReversDateTime(item.orders[0].date.loadingTime)} name={item.orders[0].order.devisionName} path={ReversRoutePoint(item)} isSingle={item.route.isSingle}/>)
+                        // проверяем на загрузку
+                        isLoading
+                            ? (<Loading />)
+                            // выводим страницу с заявками
+                            : current.map((item, index) => <LineTable key={index} requestID={item.route._id} date={ReversDateTime(item.orders[0].date.loadingTime)} name={item.orders[0].order.devisionName} path={ReversRoutePoint(item)} isSingle={item.route.isSingle}/>)
                     }
                 </tbody>
             </table>
             {
+                // компонент пагинации, если страница одна, то ничего не выводим
                 appState.length < perPage ? "" : <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={appState.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
             }
         </div>
