@@ -2,11 +2,21 @@
 
 import style from "./mainInfoRequest.module.scss";
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function MainInfoRequest(props) {
     const [fullPassenger, setFullPassenger] = useState(false);
     const [fullPoint, setFullPoint] = useState(false);
+
+    useEffect(() =>{
+        if(props.edit){
+            setFullPassenger(true);
+            setFullPoint(true);
+        } else {
+            setFullPassenger(false);
+            setFullPoint(false);
+        }
+    }, [props.edit])
 
     return (
         <>

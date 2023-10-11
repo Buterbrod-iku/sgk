@@ -1,11 +1,11 @@
 .input{
-  width: 100%;
+  width: calc(100%);
   height: auto;
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #b7b7b7;
   outline: none;
-  font-size: 1.20em;
+  font-size: 1.1em;
   transition: 0.5s;
 }
 .input:focus{

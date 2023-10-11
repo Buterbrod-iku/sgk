@@ -70,12 +70,18 @@ export default function OpenRequest (props) {
             {
                 isLoading
                     ? (<Loading style={{width: '80vw', height: '80vh'}}/>)
-                    : (<>
+                    :
+                    (<>
                         {
                             confirm ? <ModalConfirm setConfirm={openConfirm}/> : ""
                         }
                         <div className={style.block} style={props.addStyle}>
-                            <button onClick={openConfirm} className={style.cancelButton}>Отменить заявку</button>
+                            {
+                                !props.buttonEdit
+                                    ? (<button onClick={openConfirm} className={style.cancelButton}>Отменить заявку</button>)
+                                    : ''
+                            }
+
 
                             {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                             <h4 className={style.title}>
@@ -124,7 +130,7 @@ export default function OpenRequest (props) {
                             {
                                 props.buttonEdit ? "" : (
                                     <div className={style.editRequestPosition}>
-                                        <button onClick={startEdit} className={style.editRequestButton} style={edit ? {backgroundColor: "#f8fa13"} : {backgroundColor: "#f6ebae"}}>{edit ? "Сохранить" : "Изменить заявку"}</button>
+                                        <button onClick={startEdit} className={style.editRequestButton} style={edit ? {background: "#0b626c"} : {background: "#3ea19d"}}>{edit ? "Сохранить" : "Изменить заявку"}</button>
                                     </div>)
                             }
 
@@ -145,7 +151,8 @@ export default function OpenRequest (props) {
                                         </div>)
                             }
 
-                        </div></>)
+                        </div>
+                    </>)
             }
         </div>
     )

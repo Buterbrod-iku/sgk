@@ -6,8 +6,8 @@ export default function ModalConfirm(props) {
             <div className={style.window}>
                 <p>Вы уверенны, что хотете отменить заявку?</p>
                 <div className={style.position}>
-                    <button onClick={props.setConfirm} style={{background: "red"}}>Закрыть</button>
-                    <button style={{background: "green"}}>Подтвердить</button>
+                    <button style={{background: "#2ecc71"}}>Подтвердить</button>
+                    <button onClick={props.setConfirm} style={{background: "#e74c3c"}}>Закрыть</button>
                 </div>
             </div>
         </div>

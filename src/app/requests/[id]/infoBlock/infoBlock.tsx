@@ -59,7 +59,7 @@ export default function InfoBlock(props) {
                         {
                             props.edit ? '' : <span>|</span>
                         }
-                        <p className={style.info} style={props.edit ? {margin: '-2px 20px'} : {}}>{props.edit ? (<InputForm value={time} type='time'/>) : time}</p>
+                        <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<InputForm value={time} type='time'/>) : time}</p>
                         {
                             props.edit ? '' : <span>|</span>
                         }
