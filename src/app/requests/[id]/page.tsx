@@ -73,7 +73,7 @@ export default function OpenRequest (props) {
                     :
                     (<>
                         {
-                            confirm ? <ModalConfirm setConfirm={openConfirm}/> : ""
+                            confirm ? <ModalConfirm setConfirm={openConfirm} routeId={newRequest?.route?._id} orders={newRequest?.route?.route.orders}/> : ""
                         }
                         <div className={style.block} style={props.addStyle}>
                             {

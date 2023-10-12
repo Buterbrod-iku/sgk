@@ -10,527 +10,6 @@ import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 
-// let array = [
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//     {
-//         "route": {
-//             "isSingle": true,
-//         },
-//         "orders": [
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696282080,
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Новосибирск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             },
-//             {
-//                 "date": {
-//                     "loadingTime": 1696271100,
-//                     "unloadingTime": 1696544940
-//                 },
-//                 "route": {
-//                     "loadingAddress": {
-//                         "address": "Барнаул",
-//                     },
-//                     "unloadingAddress": {
-//                         "address": "Бийск",
-//                     }
-//                 },
-//                 "order": {
-//                     "typeOfTransportation": "all",
-//                     "devisionName": "qweqweqweqwe",
-//                 }
-//             }
-//         ]
-//     },
-//
-// ]
-
-
 const ReversDateTime = (dataTime) => {
     const dateTime = new Date(dataTime * 1000);
 
@@ -538,13 +17,21 @@ const ReversDateTime = (dataTime) => {
 }
 
 const ReversRoutePoint = (request) => {
-    let result = request.orders[0].route.loadingAddress.address
+    let result = request.orders[0]?.route.loadingAddress.address
 
     request.orders.map(item => (
-        result += ' - ' + item.route.unloadingAddress.address
+        result += ' - ' + item.route?.unloadingAddress.address
     ))
 
     return result
+}
+
+const NoneRequests = () => {
+    return (
+        <div className={style.NoneRequests}>
+            <p>Нет заявок</p>
+        </div>
+    )
 }
 
 export default function Request() {
@@ -558,7 +45,7 @@ export default function Request() {
 
     useEffect(() => {
         fetchPostGetAll()
-    }, [])
+    }, [appState])
 
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
@@ -578,9 +65,7 @@ export default function Request() {
     const nextPage = () => setCurrentPage(prev => prev >= appState.length / perPage ? prev : prev + 1)
     const startPage = () => setCurrentPage(1)
 
-
     current = appState.slice(firstIndex, lastIndex)
-
 
     return (
         <div className={style.main}>
@@ -602,7 +87,16 @@ export default function Request() {
                         isLoading
                             ? (<Loading />)
                             // выводим страницу с заявками
-                            : current.map((item, index) => <LineTable key={index} requestID={item.route._id} date={ReversDateTime(item.orders[0].date.loadingTime)} name={item.orders[0].order.devisionName} path={ReversRoutePoint(item)} isSingle={item.route.isSingle}/>)
+                            : (
+                                current.length === 0
+                                    ? (<NoneRequests />)
+                                    :  current.map(item => <LineTable key={item.route._id}
+                                                                      requestID={item.route._id}
+                                                                      date={ReversDateTime(item?.orders[0]?.date.loadingTime)}
+                                                                      name={item?.orders[0]?.order?.devisionName}
+                                                                      path={ReversRoutePoint(item)}
+                                                                      isSingle={item.route.isSingle} />)
+                            )
                     }
                 </tbody>
             </table>

@@ -7,6 +7,9 @@ import InputButton from "./inputButton/inputButton";
 import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
+import {useFetching} from "@/app/hooks/useFetching";
+import PostService from "@/app/API/postService";
+import {useRouter} from "next/navigation";
 
 export default function New() {
     const [keys, setKeys] = useState(0);
@@ -299,7 +302,9 @@ export default function New() {
     // Получение координат через геокодер Яндекса 
     // TODO: заменить на собственный
     const parser = new XMLParser();
-    
+
+    const link = useRouter()
+
     async function submitHandler (e) {
         e.preventDefault();
         // 1. Попытка получения геоданных из всех адресов
@@ -329,10 +334,11 @@ export default function New() {
         console.log('результат...');
         console.log(ObjectRestructuring(valuesCopy));
 
-        
 
-        
+        await PostService.sendRequest(ObjectRestructuring(valuesCopy))
 
+
+        link.push('/requests')
 
         // console.log('start_cord_lat: ', values.carStartPoint_address);
         // console.log('start_cord_long: ', values.carStartPoint_address);

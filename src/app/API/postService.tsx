@@ -15,4 +15,22 @@ export default class PostService {
         const response = await axios.get('http://localhost:5000/routes/complex/' + id)
         return response
     }
+
+    static async sendRequest(object) {
+        const response = await axios.post('http://localhost:5000/routes/complex/', object)
+        return response
+    }
+
+    static async deleteOrder(orderId) {
+        return await axios.delete('http://localhost:5000/orders/' + orderId)
+    }
+
+    static async deleteRoute(routeId) {
+        return await axios.delete(`http://localhost:5000/routes/std/${routeId}`)
+    }
+
+    static async switchRoute(routeId, object) {
+        const response = await axios.patch('http://localhost:5000/routes/complex/' + routeId, object)
+        return response
+    }
 }
