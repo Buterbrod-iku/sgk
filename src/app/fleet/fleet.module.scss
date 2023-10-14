@@ -1,0 +1,45 @@
+.main{
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+.positionTitle{
+  display: flex;
+  justify-content: center;
+  width: 85%;
+  align-items: center;
+  position: relative;
+  height: 80px;
+  margin: 10px 0 10px 5%;
+}
+.title{
+  font-family: Arial;
+  font-weight: lighter;
+  font-size: 1.5em;
+}
+.button{
+  width: auto;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background-color: rgb(0, 168, 77);
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+  position: absolute;
+  right: 0;
+  top: 15px;
+}
+.button:hover{
+  background-color: rgb(0, 197, 91);
+}
+.position{
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 50px;
+}
