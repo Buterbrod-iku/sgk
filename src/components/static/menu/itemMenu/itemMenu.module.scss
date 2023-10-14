@@ -8,8 +8,10 @@
 .ico{
   width: 30px;
   height: 30px;
-  background: whitesmoke;
   margin-right: 20px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .text{
   font-size: 1.22em;

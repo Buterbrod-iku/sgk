@@ -9,7 +9,7 @@ type Item = {
 export default function ItemMenu(props : Item) {
     return (
         <div className={style.main}>
-            <div className={style.ico} style={{background: `url(${props.iconURL})`}}></div>
+            <div className={style.ico} style={{backgroundImage: `url(${props.iconURL})`}}></div>
             <p className={style.text}>{props.item}</p>
         </div>
     )

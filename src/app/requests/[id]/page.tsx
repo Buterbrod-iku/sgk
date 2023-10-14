@@ -75,6 +75,8 @@ export default function OpenRequest (props) {
     // если null есть, то удаляем его
     newRequest.orders?.map((item, index) => item === null ? delete newRequest.orders[index] : '')
 
+    let object = newRequest;
+
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(true);
     const [edit, setEdit] = useState(false);
@@ -84,6 +86,8 @@ export default function OpenRequest (props) {
         destinationPoints: {},
         passengersInfo: {},
     });
+
+    console.log(newRequest)
 
     const openConfirm = (e) => {
         e.preventDefault()
@@ -95,7 +99,6 @@ export default function OpenRequest (props) {
         setEdit(!edit)
         if (edit) {
             console.log("Data Save Object: ", {a: 1, b: 2, c: 3});
-
         }
     }
 
@@ -174,6 +177,11 @@ export default function OpenRequest (props) {
                                 props.buttonEdit ? "" : (
                                     <div className={style.editRequestPosition}>
                                         <button onClick={startEdit} className={style.editRequestButton} style={edit ? {background: "#0b626c"} : {background: "#3ea19d"}}>{edit ? "Сохранить" : "Изменить заявку"}</button>
+                                        {
+                                            edit ? (
+                                                <button onClick={startEdit} className={style.editRequestButton} style={{background: "#5b5757", marginLeft: "20px"}}>Отменa</button>
+                                            ) : ''
+                                        }
                                     </div>)
                             }
 

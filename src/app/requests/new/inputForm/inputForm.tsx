@@ -29,6 +29,10 @@ export default function InputForm(props) {
             if (props.type == "tel") {
                 setInputValue(phoneFormatter(props.value));
             }
+            if (props.type == "integer") {
+                console.log(props.value, inputValue);
+                setInputValue(integerFormatter(String(props.value), inputValue));
+            }
             setFirstCreated(false);
         } else { 
             additionalProps['value'] = inputValue;

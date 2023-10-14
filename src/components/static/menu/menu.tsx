@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import contactsIcon from '../../../assets/images/menu_contacts_icon.svg'
 import requestIcon from '../../../assets/images/menu_request_icon.svg'
+import fleet from '../../../assets/images/car_icon-icons.com_70268.svg'
 import statsIcon from '../../../assets/images/menu_stats_icon.svg'
 import exitIcon from '../../../assets/images/menu_exit_icon.svg'
 import userAvatar2 from '../../../assets/images/userAvatar2.png'
@@ -43,6 +44,7 @@ export default function Menu() {
             <div className={style.burger} style={burgerMenu ? {height: "35vh"} : width < 800 ? {height: "0", transition: "0.3s"} : {}}>
                 <div className={style.itemBlock} style={burgerMenu ? {display: "block"} : {}}>
                     <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
+                    <Link href={"/fleet"} className={style.Link}><ItemMenu item="Автопарк" iconURL={fleet.src}/></Link>
                     <Link href={"/report"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
                     <Link href={"/contactWithTC"} className={style.Link}><ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/></Link>
                 </div>
