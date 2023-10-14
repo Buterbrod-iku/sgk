@@ -14,6 +14,7 @@ import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 
+
 const ReversRoutePoint = (request) => {
     let result = request.orders[0].route.loadingAddress.address
 
@@ -79,6 +80,11 @@ export default function OpenRequest (props) {
     const [edit, setEdit] = useState(false);
     const [confirm, setConfirm] = useState(false);
 
+    const [values, setValues] = useState({
+        destinationPoints: {},
+        passengersInfo: {},
+    });
+
     const openConfirm = (e) => {
         e.preventDefault()
         setConfirm(!confirm)
@@ -87,6 +93,10 @@ export default function OpenRequest (props) {
     const startEdit = (e) => {
         e.preventDefault()
         setEdit(!edit)
+        if (edit) {
+            console.log("Data Save Object: ", {a: 1, b: 2, c: 3});
+
+        }
     }
 
     const swichInfo = (e) => {
@@ -134,7 +144,7 @@ export default function OpenRequest (props) {
                                         <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Груз</button>
                                     </div>
 
-                                    <MainInfoRequest edit={edit} openInfo={openInfo} allInfo={newRequest}/>
+                                    <MainInfoRequest setValFunc={setValues} values={values} edit={edit} openInfo={openInfo} allInfo={newRequest}/>
                                 </div>
 
                                 <div className={style.path}>

@@ -5,6 +5,7 @@ import SectionInput from "./sectionInput/sectionInput";
 import {use, useEffect, useState} from "react";
 import InputButton from "./inputButton/inputButton";
 import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
+import {onChangeDefault, onListChange} from "@/app/requests/utils/formUtils";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
 import {useFetching} from "@/app/hooks/useFetching";
@@ -196,7 +197,7 @@ export default function New() {
         }
     
        let idKey = "dist_" + (distPoints.length + 1);
-        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} onChange={onInputInSectionChange}/>])
+        setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} onChange={(e) => onListChange(e, "destinationPoints", setValues)}/>])
     }
 
     function closeDistHandler(e, id) {
@@ -246,7 +247,7 @@ export default function New() {
         }
     
        let idKey = "passenger_" + (passengers.length + 1);
-       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={onInputPassengerInSectionChange}/>])
+       setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={(e) => onListChange(e, "passengersInfo", setValues)}/>])
     }
  
     function closePassengerHandler(e, id) {
@@ -339,63 +340,13 @@ export default function New() {
 
 
         link.push('/requests')
-
-        // console.log('start_cord_lat: ', values.carStartPoint_address);
-        // console.log('start_cord_long: ', values.carStartPoint_address);
     }
     
-    // Заполняет объект значений полей при изменении (обычные инпуты)
-    const onInputChange = (e) => {
-        // Обработка чекбокса
-        if (e.target.type && e.target.type === 'checkbox') {
-            setValues({...values, [e.target.name]: e.target.checked});
-            return;
-        } 
-
-        // Обработка остальных стандартных инпутов
-        setValues({...values, [e.target.name]: e.target.value})
-    }
-
     // 
     const [distValues, setDistValues] = useState([
         
     ]);
 
-    // Заполняет массив точек назначения / пассажиров в объекте значений полей при изменении (вложенные инпуты)
-    const onInputInSectionChange = (e) => {
-
-
-        // Обновляет объект destinationPoints, создавая или дополняя внутренний
-        // объект с названием очередной секции (по атрибуту section-id)
-        setValues(prev => {
-            return {...prev,
-                "destinationPoints": {...prev.destinationPoints,
-                    [e.target.getAttribute('data-section-id')]: {
-                        ...prev.destinationPoints[e.target.getAttribute('data-section-id')],
-                        [e.target.name]: e.target.value,
-                    },
-                },
-            }
-        })
-    }
-
-    // Дублирует предыдущую функцию для пассажиров (TODO: объединить в одну функцию)
-    const onInputPassengerInSectionChange = (e) => {
-
-
-        // Обновляет объект passengersInfo, создавая или дополняя внутренний
-        // объект с названием очередной секции (по атрибуту section-id)
-        setValues(prev => {
-            return {...prev,
-                "passengersInfo": {...prev.passengersInfo,
-                    [e.target.getAttribute('data-section-id')]: {
-                        ...prev.passengersInfo[e.target.getAttribute('data-section-id')],
-                        [e.target.name]: e.target.value,
-                    },
-                },
-            }
-        })
-    }
 
     // console.clear();
     console.log(values);
@@ -406,7 +357,7 @@ export default function New() {
             {
                 sectionsInputs.map((item, index) => {
                     if (item.component == "section") {
-                        return <SectionInput key={`${index}`} id={index} {...item} onChange={onInputChange}/>
+                        return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     }
 
                     // Кнопки (например добавление пункта назначения) 

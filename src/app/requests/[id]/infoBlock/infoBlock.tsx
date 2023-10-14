@@ -43,7 +43,7 @@ export default function InfoBlock(props) {
                     <div>
                         <p className={style.info}>
                             {props.edit ? (
-                                    <InputForm value={(props.waiting ? Waiting(props.info) : props.info)} type={props.waiting ? 'time' : (props.phone ? 'tel' : 'text')}/>
+                                    <InputForm dataSectionID={props.dataSectionID} onChange={props.onChange} name={props.name} value={(props.waiting ? Waiting(props.info) : props.info)} type={props.waiting ? 'time' : (props.phone ? 'tel' : 'text')}/>
                                 )
                                 : (props.waiting ? Waiting(props.info) : props.info)}
                         </p>
@@ -55,11 +55,11 @@ export default function InfoBlock(props) {
                 props.dataTime ? (
                     <div className={style.dataTime}>
                         {/*пофиксить чтоб при переходе на инпут значением выдавало дату*/}
-                        <p className={style.info}>{props.edit ? (<InputForm value={dateInput} type='date'/>) : date}</p>
+                        <p className={style.info}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_date"} max={"2050-12-31"} onChange={props.onChange} value={dateInput} type='date'/>) : date}</p>
                         {
                             props.edit ? '' : <span>|</span>
                         }
-                        <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<InputForm value={time} type='time'/>) : time}</p>
+                        <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_time"} onChange={props.onChange} value={time} type='time'/>) : time}</p>
                         {
                             props.edit ? '' : <span>|</span>
                         }
