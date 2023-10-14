@@ -1,7 +1,6 @@
 .main{
   display: flex;
   justify-content: center;
-
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -15,7 +14,7 @@
   height: auto;
   background: white;
   overflow: hidden auto;
-  padding: 50px;
+  padding: 20px 50px 50px 50px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
@@ -24,17 +23,12 @@
 .block::-webkit-scrollbar {
   width: 1px;
 }
-.positionClose{
-  position: relative;
-  width: 110%;
-  padding: 10px 0;
-}
 .close{
   transform: rotate(45deg) scale(3);
   background: none;
   border: none;
   position: sticky;
   top: 0;
-  right: 0;
-  float: right;
+  left: 70%;
+  margin-bottom: 10px;
 }

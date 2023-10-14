@@ -1,9 +1,11 @@
 .main{
+  min-height: 85vh;
   height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
   position: relative;
+  background: #eeeeee;
 }
 .positionTitle{
   display: flex;
