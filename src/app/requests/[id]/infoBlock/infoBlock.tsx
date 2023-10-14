@@ -49,8 +49,6 @@ export default function InfoBlock(props) {
         typeInput = 'text'
     }
 
-    console.log(typeInput)
-
     return (
         <div className={style.main} style={props.noBorder ? {border: "none"} : {}}>
             <p className={style.title}>{props.title}</p>
