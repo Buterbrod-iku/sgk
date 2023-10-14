@@ -119,9 +119,8 @@ export default function CarForm(props) {
     return (
         <div className={style.main}>
             <div className={style.block}>
-                <div className={style.positionClose}>
-                    <button className={style.close} onClick={close}>+</button>
-                </div>
+
+                <button className={style.close} onClick={close} style={{zIndex: '99'}}>+</button>
 
                 {
                     sectionsInputs.map((item, index) => {

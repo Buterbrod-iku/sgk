@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react';
 import style from './inputForm.module.scss'
 import {integerFormatter, phoneFormatter} from "@/app/requests/utils/formUtils";
