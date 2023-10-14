@@ -24,21 +24,54 @@ const ReversRoutePoint = (request) => {
     return result
 }
 
-
 export default function OpenRequest (props) {
     const router = useParams()
     const routerId = router.id
+
+    // стэйт для основной заявки, которая будет выводиться
     const [newRequest, setPost] = useState({})
 
+    // ответ с сервера (приходит массив). Первый объект - сама заявка, остальные - похожие
+    const [allRoutes, setAllRoutes] = useState()
+
+    // массив похожих заявок. Тут будет только id и маршрут
+    const [newPath, setNewPath] = useState([])
+
+    // хук для запроса на сервер
     const [fetchPostById, isLoading, error] = useFetching(async (id) => {
         const response = await PostService.getById(id)
+
+        // если есть похожие заявки, то проходим по ним и достаём id и маршрут
+        if(response.data.length > 1){
+            await response.data.slice(1).map(item => {
+                let object = {
+                    routeId: item.route._id,
+                    path: ReversRoutePoint(item)
+                }
+
+                setNewPath([...newPath, object])
+            })
+        }
+
+        setAllRoutes(response.data)
         setPost(response.data[0])
     })
 
+    console.log(allRoutes)
+
     useEffect(() => {
-        fetchPostById(routerId)
+        // тк мы можем посмотреть подходящую заявку, при нажатии на кнопку
+        // в newPath пропсом в этот компонент передаётся id если пропс есть, то он прогонит его
+        if(props.pathId){
+            fetchPostById(props.pathId)
+        } else {
+            fetchPostById(routerId)
+        }
     }, [])
 
+    // хз почему, но после запроса может случится такое, что в массиве orders будет null последним элементом
+    // в постмене такого нет, но когда получем объект, то он появляется.
+    // если null есть, то удаляем его
     newRequest.orders?.map((item, index) => item === null ? delete newRequest.orders[index] : '')
 
     const [openInfo, setOpenInfo] = useState(true);
@@ -144,10 +177,12 @@ export default function OpenRequest (props) {
                                             <div className={style.absolutTitle}>
                                                 <p>Доступные маршруты</p>
                                             </div>
-                                            <NewPath title="Барнаул-Бийск"/>
-                                            <NewPath title="Барнаул-Бийск"/>
-                                            <NewPath title="Барнаул-Бийск"/>
-                                            <NewPath title="Барнаул-Бийск"/>
+                                            {
+                                                // TODO: если доступных маршрутов нет, то надо вывести надпись
+                                                newPath.map(item => (
+                                                    <NewPath key={item.routeId} title={item.path} routeId={item.routeId}/>
+                                                ))
+                                            }
                                         </div>)
                             }
 

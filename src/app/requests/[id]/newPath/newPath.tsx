@@ -21,7 +21,7 @@ export default function NewPath(props) {
             setModal([])
         }
         e.preventDefault();
-        setModal(modal.concat(<OpenRequest buttonEdit={true} addStyle={{height: "75vh", width: "80vw"}} close={true} fun={close} newPath={true} style={style}/>))
+        setModal(modal.concat(<OpenRequest pathId={props.routeId} buttonEdit={true} addStyle={{height: "75vh", width: "80vw"}} close={true} fun={close} newPath={true} style={style}/>))
     }
 
     return (
