@@ -8,7 +8,7 @@ export default function contactWithTC() {
             <p className={style.note}>
                 <span className={style.noteSpan}>*ТК - транспортная компания</span>
                 <span className={style.noteSpan}>АХО - сотрудник АХО</span>
-                <span className={style.noteSpan}>П - пользователь без особых прав доступа</span>
+                <span className={style.noteSpan}>П - пользователь</span>
             </p>
             <div className={style.position}>
                 {
@@ -26,8 +26,8 @@ let arrayCard = [
         about: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis ex harum ipsam laudantium modi, natus nemo optio perferendis quisquam reprehenderit rerum sint sit tempore totam. Deserunt ipsa obcaecati recusandae.",
         contact: [
             {
-                fio: "Мелков Илья Андреевич",
-                value: "+7 (909)506-00-55"
+                fio: "Телефон",
+                value: "+7 (333)333-33-33"
             },
             {
                 fio: "E-mail",
@@ -52,8 +52,8 @@ let arrayCard = [
         about: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis ex harum ipsam laudantium modiehenderit rerum sint sit tempore totam. Deserunt ipsa obcaecati recusandae.",
         contact: [
             {
-                fio: "Мелков Илья Андреевич",
-                value: "+7 (909)506-00-55"
+                fio: "Телефон",
+                value: "+7 (333)333-33-33"
             }
         ]
     },
@@ -63,8 +63,8 @@ let arrayCard = [
         about: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis ex harum ipsam laudantium modi, natus nemo optio perferendis quisquam reprehenderit rerum sint sit tempore totam. Deserunt ipsa obcaecati recusandae.",
         contact: [
             {
-                fio: "Мелков Илья Андреевич",
-                value: "+7 (909)506-00-55"
+                fio: "Телефон",
+                value: "+7 (333)333-33-33"
             },
             {
                 fio: "E-mail",
@@ -78,20 +78,12 @@ let arrayCard = [
         about: "Lorem ipsm qweqwekj jd kjas ngfn kvd ;;fsd knsndf j reoewir ihrejjgbhf dvb j dolor sit amet, consectetur adipisicing elit. Accusamus debitis ex harum ipsam laudantium modi, natus nemo optio perferendis quisquam reprehenderit rerum sint sit tempore totam. Deserunt ipsa obcaecati recusandae.",
         contact: [
             {
-                fio: "Мелков Илья Андреевич",
-                value: "+7 (909)506-00-55"
+                fio: "Телефон",
+                value: "+7 (333)333-33-33"
             },
             {
                 fio: "E-mail",
                 value: "asdasasd@gmail.com"
-            },
-            {
-                fio: "E-mail",
-                value: "322332332@gmail.com"
-            },
-            {
-                fio: "E-mail",
-                value: "qweqweqweq@gmail.com"
             }
         ]
     },

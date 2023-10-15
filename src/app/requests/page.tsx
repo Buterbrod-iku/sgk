@@ -26,7 +26,7 @@ const ReversRoutePoint = (request) => {
     return result
 }
 
-const NoneRequests = () => {
+export const NoneRequests = () => {
     return (
         <div className={style.NoneRequests}>
             <p>Нет заявок</p>

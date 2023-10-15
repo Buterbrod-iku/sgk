@@ -14,6 +14,7 @@ import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 import {Change} from "@/app/requests/[id]/change/change";
+import {NoneRequests} from "@/app/requests/page";
 
 
 const ReversRoutePoint = (request) => {
@@ -203,7 +204,7 @@ export default function OpenRequest (props) {
 
                                     <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
                                         {/*промежуточные точки*/}
-                                        <RoutePoint point={newRequest.orders[0].route.loadingAddress.address}/>
+                                        <RoutePoint point={newRequest?.orders[0]?.route?.loadingAddress.address}/>
                                         {
                                             newRequest?.orders?.map((item, index) => (
                                                 <RoutePoint key={index} point={item.route.unloadingAddress.address}/>
@@ -242,12 +243,11 @@ export default function OpenRequest (props) {
                                             </div>
                                             {
                                                 // TODO: если доступных маршрутов нет, то надо вывести надпись
-                                                newPath
+                                                newPath.length > 0
                                                     ? newPath.map(item => (
                                                         <NewPath key={item.routeId} title={item.path} routeId={item.routeId} mainRouteId={routerId}/>
                                                     ))
-                                                    : ''
-
+                                                    : (<NoneRequests />)
                                             }
                                         </div>)
                             }
