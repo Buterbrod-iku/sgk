@@ -199,6 +199,7 @@ export default function New() {
        let idKey = "dist_" + (distPoints.length + 1);
         setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} onChange={(e) => onListChange(e, "destinationPoints", setValues)}/>])
     }
+    
 
     function closeDistHandler(e, id) {
         console.log("closed " + id);
@@ -250,6 +251,16 @@ export default function New() {
        setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={(e) => onListChange(e, "passengersInfo", setValues)}/>])
     }
  
+
+    // Инициализирует sections точки назначения и информации о пассажире
+    const [firstCreated, setFirstCreated] = useState(true);
+    if (firstCreated) { 
+        setFirstCreated(false);
+
+        addDistPointHandler(1); // TODO: Убрать аргумент e из функции
+        addPassengerHandler(1); // TODO: Убрать аргумент e из функции
+    }
+
     function closePassengerHandler(e, id) {
         console.log("closed " + id);
         setPassengers(prevEndPoint => {
