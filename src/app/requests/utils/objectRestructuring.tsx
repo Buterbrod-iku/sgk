@@ -25,7 +25,7 @@ const TypeOfTransportation = (cargoWeight: string, passengersAmount: string) => 
 
 // Функция преобразования строк <дата> / <дата> <временя> формата <yyyy-mm-dd> <hh:mm> в Unix Timestamp (в секундах)
 // Если <time> существует, но не имеет формат hh:mm, то функция вернёт значение -1
-function ConvertToUnixTime(date: string, time: string = "") {
+export function ConvertToUnixTime(date: string, time: string = "") {
     let unixTime:number = Math.floor(new Date(date).getTime() / 1000);
     if (time != "") {
         // Проверка формата hh:mm

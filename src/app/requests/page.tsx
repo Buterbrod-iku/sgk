@@ -90,12 +90,18 @@ export default function Request() {
                             : (
                                 current.length === 0
                                     ? (<NoneRequests />)
-                                    :  current.map(item => <LineTable key={item.route._id}
-                                                                      requestID={item.route._id}
-                                                                      date={ReversDateTime(item?.orders[0]?.date.loadingTime)}
-                                                                      name={item?.orders[0]?.order?.devisionName}
-                                                                      path={ReversRoutePoint(item)}
-                                                                      isSingle={item.route.isSingle} />)
+                                    :  current.map(item => {
+                                        if(item.route?.status !== 'merged'){
+                                            return (
+                                                <LineTable key={item.route._id}
+                                                           requestID={item.route._id}
+                                                           date={ReversDateTime(item?.orders[0]?.date.loadingTime)}
+                                                           name={item?.orders[0]?.order?.devisionName}
+                                                           path={ReversRoutePoint(item)}
+                                                           isSingle={item.route.isSingle} />
+                                            )
+                                        }
+                                    })
                             )
                     }
                 </tbody>
