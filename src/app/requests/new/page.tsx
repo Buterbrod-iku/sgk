@@ -288,7 +288,16 @@ export default function New() {
         return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=09ffa4b8-a280-4606-a6f2-91f74c2bba7b&geocode=${getFormattedAddress(address)}`)
         .then(response => {
             // console.log("yandex", parser.parse(response.data));
-            let coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
+            // console.log("yandex", `https://geocode-maps.yandex.ru/1.x/?apikey=09ffa4b8-a280-4606-a6f2-91f74c2bba7b&geocode=${getFormattedAddress(address)}`);
+            
+            let dataParsed = parser.parse(response.data);
+            let coordsArr;
+            if (Array.isArray(dataParsed.ymaps.GeoObjectCollection.featureMember)) {
+                coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
+            } else {
+                coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember.GeoObject.Point.pos.split(' ');
+            }
+            
             return (
                 {
                     long: coordsArr[0],
