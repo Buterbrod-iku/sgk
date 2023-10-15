@@ -2,6 +2,7 @@ import style from './infoBlock.module.scss'
 import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import InputForm from "@/app/requests/new/inputForm/inputForm";
 import {Chelsea_Market} from "next/dist/compiled/@next/font/dist/google";
+import {phoneFormatter} from "@/app/requests/utils/formUtils";
 
 const Waiting = (time) => {
     if(time < 60){
@@ -44,11 +45,12 @@ export default function InfoBlock(props) {
     } else if(props.name === "destinationPoint_waitingTime"){
         typeInput = 'time'
     } else if(props.name === "passengersInfo_phoneNumber"){
-        typeInput = 'tel'
+        typeInput = 'tel';
     } else {
         typeInput = 'text'
     }
 
+    
     return (
         <div className={style.main} style={props.noBorder ? {border: "none"} : {}}>
             <p className={style.title}>{props.title}</p>
@@ -59,7 +61,10 @@ export default function InfoBlock(props) {
                             {props.edit ? (
                                     <InputForm dataSectionID={props.dataSectionID} onChange={props.onChange} name={props.name} value={(props.waiting ? Waiting(props.info) : props.info)} type={typeInput}/>
                                 )
-                                : (props.waiting ? Waiting(props.info) : props.info)}
+                                // TODO: Избавиться от этого ужаса
+                                : (props.name === "passengersInfo_phoneNumber") ?
+                                (phoneFormatter(props.info)) :
+                                (props.waiting ? Waiting(props.info) : props.info)}
                         </p>
                     </div>)
                     : ""
