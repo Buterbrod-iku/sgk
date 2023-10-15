@@ -34,12 +34,12 @@ export const Change = (newObj, last) => {
             console.log(8)
         }
         // time!!!!!
-        else if((ConvertToUnixTime(newObj.destinationPoints[`dest_${i}`].destinationPoint_date, newObj.destinationPoints[`dest_${i}`].destinationPoint_time) - old.orders[i].date.unloadingTime) !== 0){
+        if((ConvertToUnixTime(newObj.destinationPoints[`dest_${i}`].destinationPoint_date, newObj.destinationPoints[`dest_${i}`].destinationPoint_time) - old.orders[i].date.unloadingTime) !== 0){
             old.orders[i].date.unloadingTime = ConvertToUnixTime(newObj.destinationPoints[`dest_${i}`].destinationPoint_date, newObj.destinationPoints[`dest_${i}`].destinationPoint_time)
             console.log(12)
         }
 
-        else if(reversWaiting(newObj.destinationPoints[`dest_${i}`].destinationPoint_waitingTime) !== old.orders[i].date.unloadingWaiting){
+        if(reversWaiting(newObj.destinationPoints[`dest_${i}`].destinationPoint_waitingTime) !== old.orders[i].date.unloadingWaiting){
             console.log(reversWaiting(newObj.destinationPoints[`dest_${i}`].destinationPoint_waitingTime))
             console.log(old.orders[i].date.unloadingWaiting)
 
@@ -54,7 +54,8 @@ export const Change = (newObj, last) => {
         if(newObj.passengersInfo[`passenger_${i}`].passengersInfo_fullName !== old.orders[0].order.passengers[i].fullName){
             old.orders[0].order.passengers[i].fullName = newObj.passengersInfo[`passenger_${i}`].passengersInfo_fullName
             console.log(4)
-        } else if(ReformatPhoneNumber(newObj.passengersInfo[`passenger_${i}`].passengersInfo_phoneNumber) !== old.orders[0].order.passengers[i].phoneNumber){
+        }
+        if(ReformatPhoneNumber(newObj.passengersInfo[`passenger_${i}`].passengersInfo_phoneNumber) !== old.orders[0].order.passengers[i].phoneNumber){
             old.orders[0].order.passengers[i].phoneNumber = ReformatPhoneNumber(newObj.passengersInfo[`passenger_${i}`].passengersInfo_phoneNumber)
             console.log(5)
         }
@@ -72,7 +73,7 @@ export const Change = (newObj, last) => {
         old.orders[0].date.loadingTime = ConvertToUnixTime(newObj.carStartPoint_dateTime_date)
         console.log(8)
     }
-    else if((ConvertToUnixTime(newObj.carStartPoint_dateTime_date, newObj.carStartPoint_dateTime_time) - old.orders[0].date.loadingTime) !== 0){
+    if((ConvertToUnixTime(newObj.carStartPoint_dateTime_date, newObj.carStartPoint_dateTime_time) - old.orders[0].date.loadingTime) !== 0){
         old.orders[0].date.loadingTime = ConvertToUnixTime(newObj.carStartPoint_dateTime_date, newObj.carStartPoint_dateTime_time)
         console.log(11)
     }

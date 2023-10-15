@@ -1,6 +1,9 @@
 import style from './newPath.module.scss'
 import OpenRequest from "@/app/requests/[id]/page";
 import {useState} from "react";
+import PostService from "@/app/API/postService";
+import {Change} from "@/app/requests/[id]/change/change";
+import {useRouter} from "next/navigation";
 
 export default function NewPath(props) {
     const [modal, setModal] = useState([]);
@@ -24,6 +27,23 @@ export default function NewPath(props) {
         setModal(modal.concat(<OpenRequest pathId={props.routeId} buttonEdit={true} addStyle={{height: "75vh", width: "80vw"}} close={true} fun={close} newPath={true} style={style}/>))
     }
 
+    let link = useRouter()
+
+    const mergeRequest = async (e) => {
+        e.preventDefault()
+
+        const response = await PostService.mergeRoute({
+            "routes": [
+                props.mainRouteId,
+                props.routeId
+            ]
+        })
+
+        await link.push(`/requests/${response.data._id}`)
+    }
+
+
+
     return (
         <div className={style.main}>
             <div className={style.position}>
@@ -33,7 +53,7 @@ export default function NewPath(props) {
                     modal
                 }
             </div>
-            <button className={style.accept}>Принять</button>
+            <button className={style.accept} onClick={mergeRequest}>Принять</button>
         </div>
     )
 }

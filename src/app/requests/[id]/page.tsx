@@ -29,7 +29,7 @@ const ReversRoutePoint = (request) => {
 const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
     if(allRoutes.length > 1){
          await allRoutes.map(item => {
-            if(item.route._id !== routerId){
+            if((item.route._id !== routerId) && (item.route.status !== 'merged') && (item.route.status !== 'built')){
                 console.log(newPath)
                 setNewPath((res) => [
                     ...res,
@@ -203,7 +203,7 @@ export default function OpenRequest (props) {
 
                                     <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
                                         {/*промежуточные точки*/}
-                                        <RoutePoint point={newRequest?.orders[0]?.route?.loadingAddress.address}/>
+                                        <RoutePoint point={newRequest.orders[0].route.loadingAddress.address}/>
                                         {
                                             newRequest?.orders?.map((item, index) => (
                                                 <RoutePoint key={index} point={item.route.unloadingAddress.address}/>
@@ -232,7 +232,7 @@ export default function OpenRequest (props) {
 
 
                             {
-                                newRequest?.route.isSingle ?
+                                newRequest?.route?.isSingle ?
                                     ""
                                     :
                                     props.newPath ? "" : (
@@ -244,7 +244,7 @@ export default function OpenRequest (props) {
                                                 // TODO: если доступных маршрутов нет, то надо вывести надпись
                                                 newPath
                                                     ? newPath.map(item => (
-                                                        <NewPath key={item.routeId} title={item.path} routeId={item.routeId}/>
+                                                        <NewPath key={item.routeId} title={item.path} routeId={item.routeId} mainRouteId={routerId}/>
                                                     ))
                                                     : ''
 

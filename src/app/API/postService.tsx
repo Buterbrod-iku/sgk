@@ -33,4 +33,9 @@ export default class PostService {
         const response = await axios.patch('http://localhost:5000/routes/complex/' + routeId, object)
         return response
     }
+
+    static async mergeRoute(object) {
+        const response = await axios.post('http://localhost:5000/routes/std/merge', object)
+        return response
+    }
 }

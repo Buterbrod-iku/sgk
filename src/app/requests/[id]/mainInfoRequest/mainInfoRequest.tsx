@@ -72,7 +72,7 @@ export default function MainInfoRequest(props) {
         props.setValFunc({
             destinationPoints: {},
             passengersInfo: {},
-            devisionName: props.allInfo?.orders[0].order.devisionName,
+            devisionName: props.allInfo?.orders[0]?.order?.devisionName,
             carStartPoint_address: props.allInfo?.orders[0].route.loadingAddress.address,
             carStartPoint_dateTime_date: getDate(props.allInfo?.orders[0].date.loadingTime),
             carStartPoint_dateTime_time: getTime(props.allInfo?.orders[0].date.loadingTime),
