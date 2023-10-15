@@ -37,7 +37,7 @@ export default function MainInfoRequest(props) {
         if(type === 'date'){
             return dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()
         } else if(type === 'month'){
-            return dateTime.getUTCMonth() < 10 ? '0' + dateTime.getUTCMonth() : dateTime.getUTCMonth()
+            return (dateTime.getUTCMonth() + 1) < 10 ? '0' + (dateTime.getUTCMonth() + 1) : (dateTime.getUTCMonth() + 1)
         } else {
             return '00'
         }
@@ -55,7 +55,7 @@ export default function MainInfoRequest(props) {
     }
     const Waiting = (time) => {
         if(time < 60){
-            return time
+            return '00:' + time.toString()
         } else {
             let hours = Math.floor(time / 60)
             return (hours < 10 ? '0' + hours : hours).toString() + ':' +  ((time - hours * 60) < 10 ? '0' + (time - hours * 60) : (time - hours * 60)).toString()

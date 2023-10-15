@@ -9,7 +9,7 @@ import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
 import axios, {all} from "axios";
-import {useParams, usePathname} from "next/navigation";
+import {useParams, usePathname, useRouter} from "next/navigation";
 import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
@@ -78,8 +78,6 @@ export default function OpenRequest (props) {
                 setPost(item)
             }
         })
-
-        await setTitle(ReversRoutePoint(newRequest))
     })
 
 
@@ -88,6 +86,13 @@ export default function OpenRequest (props) {
         findNewPath(allRoutes, newPath, setNewPath ,routerId)
 
     }, [allRoutes])
+
+    useEffect(() => {
+        const renameTitle = async () => {
+            await setTitle(ReversRoutePoint(newRequest))
+        }
+        renameTitle()
+    }, [newRequest])
 
     // хз почему, но после запроса может случится такое, что в массиве orders будет null последним элементом
     // в постмене такого нет, но когда получем объект, то он появляется.
@@ -119,12 +124,16 @@ export default function OpenRequest (props) {
         }
     }
 
+    let link = useRouter()
 
-    const createEdit = (e) => {
+    const createEdit = async (e) => {
         e.preventDefault()
-        console.log("----")
-        console.log(Change(values, object))
-        console.log("----")
+
+        const response = await PostService.switchRoute(routerId, Change(values, object))
+
+        await link.push(`/requests/${response.data.route._id}`)
+
+        setEdit(!edit)
     }
 
     const swichInfo = (e) => {
@@ -160,8 +169,8 @@ export default function OpenRequest (props) {
                                 {newRequest?.route?.isSingle ? (<div className={style.locked}></div>) : ''}
 
                                 {
-                                    title.length > 60
-                                        ? title.slice(0, 50) + '...'
+                                    title.length > 90
+                                        ? title.slice(0, 90) + '...'
                                         : title
                                 }
                             </h4>
