@@ -39,7 +39,10 @@ export default function Request() {
     const [appState, setAppState] = useState([]);
 
     const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
-        const response = await PostService.getAll()
+        let response = await PostService.getAll()
+
+        response = response.filter(item => item.route?.status !== 'merged')
+
         setAppState(response)
     })
 
@@ -91,7 +94,6 @@ export default function Request() {
                                 current.length === 0
                                     ? (<NoneRequests />)
                                     :  current.map(item => {
-                                        if(item.route?.status !== 'merged'){
                                             return (
                                                 <LineTable key={item.route._id}
                                                            requestID={item.route._id}
@@ -100,7 +102,6 @@ export default function Request() {
                                                            path={ReversRoutePoint(item)}
                                                            isSingle={item.route.isSingle} />
                                             )
-                                        }
                                     })
                             )
                     }
