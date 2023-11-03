@@ -1,0 +1,47 @@
+.main{
+  background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(238,238,238, 0.6) 100%);
+  min-height: 250px;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #afafaf;
+  position: relative;
+  hr{
+    width: calc(100% + 20px);
+    border: 1px solid #afafaf;
+    margin-left: -10px;
+  }
+  cursor: pointer;
+}
+.link{
+  text-decoration: none;
+  color: black;
+}
+.name{
+  font-size: 1.4em;
+  font-family: Consolas;
+  margin: 3px 0;
+}
+.phone{
+  font-size: 0.9em;
+  font-family: Consolas;
+  margin-bottom: 5px;
+}
+.car{
+  font-size: 1em;
+  font-family: Consolas;
+  margin-top: 5px;
+}
+.button{
+  width: auto;
+  height: auto;
+  padding: 10px 20px;
+  border: none;
+  background: #4272bb;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+
+  color: #dcdcdc;
+}
