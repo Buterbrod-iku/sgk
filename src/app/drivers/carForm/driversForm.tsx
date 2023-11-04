@@ -20,76 +20,62 @@ export default function DriversForm(props) {
     const sectionsInputs = [
         {
             component: "section",
-            sectionLabel: "Марка автомобиля",
+            sectionLabel: "ФИО водителя",
             require: true,
             inputs: [
                 {
                     name: "specialMarks",
                     type: "text",
-                    placeholder: "Название"
+                    placeholder: "Иванов Иван Иванович"
                 }
             ]
         },
         {
+            // ввод графика
             component: "section",
-            sectionLabel: "Номер автомобиля",
+            sectionLabel: "График работы",
             require: true,
             inputs: [
                 {
                     name: "tsNumber",
                     type: "text",
-                    placeholder: "а000аа"
+                    placeholder: "2 через 2"
                 }
             ]
         },
         {
             component: "section",
-            sectionLabel: "Грузоподъемность и количество посадочных мест",
+            sectionLabel: "Категория транспортного средства",
+            require: true,
+            inputs: [
+                {
+                    name: "typeCapacity",
+                    type: "text",
+                    placeholder: "Грузовой, пассажирский, грузопассажирский"
+                }
+            ]
+        },
+        {
+            component: "section",
+            sectionLabel: "Номер телефона",
+            require: true,
+            inputs: [
+                {
+                    name: "phoneNumber",
+                    type: "tel",
+                    placeholder: "+7 (999) 999-99-99"
+                }
+            ]
+        },
+        {
+            component: "section",
+            sectionLabel: "E-mail водителя",
             require: true,
             inputs: [
                 {
                     name: "loadCapacity",
-                    type: "integer",
-                    placeholder: "Грузоподъемность кг/м3"
-                },
-                {
-                    name: "numberOfSeats",
-                    type: "integer",
-                    placeholder: "Количество посадочных мест"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Водитель",
-            require: true,
-            inputs: [
-                {
-                    name: "driver",
-                    type: "text",
-                    placeholder: "ФИО водителя"
-                },
-                {
-                    name: "phoneDriver",
-                    type: "tel",
-                    placeholder: "Номер телефона"
-                },
-                {
-                    name: "emailDriver",
                     type: "email",
-                    placeholder: "E-mail водителя"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Цена за 1 километр",
-            require: true,
-            inputs: [
-                {
-                    name: "pricePerKm",
-                    type: "integer",
-                    placeholder: "Рубли"
+                    placeholder: ""
                 }
             ]
         },

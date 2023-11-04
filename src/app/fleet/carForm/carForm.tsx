@@ -61,28 +61,6 @@ export default function CarForm(props) {
         },
         {
             component: "section",
-            sectionLabel: "Водитель",
-            require: true,
-            inputs: [
-                {
-                    name: "driver",
-                    type: "text",
-                    placeholder: "ФИО водителя"
-                },
-                {
-                    name: "phoneDriver",
-                    type: "tel",
-                    placeholder: "Номер телефона"
-                },
-                {
-                    name: "emailDriver",
-                    type: "email",
-                    placeholder: "E-mail водителя"
-                }
-            ]
-        },
-        {
-            component: "section",
             sectionLabel: "Цена за 1 километр",
             require: true,
             inputs: [

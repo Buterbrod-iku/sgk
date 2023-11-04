@@ -15,9 +15,10 @@ import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 import {Change} from "@/app/requests/[id]/change/change";
 import {NoneRequests} from "@/app/requests/page";
+import pathAdaptive from "@/components/static/header/pathAdaptive";
 
 
-const ReversRoutePoint = (request) => {
+export const ReversRoutePoint = (request) => {
     let result = request.orders[0].route.loadingAddress.address
 
     request.orders.map(item => (
@@ -31,7 +32,7 @@ const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
     if(allRoutes.length > 1){
          await allRoutes.map(item => {
             if((item.route._id !== routerId) && (item.route.status !== 'merged') && (item.route.status !== 'built')){
-                console.log(newPath)
+                //console.log(newPath)
                 setNewPath((res) => [
                     ...res,
                     {
@@ -45,6 +46,11 @@ const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
 }
 
 export default function OpenRequest (props) {
+    const location = usePathname()
+    let path = []
+    path = pathAdaptive(location)
+    console.log(path)
+
     const router = useParams()
     let routerId = router.id
 
@@ -68,6 +74,7 @@ export default function OpenRequest (props) {
     // массив похожих заявок. Тут будет только id и маршрут
     const [newPath, setNewPath] = useState([])
     const [title, setTitle] = useState('')
+
     // хук для запроса на сервер
     const [fetchPostById, isLoading, error] = useFetching(async (id) => {
         const response = await PostService.getById(id)
@@ -121,7 +128,7 @@ export default function OpenRequest (props) {
         e.preventDefault()
         setEdit(!edit)
         if (edit) {
-            console.log("Data Save Object: ", {a: 1, b: 2, c: 3});
+            //console.log("Data Save Object: ", {a: 1, b: 2, c: 3});
         }
     }
 
