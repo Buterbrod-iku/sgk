@@ -48,16 +48,16 @@ export default function Request() {
 
     useEffect(() => {
         fetchPostGetAll()
-    }, [appState])
+    }, [])
 
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
     // perPage - сколько объектов будет на одной странице
-    const perPage = 10
+    const perPage = 9
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
-    let current;
+    const [current, setCurrent] = useState([])
 
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber)
@@ -68,14 +68,57 @@ export default function Request() {
     const nextPage = () => setCurrentPage(prev => prev >= appState.length / perPage ? prev : prev + 1)
     const startPage = () => setCurrentPage(1)
 
-    current = appState.slice(firstIndex, lastIndex)
+    useEffect(() => {
+        setCurrent(appState.slice(firstIndex, lastIndex))
+    }, [appState, lastIndex])
+
+
+    const sortDate = (evt) => {
+        if (evt.target.value === "1") {
+            fetchPostGetAll()
+        }
+        else if (evt.target.value === "2") {
+            setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime <= b.orders[0].date.loadingTime ? 1 : -1))
+            setCurrent(appState.slice(firstIndex, lastIndex))
+        }
+        else if(evt.target.value === "3"){
+            setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime >= b.orders[0].date.loadingTime ? 1 : -1))
+            setCurrent(appState.slice(firstIndex, lastIndex))
+        }
+        else if(evt.target.value === "4"){
+            setAppState(appState.sort((a, b) => a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1))
+            setCurrent(appState.slice(firstIndex, lastIndex))
+        }
+        else if(evt.target.value === "5"){
+            setAppState(appState.sort((a, b) => a.route.isSingle ? a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1 : 1))
+            setCurrent(appState.slice(firstIndex, lastIndex))
+        }
+    }
 
     return (
         <div className={style.main}>
             <div className={style.position}>
-                <h3 className={style.title}>Все заявки</h3>
+
+                <div className={style.sortPosition}>
+                    <h3 className={style.title}>Все заявки</h3>
+                    <div className={style.select}>
+                        <select className={style.ssel} onClick={sortDate}>
+                            <option disabled selected hidden>Сортировка</option>
+                            <option value="1">Новые</option>
+                            <option value="2">По дате (сначала новые)</option>
+                            <option value="3">По дате (сначала старые)</option>
+                            <option value="4">По ТК</option>
+                            <option value="5">Приватные поездки</option>
+                        </select>
+                    </div>
+                </div>
                 <Link href={"/requests/new"}><button className={style.button}>Создать заявку</button></Link>
             </div>
+
+            {/*<div className={style.sortPosition}>*/}
+            {/*    <SortItem />*/}
+            {/*</div>*/}
+
             <table className={style.table}>
                 <thead>
                     <tr className={style.tr}>
@@ -91,9 +134,9 @@ export default function Request() {
                             ? (<Loading />)
                             // выводим страницу с заявками
                             : (
-                                current.length === 0
+                                current?.length === 0
                                     ? (<NoneRequests />)
-                                    :  current.map(item => {
+                                    :  current?.map(item => {
                                             return (
                                                 <LineTable key={item.route._id}
                                                            requestID={item.route._id}
