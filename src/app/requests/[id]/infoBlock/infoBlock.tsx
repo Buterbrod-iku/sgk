@@ -52,7 +52,7 @@ export default function InfoBlock(props) {
 
     
     return (
-        <div className={style.main} style={props.noBorder ? {border: "none"} : {}}>
+        <div className={style.main} style={props.noBorder ? {border: "none", padding: "7px 0"} : {}}>
             <p className={style.title}>{props.title}</p>
             {
                 props.info ? (

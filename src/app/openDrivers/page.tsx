@@ -37,7 +37,7 @@ export default function OpenCar() {
                     </div>
 
                     <div className={style.posRight}>
-                        <InfoBlock title="Грфаик работы" name="name" info={"2 через 2"} edit={edit}/>
+                        <InfoBlock title="Грaфик работы" name="name" info={"2 через 2"} edit={edit}/>
                         <InfoBlock title="Комментарий" name="name" info={b} edit={edit}/>
                     </div>
                 </div>

@@ -9,15 +9,18 @@ import {phoneFormatter} from "@/app/requests/utils/formUtils";
 export default function MainInfoRequest(props) {
     const [fullPassenger, setFullPassenger] = useState(false);
     const [fullPoint, setFullPoint] = useState(false);
+    const [fullCargo, setFullCargo] = useState(false);
     
     
     useEffect(() =>{
         if(props.edit){
             setFullPassenger(true);
             setFullPoint(true);
+            setFullCargo(true);
         } else {
             setFullPassenger(false);
             setFullPoint(false);
+            setFullCargo(false);
         }
     }, [props.edit])
 
@@ -110,7 +113,45 @@ export default function MainInfoRequest(props) {
             })))
     }
 
-    
+    const from = (index) => {
+        switch (index){
+            case 0:
+                return "Новосибирск"
+                break
+            case 1:
+                return "Тальменка"
+                break
+            case 2:
+                return "Барнаул"
+                break
+            case 3:
+                return "Тальменка"
+                break
+            case 4:
+                return "Тальменка"
+                break
+        }
+    }
+
+    const to = (index) => {
+        switch (index){
+            case 0:
+                return "Бийск"
+                break
+            case 1:
+                return "Бийск"
+                break
+            case 2:
+                return "Бийск"
+                break
+            case 3:
+                return "Новоалтайск"
+                break
+            case 4:
+                return "Новоалтайск"
+                break
+        }
+    }
 
     return (
         <>
@@ -142,15 +183,42 @@ export default function MainInfoRequest(props) {
                         <div key={index} className={style.openInfo} data-section-id={"passenger_" + index}  style={fullPassenger ? {display: "block"} : {display: "none"}}>
                             <InfoBlock title="ФИО сотрудника" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={passenger.fullName} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
                             <InfoBlock title="Телефон для оповещения" name="passengersInfo_phoneNumber" dataSectionID={"passenger_" + index} phone={true} info={passenger.phoneNumber} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                            <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={from(index)} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                            <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={to(index)} noBorder={true} edit={props.edit}/>
                         </div>))
                 }
+
+                {
+                    props.server ? "" : (
+                        <>
+                            <InfoBlock title="Груз" close={true} bool={fullCargo} setBool={setFullCargo} edit={props.edit}/>
+                            {
+                                props.allInfo?.orders[0].order.cargo.map((cargo, index) => (
+                                <div key={index} className={style.openInfo} data-section-id={"cargo_" + index}  style={fullCargo ? {display: "block"} : {display: "none"}}>
+                                <InfoBlock title="Характер груза" name="cargo_volumeCargo" dataSectionID={"cargo_" + index} phone={true} info={cargo.nameCargo} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Вес груза" name="cargo_weightCargo" dataSectionID={"cargo_" + index} info={cargo.weightCargo} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Объём груза" name="cargo_volumeCargo" dataSectionID={"cargo_" + index} phone={true} info={cargo.volumeCargo} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={from(index)} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={to(index)} noBorder={true} edit={props.edit}/>
+                                </div>))
+                            }
+                        </>
+                    )
+                }
+
 
             </div>
 
             <div className={style.infoBlock} style={props.openInfo ? {display: "none"} : {display: "block"}}>
-                <InfoBlock title="Общий объём багажа" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.cargoInRoute} edit={props.edit}/>
-                <InfoBlock title="Количество человек" onChange={(e) => oCD(e)} name="passengersAmount" info={props.allInfo?.route.passengersInRoute} edit={props.edit}/>
-                <InfoBlock title="Комментарий" onChange={(e) => oCD(e)} name="comment" info={props.allInfo?.route.comment} edit={props.edit}/>
+                <InfoBlock title="Тип перевозки" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.type}/>
+                <InfoBlock title="Номер автомобиля" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.tsNumber}/>
+                <InfoBlock title="Грузоподъемность" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.loadCapacity}/>
+                <InfoBlock title="Количество посадочных мест" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.numberOfSeats}/>
+
+                <InfoBlock title="ФИО водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.driver} edit={props.edit}/>
+                <InfoBlock title="Номер телефона" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.phone} edit={props.edit}/>
+                <InfoBlock title="Почта водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={props.allInfo?.route.car.email} edit={props.edit}/>
+                <InfoBlock title="Комментарий" onChange={(e) => oCD(e)} name="comment" info={"Важно доставить в срок"} edit={props.edit}/>
             </div>
         </>
     )

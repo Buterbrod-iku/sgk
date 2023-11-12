@@ -14,7 +14,7 @@ export default function NewPath(props) {
             alignItems: "center",
             justifyContent: "center",
             padding: "0",
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
             position: "fixed",
             top: "0", left: "0", right: "0", bottom: "0",
             width: "100vw", height: "100vh",
@@ -32,14 +32,16 @@ export default function NewPath(props) {
     const mergeRequest = async (e) => {
         e.preventDefault()
 
-        const response = await PostService.mergeRoute({
-            "routes": [
-                props.mainRouteId,
-                props.routeId
-            ]
-        })
+        link.push(`/requests/${props.routeId}`);
 
-        await link.push(`/requests/${response.data._id}`)
+        // const response = await PostService.mergeRoute({
+        //     "routes": [
+        //         props.mainRouteId,
+        //         props.routeId
+        //     ]
+        // })
+        //
+        // await link.push(`/requests/${response.data._id}`)
     }
 
 
