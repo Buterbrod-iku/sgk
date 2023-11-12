@@ -233,11 +233,11 @@ export default function Request() {
                     <tr className={style.tr}>
                         <th className={style.date} onClick={dateSort}>
                             Дата
-                            <div style={date === 0 ? {width: "15px",height: "2px", background: "rgb(16, 64, 82)", marginTop: '3px'} : date === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
+                            <div style={date === 0 ? {width: "15px",height: "0"} : date === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                         </th>
                         <th className={style.tc} onClick={tcSort}>
                             Структурное подразделение
-                            <div style={tc === 0 ? {width: "15px",height: "2px", background: "rgb(16, 64, 82)", marginTop: '3px'} : tc === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
+                            <div style={tc === 0 ? {width: "15px",height: "0"} : tc === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                         </th>
                         <th>Маршрут</th>
                     </tr>
