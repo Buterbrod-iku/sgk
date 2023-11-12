@@ -12,6 +12,49 @@
   align-items: center;
 }
 
+.date{
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  &:hover{
+    color: #4272bb;
+  }
+  div{
+    width: 25px;
+    height: 25px;
+    background-image: url("../../assets/images/arrow-down-svgrepo-com.svg");
+    background-size: cover;
+    background-position: center;
+    margin-left: 10px;
+    transition: 0.2s;
+    &:hover{
+      color: #4272bb;
+    }
+  }
+}
+.tc{
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  &:hover{
+    color: #4272bb;
+  }
+  div{
+    width: 25px;
+    height: 25px;
+    background-image: url("../../assets/images/arrow-down-svgrepo-com.svg");
+    background-size: cover;
+    background-position: center;
+    margin-left: 10px;
+    transition: 0.2s;
+    &:hover{
+      color: #4272bb;
+    }
+  }
+}
+
 .ssel {
   appearance: none;
   outline: 10px red;

@@ -16,6 +16,7 @@ import Loading from "@/app/requests/loading/loading";
 import {Change} from "@/app/requests/[id]/change/change";
 import {NoneRequests} from "@/app/requests/page";
 import pathAdaptive from "@/components/static/header/pathAdaptive";
+import {testRequest, testRequestMerged} from "@/app/requests/[id]/test";
 
 
 export const ReversRoutePoint = (request) => {
@@ -48,8 +49,20 @@ const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
 export default function OpenRequest (props) {
     const location = usePathname()
     let path = []
-    path = pathAdaptive(location)
-    console.log(path)
+
+    // стэйт для основной заявки, которая будет выводиться
+    let [newRequest, setPost] = useState({})
+    let [server, setServer] = useState(true)
+
+    if(location.split('/')[2] === "qasd4jcyd74hwbnc482"){
+        let hello = testRequest()
+        newRequest = hello
+        server = false
+    } else if(location.split('/')[2] === "vbjn2cvkj532cvjk3df"){
+        let qwe = testRequestMerged()
+        newRequest = qwe
+        server = false
+    }
 
     const router = useParams()
     let routerId = router.id
@@ -60,13 +73,12 @@ export default function OpenRequest (props) {
         if(props.pathId){
             routerId = props.pathId
             fetchPostById(routerId)
-        } else {
+        }
+        else {
             fetchPostById(routerId)
         }
     }, [])
 
-    // стэйт для основной заявки, которая будет выводиться
-    const [newRequest, setPost] = useState({})
 
     // ответ с сервера (приходит массив). Первый объект - сама заявка, остальные - похожие
     const [allRoutes, setAllRoutes] = useState([])
@@ -93,7 +105,18 @@ export default function OpenRequest (props) {
         // если есть похожие заявки, то проходим по ним и достаём id и маршрут
         findNewPath(allRoutes, newPath, setNewPath ,routerId)
 
+        setNewPath(
+            [
+                {
+                    "routeId": "vbjn2cvkj532cvjk3df",
+                    "path": "Тальменка - Новоалтайск"
+                }
+            ]
+        )
+
     }, [allRoutes])
+
+
 
     useEffect(() => {
         const renameTitle = async () => {
@@ -105,7 +128,7 @@ export default function OpenRequest (props) {
     // хз почему, но после запроса может случится такое, что в массиве orders будет null последним элементом
     // в постмене такого нет, но когда получем объект, то он появляется.
     // если null есть, то удаляем его
-    newRequest.orders?.map((item, index) => item === null ? delete newRequest.orders[index] : '')
+    // newRequest.orders?.map((item, index) => item === null ? delete newRequest.orders[index] : '')
 
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(false);
@@ -194,7 +217,7 @@ export default function OpenRequest (props) {
                                         <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Перевозчик</button>
                                     </div>
 
-                                    <MainInfoRequest setValFunc={setValues} values={values} edit={edit} openInfo={openInfo} allInfo={newRequest}/>
+                                    <MainInfoRequest server={server} setValFunc={setValues} values={values} edit={edit} openInfo={openInfo} allInfo={newRequest}/>
                                 </div>
 
                                 <div className={style.path}>
@@ -212,7 +235,7 @@ export default function OpenRequest (props) {
 
                                     <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
                                         {/*промежуточные точки*/}
-                                        <RoutePoint point={newRequest?.orders[0]?.route?.loadingAddress.address}/>
+                                        <RoutePoint point={newRequest?.orders[0]?.route.loadingAddress.address}/>
                                         {
                                             newRequest?.orders?.map((item, index) => (
                                                 <RoutePoint key={index} point={item.route.unloadingAddress.address}/>
@@ -241,7 +264,7 @@ export default function OpenRequest (props) {
 
 
                             {
-                                newRequest?.route?.isSingle ?
+                                newRequest?.route?.isSingleNEW ?
                                     ""
                                     :
                                     props.newPath ? "" : (
