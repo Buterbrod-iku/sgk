@@ -20,7 +20,7 @@ export default function Header() {
                 </div>
                 <div className={style.user}>
                     {/*заменить*/}
-                    <Link href={"/signIn"} style={{textDecoration: "none"}}><p className={style.text}>Авторизация</p></Link>
+                    <Link href={"/signIn"} style={{textDecoration: "none"}}><p className={style.text}>Выход</p></Link>
                     <div className={style.borderBottom}></div>
                     {/*<div className={style.optionsButton}></div>*/}
 

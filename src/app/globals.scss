@@ -8,6 +8,9 @@
   padding: 15vh 0 20vh 15vw;
   height: 100vh;
 }
+html {
+  overflow-y: overlay;
+}
 @media (max-width: 768px) {
   .content{
     padding: 0 0 15vh 0;

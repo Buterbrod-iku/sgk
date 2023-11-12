@@ -14,14 +14,15 @@ export const onChangeDefault = (event, values, setFunc) => {
 // Заполняет массив точек назначения / пассажиров в объекте значений полей при изменении (вложенные инпуты)
 export const onListChange = (event, listName, setFunc) => {
     setFunc(prev => {
-        return {...prev,
-            [listName]: {...prev[listName],
-                [event.target.getAttribute('data-section-id')]: {
-                    ...prev[listName][event.target.getAttribute('data-section-id')],
-                    [event.target.name]: event.target.value,
-                },
-            },
-        }
+        // return {...prev,
+        //     [listName]: {...prev[listName],
+        //         [event.target.getAttribute('data-section-id')]: {
+        //             ...prev[listName][event.target.getAttribute('data-section-id')],
+        //             [event.target.name]: event.target.value,
+        //         },
+        //     },
+        // }
+        return {}
     })
 }
 
