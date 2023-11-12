@@ -17,10 +17,10 @@ const ReversDateTime = (dataTime) => {
 }
 
 const ReversRoutePoint = (request) => {
-    let result = request.orders[0]?.route.loadingAddress.address
+    let result = request.orders[0]?.route.loadingAddress.address.split(',')[0]
 
     request.orders.map(item => (
-        result += ' - ' + item.route?.unloadingAddress.address
+        result += ' - ' + item.route?.unloadingAddress.address.split(',')[0]
     ))
 
     return result
@@ -34,17 +34,79 @@ export const NoneRequests = () => {
     )
 }
 
+let test = [
+    {
+        route: {
+            "_id": "qasd4jcyd74hwbnc482",
+            "isSingle": false
+        },
+        orders: [
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Новосибирск"
+                    },
+                    "unloadingAddress": {
+                        "address": "Тальменка"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Тальменка"
+                    },
+                    "unloadingAddress": {
+                        "address": "Барнаул"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул"
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск"
+                    }
+                }
+            }
+        ]
+    }
+]
+
 export default function Request() {
     // import data allRequest from server
     const [appState, setAppState] = useState([]);
+    const [appStateServer, setAppStateServer] = useState([]);
 
     const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
         let response = await PostService.getAll()
 
         response = response.filter(item => item.route?.status !== 'merged')
 
-        setAppState(response)
+        setAppState(test.concat(response))
     })
+
+
 
     useEffect(() => {
         fetchPostGetAll()
@@ -53,7 +115,7 @@ export default function Request() {
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
     // perPage - сколько объектов будет на одной странице
-    const perPage = 9
+    const perPage = 11
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
@@ -89,9 +151,66 @@ export default function Request() {
             setAppState(appState.sort((a, b) => a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1))
             setCurrent(appState.slice(firstIndex, lastIndex))
         }
-        else if(evt.target.value === "5"){
-            setAppState(appState.sort((a, b) => a.route.isSingle ? a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1 : 1))
-            setCurrent(appState.slice(firstIndex, lastIndex))
+    }
+
+    const sort = () => {
+        setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime <= b.orders[0].date.loadingTime ? 1 : -1))
+        setCurrent(appState.slice(firstIndex, lastIndex))
+    }
+
+    const altSort = () => {
+        setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime >= b.orders[0].date.loadingTime ? 1 : -1))
+        setCurrent(appState.slice(firstIndex, lastIndex))
+    }
+
+    const name = () => {
+        setAppState(appState.sort((a, b) => a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1))
+        setCurrent(appState.slice(firstIndex, lastIndex))
+    }
+
+    const altName = () => {
+        setAppState(appState.sort((a, b) => a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? -1 : 1))
+        setCurrent(appState.slice(firstIndex, lastIndex))
+    }
+
+    const [date, setDate] = useState(0)
+    const [tc, setTc] = useState(0)
+
+    const dateSort = (e) => {
+        e.preventDefault()
+        if(date === 0){
+            sort()
+            setDate(1)
+            setTc(0)
+        }
+        else if(date === 1){
+            altSort()
+            setDate(2)
+            setTc(0)
+        }
+        else if(date === 2){
+            fetchPostGetAll()
+            setDate(0)
+            setTc(0)
+        }
+    }
+
+    const tcSort = (e) => {
+        e.preventDefault()
+        if(tc === 0){
+            name()
+            setTc(1)
+            setDate(0)
+        }
+        else if(tc === 1){
+            altName()
+            setTc(2)
+            setDate(0)
+        }
+        else if(tc === 2){
+            fetchPostGetAll()
+            setTc(0)
+            setDate(0)
         }
     }
 
@@ -101,16 +220,6 @@ export default function Request() {
 
                 <div className={style.sortPosition}>
                     <h3 className={style.title}>Все заявки</h3>
-                    <div className={style.select}>
-                        <select className={style.ssel} onClick={sortDate}>
-                            <option disabled selected hidden>Сортировка</option>
-                            <option value="1">Новые</option>
-                            <option value="2">По дате (сначала новые)</option>
-                            <option value="3">По дате (сначала старые)</option>
-                            <option value="4">По ТК</option>
-                            <option value="5">Приватные поездки</option>
-                        </select>
-                    </div>
                 </div>
                 <Link href={"/requests/new"}><button className={style.button}>Создать заявку</button></Link>
             </div>
@@ -122,8 +231,14 @@ export default function Request() {
             <table className={style.table}>
                 <thead>
                     <tr className={style.tr}>
-                        <th>Дата</th>
-                        <th>Структурное подразделение</th>
+                        <th className={style.date} onClick={dateSort}>
+                            Дата
+                            <div style={date === 0 ? {width: "15px",height: "0"} : date === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
+                        </th>
+                        <th className={style.tc} onClick={tcSort}>
+                            Структурное подразделение
+                            <div style={tc === 0 ? {width: "15px",height: "0"} : tc === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
+                        </th>
                         <th>Маршрут</th>
                     </tr>
                 </thead>
