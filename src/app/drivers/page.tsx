@@ -4,8 +4,8 @@ import style from './drivers.module.scss';
 import Link from "next/link";
 import {useState} from "react";
 import Pagination from "@/app/requests/pagination/pagination";
-import DriversBlock from "@/app/drivers/carBlock/driversBlock";
-import DriversForm from "@/app/drivers/carForm/driversForm";
+import DriversBlock from "@/app/drivers/driverBlock/driversBlock";
+import DriversForm from "@/app/drivers/driverForm/driversForm";
 
 export default function Drivers() {
     const [openForm, setOpenForm] = useState(false)
@@ -65,108 +65,139 @@ let array = [
     {
         fioName: 'Евдокимов М.В.',
         phone: '+7 (909) 555-44-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Иванов И.И.',
         phone: '+7 (111) 111-11-11',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Максимов М.М.',
         phone: '+7 (222) 222-22-22',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Антонов А.А.',
         phone: '+7 (333) 333-33-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Белов Б.Б.',
         phone: '+7 (444) 444-44-44',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Андропов Г.Г.',
         phone: '+7 (555) 555-55-55',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Милюков М.М.',
         phone: '+7 (666) 666-66-66',
-    },
-    {
-        fioName: 'Калинов К.К.',
-        phone: '+7 (777) 777-77-77',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Евдокимов М.В.',
         phone: '+7 (909) 555-44-33',
-    },
-    {
-        fioName: 'Евдокимов М.В.',
-        phone: '+7 (909) 555-44-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Иванов И.И.',
         phone: '+7 (111) 111-11-11',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Максимов М.М.',
         phone: '+7 (222) 222-22-22',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Антонов А.А.',
         phone: '+7 (333) 333-33-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Белов Б.Б.',
         phone: '+7 (444) 444-44-44',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Андропов Г.Г.',
         phone: '+7 (555) 555-55-55',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Милюков М.М.',
         phone: '+7 (666) 666-66-66',
-    },
-    {
-        fioName: 'Калинов К.К.',
-        phone: '+7 (777) 777-77-77',
-    },
-    {
-        fioName: 'Евдокимов М.В.',
-        phone: '+7 (909) 555-44-33',
+        email: 'asdjka@mail.ru',
     },{
         fioName: 'Евдокимов М.В.',
         phone: '+7 (909) 555-44-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Иванов И.И.',
         phone: '+7 (111) 111-11-11',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Максимов М.М.',
         phone: '+7 (222) 222-22-22',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Антонов А.А.',
         phone: '+7 (333) 333-33-33',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Белов Б.Б.',
         phone: '+7 (444) 444-44-44',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Андропов Г.Г.',
         phone: '+7 (555) 555-55-55',
+        email: 'asdjka@mail.ru',
     },
     {
         fioName: 'Милюков М.М.',
         phone: '+7 (666) 666-66-66',
-    },
-    {
-        fioName: 'Калинов К.К.',
-        phone: '+7 (777) 777-77-77',
-    },
-    {
+        email: 'asdjka@mail.ru',
+    },{
         fioName: 'Евдокимов М.В.',
         phone: '+7 (909) 555-44-33',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Иванов И.И.',
+        phone: '+7 (111) 111-11-11',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Максимов М.М.',
+        phone: '+7 (222) 222-22-22',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Антонов А.А.',
+        phone: '+7 (333) 333-33-33',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Белов Б.Б.',
+        phone: '+7 (444) 444-44-44',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Андропов Г.Г.',
+        phone: '+7 (555) 555-55-55',
+        email: 'asdjka@mail.ru',
+    },
+    {
+        fioName: 'Милюков М.М.',
+        phone: '+7 (666) 666-66-66',
+        email: 'asdjka@mail.ru',
     },
 ]

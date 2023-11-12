@@ -53,7 +53,7 @@ export default function Request() {
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
     // perPage - сколько объектов будет на одной странице
-    const perPage = 9
+    const perPage = 11
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage

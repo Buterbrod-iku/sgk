@@ -35,7 +35,8 @@ let arrayFile = [
         file: [
             {
                 title: "Ежемесячный отчёт",
-                href: ""
+                path: './',
+                href: "zxc.txt"
             },
             {
                 title: "Путевой лист 10.10.23",
