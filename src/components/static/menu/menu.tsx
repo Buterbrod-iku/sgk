@@ -12,6 +12,7 @@ import fleet from '../../../assets/images/car_icon-icons.com_70268.svg'
 import statsIcon from '../../../assets/images/menu_stats_icon.svg'
 import exitIcon from '../../../assets/images/menu_exit_icon.svg'
 import userAvatar2 from '../../../assets/images/userAvatar2.png'
+import history from '../../../assets/images/history_117628.svg'
 import {useEffect, useState} from "react";
 
 export default function Menu() {
@@ -47,6 +48,7 @@ export default function Menu() {
                     <Link href={"/staff"} className={style.Link}><ItemMenu item="Автопарк" iconURL={fleet.src}/></Link>
                     <Link href={"/report"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
                     <Link href={"/contactWithTC"} className={style.Link}><ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/></Link>
+                    <Link href={"/history"} className={style.Link}><ItemMenu item="История заявок" iconURL={history.src}/></Link>
                 </div>
 
                 <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>

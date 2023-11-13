@@ -1,0 +1,92 @@
+.th{
+  background: white;
+}
+.date{
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  &:hover{
+    color: #4272bb;
+  }
+  div{
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../assets/images/arrow-down-svgrepo-com.svg");
+    background-size: cover;
+    background-position: center;
+    margin-left: 10px;
+    transition: 0.2s;
+    &:hover{
+      color: #4272bb;
+    }
+  }
+}
+.tc{
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  &:hover{
+    color: #4272bb;
+  }
+  div{
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../assets/images/arrow-down-svgrepo-com.svg");
+    background-size: cover;
+    background-position: center;
+    margin-left: 10px;
+    transition: 0.2s;
+    &:hover{
+      color: #4272bb;
+    }
+  }
+}
+.table{
+  width: 90%;
+  height: auto;
+  background: white;
+  margin-left: 5%;
+  border-radius: 20px;
+}
+.tr{
+  display: grid;
+  grid-template-columns: 1fr 2fr 5fr;
+  text-align: left;
+  padding: 15px 20px;
+  font-size: 1.1em;
+  color: rgb(16, 64, 82);
+  border-bottom: 3px solid rgb(231, 231, 231);
+}
+.position {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-left: 5%;
+  align-items: center;
+  position: relative;
+  height: 80px;
+}
+@media (max-width: 768px) {
+  .main{
+    width: 100%;
+    padding-bottom: 5vh;
+  }
+  .table{
+    width: 300px;
+    background: white;
+  }
+  .tr{
+    grid-template-columns: 1fr 2fr 5fr;
+    text-align: center;
+    padding: 20px 20px;
+    font-size: 1em;
+  }
+  .title{
+    font-size: 1.4em;
+    font-weight: normal;
+    margin-left: 20px;
+    margin-top: 0;
+  }
+}

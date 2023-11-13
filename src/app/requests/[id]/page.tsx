@@ -17,13 +17,14 @@ import {Change} from "@/app/requests/[id]/change/change";
 import {NoneRequests} from "@/app/requests/page";
 import pathAdaptive from "@/components/static/header/pathAdaptive";
 import {testRequest, testRequestMerged} from "@/app/requests/[id]/test";
+import trash from '../../../assets/images/mdi_trash.svg'
 
 
 export const ReversRoutePoint = (request) => {
-    let result = request.orders[0].route.loadingAddress.address
+    let result = request.orders[0].route.loadingAddress.address.split(',')[0]
 
     request.orders.map(item => (
-        result += ' - ' + item.route.unloadingAddress.address
+        result += ' - ' + item.route.unloadingAddress.address.split(',')[0]
     ))
 
     return result
@@ -190,7 +191,11 @@ export default function OpenRequest (props) {
                         <div className={style.block} style={props.addStyle}>
                             {
                                 !props.buttonEdit
-                                    ? (<button onClick={openConfirm} className={style.cancelButton}>Отменить заявку</button>)
+                                    ? (<button onClick={openConfirm} className={style.cancelButton}>
+                                        <img src={trash.src} style={{
+                                            width: '30px'
+                                        }}/>
+                                    </button>)
                                     : ''
                             }
 
@@ -256,7 +261,7 @@ export default function OpenRequest (props) {
                                                     </>
                                                 )
                                                 : (
-                                                    <button onClick={startEdit} className={style.editRequestButton} style={{background: "#3ea19d"}}>Изменить заявку</button>
+                                                    <button onClick={startEdit} className={style.editRequestButton} style={{background: "rgb(0, 120, 168)"}}>Изменить заявку</button>
                                                 )
                                         }
                                     </div>)
