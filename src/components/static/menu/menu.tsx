@@ -45,10 +45,10 @@ export default function Menu() {
             <div className={style.burger} style={burgerMenu ? {height: "35vh"} : width < 800 ? {height: "0", transition: "0.3s"} : {}}>
                 <div className={style.itemBlock} style={burgerMenu ? {display: "block"} : {}}>
                     <Link href={"/requests"} className={style.Link}><ItemMenu item="Заявки" iconURL={requestIcon.src}/></Link>
-                    <Link href={"/history"} className={style.Link}><ItemMenu item="История заявок" iconURL={history.src}/></Link>
                     <Link href={"/staff"} className={style.Link}><ItemMenu item="Автопарк" iconURL={fleet.src}/></Link>
                     <Link href={"/report"} className={style.Link}><ItemMenu item="Отчёты" iconURL={statsIcon.src}/></Link>
                     <Link href={"/contactWithTC"} className={style.Link}><ItemMenu item="Связь с ТК" iconURL={contactsIcon.src}/></Link>
+                    <Link href={"/history"} className={style.Link}><ItemMenu item="История заявок" iconURL={history.src}/></Link>
                 </div>
 
                 <div className={style.userBlock} style={burgerMenu ? {display: "flex"} : {}}>

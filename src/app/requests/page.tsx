@@ -44,10 +44,10 @@ let test = [
         orders: [
             {
                 "date": {
-                    "loadingTime": 1696271100
+                    "loadingTime": 1700046660
                 },
                 "order": {
-                    "devisionName": "Структура структура"
+                    "devisionName": "Подразделение А"
                 },
                 "route": {
                     "loadingAddress": {
@@ -101,7 +101,7 @@ export default function Request() {
     const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
         let response = await PostService.getAll()
 
-        response = response.filter(item => item.route?.status !== 'merged')
+        response = response.filter(item => (item.route?.status !== 'merged' && item.route.isSingle !== true))
 
         setAppState(test.concat(response))
     })
