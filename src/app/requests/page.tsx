@@ -18,10 +18,10 @@ const ReversDateTime = (dataTime) => {
 }
 
 const ReversRoutePoint = (request) => {
-    let result = request.orders[0]?.route.loadingAddress.address
+    let result = request.orders[0]?.route.loadingAddress.address.split(',')[0]
 
     request.orders.map(item => (
-        result += ' - ' + item.route?.unloadingAddress.address
+        result += ' - ' + item.route?.unloadingAddress.address.split(',')[0]
     ))
 
     return result
@@ -35,6 +35,65 @@ export const NoneRequests = () => {
     )
 }
 
+let test = [
+    {
+        route: {
+            "_id": "qasd4jcyd74hwbnc482",
+            "isSingle": false
+        },
+        orders: [
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Новосибирск"
+                    },
+                    "unloadingAddress": {
+                        "address": "Тальменка"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Тальменка"
+                    },
+                    "unloadingAddress": {
+                        "address": "Барнаул"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул"
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск"
+                    }
+                }
+            }
+        ]
+    }
+]
+
 export default function Request() {
     // import data allRequest from server
     const [appState, setAppState] = useState([]);
@@ -44,8 +103,10 @@ export default function Request() {
 
         response = response.filter(item => item.route?.status !== 'merged')
 
-        setAppState(response)
+        setAppState(test.concat(response))
     })
+
+
 
     useEffect(() => {
         fetchPostGetAll()
