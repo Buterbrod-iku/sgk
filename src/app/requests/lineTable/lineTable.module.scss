@@ -1,7 +1,7 @@
 .close{
   width: 30px;
   height: 30px;
-  background-image: url("../../../assets/images/locked.png");
+  background-image: url("../../../assets/images/lock_icon_148524.svg");
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -30,6 +30,15 @@
 }
 .th{
   font-weight: normal;
+}
+.a{
+  text-decoration: none;
+  color: rgb(111, 111, 111);
+  transition: 0.2s;
+  margin-right: 40px;
+  &:hover{
+    transform: scale(1.1);
+  }
 }
 @media (max-width: 768px) {
   .tr{

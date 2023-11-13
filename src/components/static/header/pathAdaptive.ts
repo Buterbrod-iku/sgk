@@ -27,6 +27,9 @@ const pathAdaptive = (location) => {
         case 'report':
             path.push('Отчёты')
             break
+        case 'history':
+            path.push("История")
+            break
         case 'contactWithTC':
             path.push('Связь с ТК')
             break
