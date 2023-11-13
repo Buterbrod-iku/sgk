@@ -134,25 +134,6 @@ export default function Request() {
         setCurrent(appState.slice(firstIndex, lastIndex))
     }, [appState, lastIndex])
 
-
-    const sortDate = (evt) => {
-        if (evt.target.value === "1") {
-            fetchPostGetAll()
-        }
-        else if (evt.target.value === "2") {
-            setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime <= b.orders[0].date.loadingTime ? 1 : -1))
-            setCurrent(appState.slice(firstIndex, lastIndex))
-        }
-        else if(evt.target.value === "3"){
-            setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime >= b.orders[0].date.loadingTime ? 1 : -1))
-            setCurrent(appState.slice(firstIndex, lastIndex))
-        }
-        else if(evt.target.value === "4"){
-            setAppState(appState.sort((a, b) => a.orders[0].order.devisionName >= b.orders[0].order.devisionName ? 1 : -1))
-            setCurrent(appState.slice(firstIndex, lastIndex))
-        }
-    }
-
     const sort = () => {
         setAppState(appState.sort((a, b) => a.orders[0].date.loadingTime <= b.orders[0].date.loadingTime ? 1 : -1))
         setCurrent(appState.slice(firstIndex, lastIndex))
