@@ -109,6 +109,17 @@
     margin-left: 10px;
     border-radius: 10px;
     position: relative;
+    &:before {
+      width:22px;
+      height:22px;
+      right: 7px;
+      top: 6px;
+      content: "";
+      position: absolute;
+      background-image: url("../../../assets/images/cursor.svg");
+    background-size: cover;
+    background-position: center;
+    }
   }
 }
 
@@ -143,17 +154,21 @@
       margin-top: 14px;
       color: white;
       display: block;
-      height: 62px;
+      height: 72px;
       padding-left: 50px;
+      padding-top: 17px;
       position: relative;
       border-radius: 14px;
       &:before {
         width:30px;
         height:30px;
-        left: 10px;
-        content: "-";
+        left: 14px;
+        top: 14px;
+        content: "";
         position: absolute;
-        background-color: red;
+        background-image: url("../../../assets/images/download1.svg");
+      background-size: cover;
+      background-position: center;
       }
     }
   }
@@ -197,9 +212,26 @@
   }
   .historyTip {
     background-color: #7BC2DF;
+    padding: 10px;
     margin-top: 14px;
     color: white;
-    padding: 10px;
+    display: block;
+    height: 82px;
+    padding-left: 50px;
+    padding-top: 17px;
+    position: relative;
+    border-radius: 14px;
+    &:before {
+      width:30px;
+      height:30px;
+      left: 14px;
+      top: 14px;
+      content: "";
+      position: absolute;
+      background-image: url("../../../assets/images/exclam.svg");
+    background-size: cover;
+    background-position: center;
+    }
   }
 }
 
