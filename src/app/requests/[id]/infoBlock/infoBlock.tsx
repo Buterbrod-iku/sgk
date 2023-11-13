@@ -76,11 +76,11 @@ export default function InfoBlock(props) {
                         {/*пофиксить чтоб при переходе на инпут значением выдавало дату*/}
                         <p className={style.info}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_date"} max={"2050-12-31"} onChange={props.onChange} value={dateInput} type={typeInput}/>) : date}</p>
                         {
-                            props.edit ? '' : <span>|</span>
+                            props.edit ? '' : <p style={{marginLeft: "10px"}}></p>
                         }
                         <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_time"} onChange={props.onChange} value={time} type='time'/>) : time}</p>
                         {
-                            props.edit ? '' : <span>|</span>
+                            props.edit ? '' : ""
                         }
                     </div>
                 ) : ""
