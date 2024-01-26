@@ -32,65 +32,6 @@ export const NoneRequests = () => {
     )
 }
 
-let test = [
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Структура структура"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Новосибирск"
-                    },
-                    "unloadingAddress": {
-                        "address": "Тальменка"
-                    }
-                }
-            },
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Структура структура"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Тальменка"
-                    },
-                    "unloadingAddress": {
-                        "address": "Барнаул"
-                    }
-                }
-            },
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Структура структура"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Барнаул"
-                    },
-                    "unloadingAddress": {
-                        "address": "Бийск"
-                    }
-                }
-            }
-        ]
-    }
-]
-
 export default function Table(props) {
     // import data allRequest from server
     const [appState, setAppState] = useState(props.array);

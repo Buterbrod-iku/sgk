@@ -41,7 +41,7 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "Подразделение А",
+                    "devisionName": "Подразделение А 123123",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -146,7 +146,7 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "qweqweqweqwe",
+                    "devisionName": "qweqweqweqwe 312312",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -218,7 +218,7 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "Подразделение А",
+                    "devisionName": "Подразделение А 123",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -437,7 +437,7 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "qweqweqweqwe",
+                    "devisionName": "qweqweqweqwe фывфывфывфы",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {

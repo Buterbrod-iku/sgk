@@ -34,7 +34,6 @@ const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
     if(allRoutes.length > 1){
          await allRoutes.map(item => {
             if((item.route._id !== routerId) && (item.route.status !== 'merged') && (item.route.status !== 'built')){
-                //console.log(newPath)
                 setNewPath((res) => [
                     ...res,
                     {
@@ -110,7 +109,7 @@ export default function OpenRequest (props) {
             [
                 {
                     "routeId": "vbjn2cvkj532cvjk3df",
-                    "path": "Тальменка - Новоалтайск"
+                    "path": "Тальменка - Новоалтайск (Это пробная заявка, как должно быть)"
                 }
             ]
         )

@@ -44,10 +44,10 @@ let test = [
         orders: [
             {
                 "date": {
-                    "loadingTime": 1696271100
+                    "loadingTime": 1
                 },
                 "order": {
-                    "devisionName": "Структура структура"
+                    "devisionName": "Пример"
                 },
                 "route": {
                     "loadingAddress": {
@@ -60,10 +60,10 @@ let test = [
             },
             {
                 "date": {
-                    "loadingTime": 1696271100
+                    "loadingTime": 1
                 },
                 "order": {
-                    "devisionName": "Структура структура"
+                    "devisionName": "Пример"
                 },
                 "route": {
                     "loadingAddress": {
@@ -76,10 +76,10 @@ let test = [
             },
             {
                 "date": {
-                    "loadingTime": 1696271100
+                    "loadingTime": 1
                 },
                 "order": {
-                    "devisionName": "Структура структура"
+                    "devisionName": "Пример"
                 },
                 "route": {
                     "loadingAddress": {
