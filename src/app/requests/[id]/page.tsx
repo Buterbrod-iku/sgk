@@ -8,27 +8,17 @@ import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest
 import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
-import axios, {all} from "axios";
 import {useParams, usePathname, useRouter} from "next/navigation";
 import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 import {Change} from "@/app/requests/[id]/change/change";
-import {NoneRequests} from "@/app/requests/page";
-import pathAdaptive from "@/components/static/header/pathAdaptive";
 import {testRequest, testRequestMerged} from "@/app/requests/[id]/test";
-import trash from '../../../assets/images/mdi_trash.svg'
+import trash from '../../../assets/images/mdi_trash.svg';
+import {ReversRoutePoint} from '@/components/utils/refactorUtil/ReversRoutePoint';
+import NoneRequests from "@/components/utils/refactorUtil/NoneRequests/NoneRequests";
 
 
-export const ReversRoutePoint = (request) => {
-    let result = request.orders[0].route.loadingAddress.address.split(',')[0]
-
-    request.orders.map(item => (
-        result += ' - ' + item.route.unloadingAddress.address.split(',')[0]
-    ))
-
-    return result
-}
 
 const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
     if(allRoutes.length > 1){

@@ -2,7 +2,7 @@ import style from './infoBlock.module.scss'
 import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import InputForm from "@/app/requests/new/inputForm/inputForm";
 import {Chelsea_Market} from "next/dist/compiled/@next/font/dist/google";
-import {phoneFormatter} from "@/app/requests/utils/formUtils";
+import {phoneFormatter} from "@/components/utils/formUtils";
 
 const Waiting = (time) => {
     if(time < 60){

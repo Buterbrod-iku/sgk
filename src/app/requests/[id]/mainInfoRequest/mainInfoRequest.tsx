@@ -3,8 +3,8 @@
 import style from "./mainInfoRequest.module.scss";
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useEffect, useState, Fragment} from "react";
-import {onChangeDefault, onListChange} from "@/app/requests/utils/formUtils";
-import {phoneFormatter} from "@/app/requests/utils/formUtils";
+import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
+import {phoneFormatter} from "@/components/utils/formUtils";
 
 export default function MainInfoRequest(props) {
     const [fullPassenger, setFullPassenger] = useState(false);

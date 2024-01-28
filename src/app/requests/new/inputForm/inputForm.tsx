@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Fragment } from 'react';
 import style from './inputForm.module.scss'
-import {integerFormatter, phoneFormatter} from "@/app/requests/utils/formUtils";
+import {integerFormatter, phoneFormatter} from "@/components/utils/formUtils";
 
 export default function InputForm(props) {
     // Вспомогательный стейт для обработки телефонного номера / чисел

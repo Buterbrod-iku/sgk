@@ -4,8 +4,8 @@ import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {use, useEffect, useState, Fragment} from "react";
 import InputButton from "./inputButton/inputButton";
-import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
-import {onChangeDefault, onListChange} from "@/app/requests/utils/formUtils";
+import {ObjectRestructuring} from "@/components/utils/objectRestructuring";
+import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
 import {useFetching} from "@/app/hooks/useFetching";
@@ -224,11 +224,8 @@ export default function New() {
     }
 
 
-
     // Объект с пассажирами
-    const [passengers, setPassengers] = useState([
-        
-    ]);
+    const [passengers, setPassengers] = useState([]);
 
     function addPassengerHandler (e) {
         console.log('passenger added');

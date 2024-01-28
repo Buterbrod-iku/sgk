@@ -10,8 +10,6 @@ const InputLabel = (props) => {
 }
 
 export default function SectionInput(props) {
-
-
     const isCheckbox = (props.customStruct == "checkbox");
 
     return (
