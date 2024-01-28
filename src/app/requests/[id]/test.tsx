@@ -41,7 +41,11 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
+<<<<<<< HEAD
                     "devisionName": "Подразделение А 123123",
+=======
+                    "devisionName": "Подразделение А",
+>>>>>>> origin/show
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -146,7 +150,11 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
+<<<<<<< HEAD
                     "devisionName": "qweqweqweqwe 312312",
+=======
+                    "devisionName": "qweqweqweqwe",
+>>>>>>> origin/show
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -218,7 +226,11 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
+<<<<<<< HEAD
                     "devisionName": "Подразделение А 123",
+=======
+                    "devisionName": "Подразделение А",
+>>>>>>> origin/show
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -437,7 +449,11 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
+<<<<<<< HEAD
                     "devisionName": "qweqweqweqwe фывфывфывфы",
+=======
+                    "devisionName": "qweqweqweqwe",
+>>>>>>> origin/show
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -459,6 +475,7 @@ export const testRequestMerged = () => {
             },
         ]
     }
+<<<<<<< HEAD
 }
 
 export const NewStructure = () => {
@@ -522,4 +539,6 @@ export const NewStructure = () => {
         "distance": 360495.9,
         "duration": 19195.7
     };
+=======
+>>>>>>> origin/show
 }
