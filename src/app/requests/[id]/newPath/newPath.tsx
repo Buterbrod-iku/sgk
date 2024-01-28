@@ -1,8 +1,6 @@
 import style from './newPath.module.scss'
 import OpenRequest from "@/app/requests/[id]/page";
 import {useState} from "react";
-import PostService from "@/app/API/postService";
-import {Change} from "@/app/requests/[id]/change/change";
 import {useRouter} from "next/navigation";
 
 export default function NewPath(props) {
@@ -34,6 +32,7 @@ export default function NewPath(props) {
 
         link.push(`/requests/${props.routeId}`);
 
+        // Запрос на сервер на слияние заявок
         // const response = await PostService.mergeRoute({
         //     "routes": [
         //         props.mainRouteId,

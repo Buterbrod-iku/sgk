@@ -3,7 +3,7 @@
 import style from './request.module.scss'
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import {useFetching} from "@/app/hooks/useFetching";
+import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Table from "@/app/requests/table/table";
 

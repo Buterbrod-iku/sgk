@@ -1,6 +1,5 @@
 "use client"
 import style from './userCard.module.scss'
-import it from "node:test";
 
 export default function UserCard({user}) {
     return (

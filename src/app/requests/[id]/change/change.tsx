@@ -1,5 +1,8 @@
 import {phoneFormatter} from "@/components/utils/formUtils";
 import {ConvertToUnixTime} from "@/components/utils/objectRestructuring";
+import {ReversDateTime} from "@/components/utils/refactorUtil/ReversDateTime";
+import {reversWaiting} from "@/components/utils/refactorUtil/WaitingToString";
+
 
 function ReformatPhoneNumber(formattedPhone: string) {
     if (!(/^\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formattedPhone))) return -1;
@@ -7,20 +10,10 @@ function ReformatPhoneNumber(formattedPhone: string) {
     return formattedPhone.slice(0,2) + formattedPhone.slice(4,7) + formattedPhone.slice(9,12) + formattedPhone.slice(13,15) + formattedPhone.slice(16,18);
 }
 
-const ReversDateTime = (dataTime) => {
-    const dateTime = new Date(dataTime * 1000);
-
-    return dateTime.getUTCFullYear() + '-' + ((dateTime.getUTCMonth() + 1) < 10 ? '0' + (dateTime.getUTCMonth() + 1) : (dateTime.getUTCMonth() + 1)) + '-' +(dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate());
-}
-
-
 export const Change = (newObj, last) => {
     let old = Object.assign(last);
 
-    const reversWaiting = (time) => {
-        let a = time.split(':')
-        return (a[0] * 60) + Number(a[1])
-    }
+
 
     let destinationPoints = Object.entries(newObj.destinationPoints)
 

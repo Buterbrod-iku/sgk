@@ -1,5 +1,4 @@
 import style from './routePoint.module.scss'
-import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 
 export default function RoutePoint(props) {
     return (

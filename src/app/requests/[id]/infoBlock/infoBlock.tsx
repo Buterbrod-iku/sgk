@@ -1,34 +1,16 @@
 import style from './infoBlock.module.scss'
-import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import InputForm from "@/app/requests/new/inputForm/inputForm";
-import {Chelsea_Market} from "next/dist/compiled/@next/font/dist/google";
 import {phoneFormatter} from "@/components/utils/formUtils";
-
-const Waiting = (time) => {
-    if(time < 60){
-        return '00:' + time.toString()
-    } else {
-        let hours = Math.floor(time / 60)
-        return (hours < 10 ? '0' + hours : hours).toString() + ':' +  ((time - hours * 60) < 10 ? '0' + (time - hours * 60) : (time - hours * 60)).toString()
-    }
-}
-
-const addZero = (dateTime, type) => {
-    if(type === 'date'){
-        return dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()
-    } else if(type === 'month'){
-        return (dateTime.getUTCMonth() + 1) < 10 ? '0' + (dateTime.getUTCMonth() + 1) : (dateTime.getUTCMonth() + 1)
-    } else {
-        return '00'
-    }
-
-}
+import {Waiting} from "@/components/utils/refactorUtil/WaitingToString";
+import {addZero} from "@/components/utils/refactorUtil/getDataTime";
 
 export default function InfoBlock(props) {
+
     function openClose(e){
         e.preventDefault();
         props.setBool(!props.bool);
     }
+
     const dateTime = new Date(props.dataTime * 1000);
 
     // редачим дату из unixTime
@@ -36,8 +18,8 @@ export default function InfoBlock(props) {
     let dateInput = dateTime.getUTCFullYear() + '-' +  addZero(dateTime, 'month') + '-' + addZero(dateTime, 'date') ;
     let time = (dateTime.getUTCHours() < 10 ? '0' + dateTime.getUTCHours() : dateTime.getUTCHours()) + ":" + (dateTime.getUTCMinutes() < 10 ? '0' + dateTime.getUTCMinutes() : dateTime.getUTCMinutes());
 
+    // треш надо удалять
     let typeInput
-
     if((props.name === "cargoWeight") || (props.name === 'passengersAmount')){
         typeInput = 'integer'
     } else if((props.name === "destinationPoint") || (props.name === "carStartPoint_dateTime")){
@@ -49,7 +31,6 @@ export default function InfoBlock(props) {
     } else {
         typeInput = 'text'
     }
-
     
     return (
         <div className={style.main} style={props.noBorder ? {border: "none", padding: "7px 0"} : {}}>

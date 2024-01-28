@@ -2,7 +2,6 @@
 
 import style from './fleet.module.scss';
 import CarBlock from "@/app/fleet/carBlock/carBlock";
-import Link from "next/link";
 import {useState} from "react";
 import CarForm from "@/app/fleet/carForm/carForm";
 import Pagination from "@/app/requests/pagination/pagination";

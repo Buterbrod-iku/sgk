@@ -1,15 +1,13 @@
 'use client'
 
 import style from './modalConfirm.module.scss'
-import {useEffect, useState} from "react";
-import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
-import Link from "next/link";
 import {useRouter} from "next/navigation";
 
 export default function ModalConfirm(props) {
     const router = useRouter();
 
+    // удаление заявки
     const deleteRoute = async (e) => {
         e.preventDefault()
 

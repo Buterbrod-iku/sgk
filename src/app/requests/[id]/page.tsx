@@ -2,19 +2,15 @@
 
 import style from './openRequest.module.scss'
 import NewPath from "@/app/requests/[id]/newPath/newPath";
-import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
-import {use, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import MainInfoRequest from "@/app/requests/[id]/mainInfoRequest/mainInfoRequest";
-import InputEdit from "@/app/requests/[id]/inputEdit/inputEdit";
 import RoutePoint from "@/app/requests/[id]/routePoint/routePoint";
 import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
-import axios, {all} from "axios";
 import {useParams, usePathname, useRouter} from "next/navigation";
-import {useFetching} from "@/app/hooks/useFetching";
+import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
 import {Change} from "@/app/requests/[id]/change/change";
-import pathAdaptive from "@/components/static/header/pathAdaptive";
 import {testRequest, testRequestMerged} from "@/app/requests/[id]/test";
 import trash from '../../../assets/images/mdi_trash.svg'
 import {ReversRoutePoint} from "@/components/utils/refactorUtil/ReversRoutePoint";

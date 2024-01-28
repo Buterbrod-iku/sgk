@@ -5,7 +5,6 @@ import Image from "next/image";
 import logo from '../../../assets/images/logo_1.svg'
 import ItemMenu from "@/components/static/menu/itemMenu/itemMenu";
 import Link from "next/link";
-
 import contactsIcon from '../../../assets/images/menu_contacts_icon.svg'
 import requestIcon from '../../../assets/images/menu_request_icon.svg'
 import fleet from '../../../assets/images/car_icon-icons.com_70268.svg'

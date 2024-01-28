@@ -1,5 +1,4 @@
 import style from './history.module.scss';
-import Link from "next/link";
 import Table from "@/app/requests/table/table";
 
 export default function Report() {

@@ -8,7 +8,7 @@ import {ObjectRestructuring} from "@/app/requests/utils/objectRestructuring";
 import {onChangeDefault, onListChange} from "@/app/requests/utils/formUtils";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
-import {useFetching} from "@/app/hooks/useFetching";
+import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import {useRouter} from "next/navigation";
 import successIcon from '@/assets/images/success.svg'

@@ -1,9 +1,3 @@
-import {useFetching} from "@/app/hooks/useFetching";
-import PostService from "@/app/API/postService";
-import {ReversRoutePoint} from "@/app/requests/[id]/page";
-import {useEffect} from "react";
-import axios from "axios/index";
-
 const pathAdaptive = (location) => {
     let path = []
 
