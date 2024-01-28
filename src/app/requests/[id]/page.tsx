@@ -17,17 +17,8 @@ import {Change} from "@/app/requests/[id]/change/change";
 import pathAdaptive from "@/components/static/header/pathAdaptive";
 import {testRequest, testRequestMerged} from "@/app/requests/[id]/test";
 import trash from '../../../assets/images/mdi_trash.svg'
-
-
-export const ReversRoutePoint = (request) => {
-    let result = request.orders[0].route.loadingAddress.address.split(',')[0]
-
-    request.orders.map(item => (
-        result += ' - ' + item.route.unloadingAddress.address.split(',')[0]
-    ))
-
-    return result
-}
+import {ReversRoutePoint} from "@/components/utils/refactorUtil/ReversRoutePoint";
+import NoneRequests from "@/components/utils/refactorUtil/NoneRequests/NoneRequests";
 
 const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
     if(allRoutes.length > 1){
@@ -48,7 +39,6 @@ const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
 
 export default function OpenRequest (props) {
     const location = usePathname()
-    let path = []
 
     // стэйт для основной заявки, которая будет выводиться
     let [newRequest, setPost] = useState({})
@@ -109,7 +99,7 @@ export default function OpenRequest (props) {
             [
                 {
                     "routeId": "vbjn2cvkj532cvjk3df",
-                    "path": "Тальменка - Новоалтайск"
+                    "path": "Тальменка - Новоалтайск (Это пример как должно выдаваться)"
                 }
             ]
         )
