@@ -4,12 +4,6 @@ import style from './table.module.scss'
 import LineTable from "@/app/requests/lineTable/lineTable";
 import {useEffect, useState} from "react";
 import Pagination from "../pagination/pagination";
-<<<<<<< HEAD
-import Loading from "@/app/requests/loading/loading";
-import {ReversRoutePoint} from '@/components/utils/refactorUtil/ReversRoutePoint';
-import {ReversDateTime} from '@/components/utils/refactorUtil/ReversDateTime';
-import NoneRequests from "@/components/utils/refactorUtil/NoneRequests/NoneRequests";
-=======
 import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
@@ -96,7 +90,6 @@ let test = [
         ]
     }
 ]
->>>>>>> origin/show
 
 export default function Table(props) {
     // import data allRequest from server
@@ -198,18 +191,10 @@ export default function Table(props) {
                         Дата
                         <div style={date === 0 ? {width: "15px",height: "0"} : date === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                     </th>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/show
                     <th className={style.tc} onClick={tcSort}>
                         Структурное подразделение
                         <div style={tc === 0 ? {width: "15px",height: "0"} : tc === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                     </th>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/show
                     <th>Маршрут</th>
                     {
                         props.history ? (
