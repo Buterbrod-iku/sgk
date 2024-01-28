@@ -41,7 +41,7 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "Подразделение А 123123",
+                    "devisionName": "Подразделение А",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -146,7 +146,7 @@ export const testRequest = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "qweqweqweqwe 312312",
+                    "devisionName": "qweqweqweqwe",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -218,7 +218,7 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "Подразделение А 123",
+                    "devisionName": "Подразделение А",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -437,7 +437,7 @@ export const testRequestMerged = () => {
                 },
                 "order": {
                     "typeOfTransportation": "all",
-                    "devisionName": "qweqweqweqwe фывфывфывфы",
+                    "devisionName": "qweqweqweqwe",
                     "client": "Сотрудник Петров",
                     "cargo": [
                         {
@@ -459,67 +459,4 @@ export const testRequestMerged = () => {
             },
         ]
     }
-}
-
-export const NewStructure = () => {
-    return {
-        "id": "65b2a1f8064bc7fb7e32d512",
-        "clientId": "5",
-        "cargo": {
-            "unit": "good",
-            "count": 58,
-            "passengers": [
-                {
-                    "fullName": "Мелков Илья",
-                    "phoneNumber": "+79095079956",
-                    "start": "//address",
-                    "end": "//address",
-                },
-                {
-                    "fullName": "Никита",
-                    "phoneNumber": "+72322322165",
-                    "start": "//address",
-                    "end": "//address",
-                },
-                {
-                    "fullName": "Антон",
-                    "phoneNumber": "+72222222222",
-                    "start": "//address",
-                    "end": "//address",
-                }
-            ],
-            "cargoArray": [
-                {
-                    "type": "Мелков Илья",
-                    "phoneNumber": "+79095079956",
-                    "start": "//address",
-                    "end": "//address",
-                }
-            ]
-        },
-        "deadline": {
-            "noDeadline": false,
-            "beginDate": 1700046660,
-            "endDate": 1700058600
-        },
-        "waypoints": {
-            "devisionName": "qweqweqweqwe",
-            "points": [
-                {
-                    "address": "Барнаул",
-                    "latitude": "55.6715707",
-                    "longitude": "84.388557",
-                    "_id": "65b2a1f8064bc7fb7e32d513"
-                },
-                {
-                    "address": "Новосибирск",
-                    "latitude": "53.3475493",
-                    "longitude": "83.7788448",
-                    "_id": "65b2a1f8064bc7fb7e32d514"
-                }
-            ]
-        },
-        "distance": 360495.9,
-        "duration": 19195.7
-    };
 }

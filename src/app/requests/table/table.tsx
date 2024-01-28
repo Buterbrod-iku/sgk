@@ -4,10 +4,92 @@ import style from './table.module.scss'
 import LineTable from "@/app/requests/lineTable/lineTable";
 import {useEffect, useState} from "react";
 import Pagination from "../pagination/pagination";
+import {useFetching} from "@/app/hooks/useFetching";
+import PostService from "@/app/API/postService";
 import Loading from "@/app/requests/loading/loading";
-import {ReversRoutePoint} from '@/components/utils/refactorUtil/ReversRoutePoint';
-import {ReversDateTime} from '@/components/utils/refactorUtil/ReversDateTime';
-import NoneRequests from "@/components/utils/refactorUtil/NoneRequests/NoneRequests";
+
+const ReversDateTime = (dataTime) => {
+    const dateTime = new Date(dataTime * 1000);
+
+    return (dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()) + '.' + ((dateTime.getUTCMonth() + 1) < 10 ? '0' + (dateTime.getUTCMonth() + 1) : (dateTime.getUTCMonth() + 1)) + '.' + dateTime.getUTCFullYear();
+}
+
+const ReversRoutePoint = (request) => {
+    let result = request.orders[0]?.route.loadingAddress.address.split(',')[0]
+
+    request.orders.map(item => (
+        result += ' - ' + item.route?.unloadingAddress.address.split(',')[0]
+    ))
+
+    return result
+}
+
+export const NoneRequests = () => {
+    return (
+        <div className={style.NoneRequests}>
+            <p>Нет заявок</p>
+        </div>
+    )
+}
+
+let test = [
+    {
+        route: {
+            "_id": "qasd4jcyd74hwbnc482",
+            "isSingle": false
+        },
+        orders: [
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Новосибирск"
+                    },
+                    "unloadingAddress": {
+                        "address": "Тальменка"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Тальменка"
+                    },
+                    "unloadingAddress": {
+                        "address": "Барнаул"
+                    }
+                }
+            },
+            {
+                "date": {
+                    "loadingTime": 1696271100
+                },
+                "order": {
+                    "devisionName": "Структура структура"
+                },
+                "route": {
+                    "loadingAddress": {
+                        "address": "Барнаул"
+                    },
+                    "unloadingAddress": {
+                        "address": "Бийск"
+                    }
+                }
+            }
+        ]
+    }
+]
 
 export default function Table(props) {
     // import data allRequest from server
@@ -109,12 +191,10 @@ export default function Table(props) {
                         Дата
                         <div style={date === 0 ? {width: "15px",height: "0"} : date === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                     </th>
-
                     <th className={style.tc} onClick={tcSort}>
                         Структурное подразделение
                         <div style={tc === 0 ? {width: "15px",height: "0"} : tc === 2 ? {transform: 'rotate(180deg)'} : {}}></div>
                     </th>
-
                     <th>Маршрут</th>
                     {
                         props.history ? (

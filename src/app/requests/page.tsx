@@ -1,11 +1,39 @@
 'use client' // TODO: Изучить
 
 import style from './request.module.scss'
+import LineTable from "@/app/requests/lineTable/lineTable";
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import Pagination from "./pagination/pagination";
+import axios from "axios";
 import {useFetching} from "@/app/hooks/useFetching";
 import PostService from "@/app/API/postService";
+import Loading from "@/app/requests/loading/loading";
 import Table from "@/app/requests/table/table";
+
+const ReversDateTime = (dataTime) => {
+    const dateTime = new Date(dataTime * 1000);
+
+    return (dateTime.getUTCDate() < 10 ? '0' + dateTime.getUTCDate() : dateTime.getUTCDate()) + '.' + ((dateTime.getUTCMonth() + 1) < 10 ? '0' + (dateTime.getUTCMonth() + 1) : (dateTime.getUTCMonth() + 1)) + '.' + dateTime.getUTCFullYear();
+}
+
+const ReversRoutePoint = (request) => {
+    let result = request.orders[0]?.route.loadingAddress.address.split(',')[0]
+
+    request.orders.map(item => (
+        result += ' - ' + item.route?.unloadingAddress.address.split(',')[0]
+    ))
+
+    return result
+}
+
+export const NoneRequests = () => {
+    return (
+        <div className={style.NoneRequests}>
+            <p>Нет заявок</p>
+        </div>
+    )
+}
 
 let test = [
     {
@@ -16,10 +44,10 @@ let test = [
         orders: [
             {
                 "date": {
-                    "loadingTime": 1
+                    "loadingTime": 1700046660
                 },
                 "order": {
-                    "devisionName": "Пример"
+                    "devisionName": "Подразделение А"
                 },
                 "route": {
                     "loadingAddress": {
@@ -32,10 +60,10 @@ let test = [
             },
             {
                 "date": {
-                    "loadingTime": 1
+                    "loadingTime": 1696271100
                 },
                 "order": {
-                    "devisionName": "Пример"
+                    "devisionName": "Структура структура"
                 },
                 "route": {
                     "loadingAddress": {
@@ -48,10 +76,10 @@ let test = [
             },
             {
                 "date": {
-                    "loadingTime": 1
+                    "loadingTime": 1696271100
                 },
                 "order": {
-                    "devisionName": "Пример"
+                    "devisionName": "Структура структура"
                 },
                 "route": {
                     "loadingAddress": {
@@ -73,14 +101,18 @@ export default function Request() {
     const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
         let response = await PostService.getAll()
 
-        response = response.filter(item => item.route?.status !== 'merged')
+        response = response.filter(item => (item.route?.status !== 'merged' && item.route.isSingle !== true))
 
         setAppState(test.concat(response))
     })
 
+
+
     useEffect(() => {
         fetchPostGetAll()
     }, [])
+
+
 
     return (
         <div className={style.main}>
