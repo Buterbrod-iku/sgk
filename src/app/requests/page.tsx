@@ -6,6 +6,7 @@ import Link from "next/link";
 import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Table from "@/app/requests/table/table";
+import Loading from "@/app/requests/loading/loading";
 
 export default function Request() {
     // import data allRequest from server
@@ -32,7 +33,12 @@ export default function Request() {
                 <Link href={"/requests/new"}><button className={style.button}>Создать заявку</button></Link>
             </div>
 
-            <Table array={appState} fetchPostGetAll={fetchPostGetAll} isLoading={isLoading}/>
+            {
+                isLoading ?
+                    <Loading />
+                    :
+                    <Table array={appState} fetchPostGetAll={fetchPostGetAll} isLoading={isLoading}/>
+            }
         </div>
     )
 }

@@ -15,7 +15,7 @@ export default function Table(props) {
 
     useEffect(() => {
         setAppState(props.array)
-    })
+    }, [])
 
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
@@ -43,44 +43,38 @@ export default function Table(props) {
         <>
             <table className={style.table}>
                 <thead>
-                <tr className={style.tr} style={props.history ? {gridTemplateColumns: "1fr 2fr 4fr 1fr"} : {gridTemplateColumns: "1fr 2fr 5fr"}}>
-                    <th className={style.date}>
-                        Дата
-                    </th>
-                    <th className={style.tc}>
-                        Структурное подразделение
-                    </th>
-                    <th>Маршрут</th>
-                    {
-                        props.history ? (
-                            <th>Путевой лист</th>
-                        )
-                            : ""
-                    }
-                </tr>
+                    <tr className={style.tr} style={props.history ? {gridTemplateColumns: "1fr 2fr 4fr 1fr"} : {gridTemplateColumns: "1fr 2fr 5fr"}}>
+                        <th className={style.date}>
+                            Дата
+                        </th>
+                        <th className={style.tc}>
+                            Структурное подразделение
+                        </th>
+                        <th>Маршрут</th>
+                        {
+                            props.history ? (
+                                <th>Путевой лист</th>
+                            )
+                                : null
+                        }
+                    </tr>
                 </thead>
                 <tbody>
-                {
-                    // проверяем на загрузку
-                    props.isLoading
-                        ? (<Loading />)
-                        // выводим страницу с заявками
-                        : (
-                            current?.length === 0
-                                ? (<NoneRequests />)
-                                :  current?.map(item => {
-                                    return (
-                                        <LineTable history={props.history}
-                                                   key={item.id}
-                                                   requestID={item.id}
-                                                   date={ReversDateTime(item.time.beginDate)}
-                                                   name={item.vanger}
-                                                   path={ReversRoutePoint(item)}
-                                                   isSingle={item.orders.isSingle} />
-                                    )
-                                })
-                        )
-                }
+                    {
+                        current?.length === 0
+                            ? <NoneRequests />
+                            :  current?.map(item => {
+                                return (
+                                    <LineTable history={props.history}
+                                               key={item.id}
+                                               requestID={item.id}
+                                               date={ReversDateTime(item.time.beginDate)}
+                                               name={item.vanger}
+                                               path={ReversRoutePoint(item)}
+                                               isSingle={item.orders.isSingle} />
+                                )
+                            })
+                    }
                 </tbody>
             </table>
             {

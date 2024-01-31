@@ -1,7 +1,7 @@
 export const ReversRoutePoint = (request) => {
     let result = ""
 
-    request.waypoints.points.map(item => (
+    request.waypoints?.points.map(item => (
         result += item.address.split(',')[0] + ' - '
     ))
 
