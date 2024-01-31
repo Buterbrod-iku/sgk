@@ -16,7 +16,6 @@ export default function Request() {
         let response = await PostService.getAll()
 
         setAppState(response)
-        console.log(response)
     })
 
     useEffect(() => {

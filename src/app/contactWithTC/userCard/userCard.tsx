@@ -11,11 +11,8 @@ export default function UserCard({user}) {
             </div>
             <div className={style.contact}>
                 {
-                    user.contact.map(item => (
-                        <>
-                            <p>{item.fio}: <span>{item.value}</span></p>
-                        </>
-
+                    user.contact.map((item, index) => (
+                            <p key={index}>{item.fio}: <span>{item.value}</span></p>
                     ))
                 }
             </div>

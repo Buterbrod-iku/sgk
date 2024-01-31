@@ -62,8 +62,11 @@ export default function Table(props) {
                 <tbody>
                     {
                         current?.length === 0
-                            ? <NoneRequests />
-                            :  current?.map(item => {
+                            ? (<tr className={style.NoneRequests}>
+                                    <td>Нет заявок</td>
+                                </tr>
+                            )
+                            :  current?.map((item, index) => {
                                 return (
                                     <LineTable history={props.history}
                                                key={item.id}

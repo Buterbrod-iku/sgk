@@ -12,7 +12,7 @@ export default function contactWithTC() {
             </p>
             <div className={style.position}>
                 {
-                    arrayCard.map(item => <UserCard user={item} />)
+                    arrayCard.map((item, index) => <UserCard key={index} user={item} />)
                 }
             </div>
         </div>

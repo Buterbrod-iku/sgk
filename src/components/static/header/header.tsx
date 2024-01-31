@@ -8,7 +8,6 @@ import pathAdaptive from "@/components/static/header/pathAdaptive";
 export default function Header() {
     const location = usePathname()
     let path = []
-    console.log(location)
 
     path = pathAdaptive(location)
 

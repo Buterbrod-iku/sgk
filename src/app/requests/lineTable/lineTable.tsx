@@ -1,9 +1,11 @@
 import { useRouter } from 'next/navigation';
 import style from './lineTable.module.scss'
-import download from '../../../assets/images/download_icon_128877.svg'
+import downloadIco from '../../../assets/images/download_icon_128877.svg'
+import useDownloader from "react-use-downloader";
 
 export default function LineTable(props) {
     const router = useRouter();
+    const {download} = useDownloader();
 
     const openRequestHandler = e => {
         if(!props.history){
@@ -21,14 +23,10 @@ export default function LineTable(props) {
             <td className={style.th}>{props.path}</td>
             {
                 props.history ? (
-                    <>
-                        <a className={style.a} href={'./'} download={"putevoy_list.xls"}>
-                            <td className={style.th} style={{display: "flex", justifyContent: 'center'}}>
-                                <img src={download.src}/>
-                            </td>
-                        </a>
-                    </>
-                ) : ''
+                    <td className={style.th} style={{display: "flex", justifyContent: 'center'}} onClick={() => download("/", "putevoy_list.xls")}>
+                        <img src={downloadIco.src}/>
+                    </td>
+                ) : null
             }
         </tr>
     )

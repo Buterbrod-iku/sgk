@@ -15,163 +15,145 @@ export default function Report() {
 
 let request = [
     {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
+        "id": "65b9fe587ce6a63d60bebfe5",
+        "orders": [
             {
-                "date": {
-                    "loadingTime": 1699162938
+                "id": "65b9e9187ce6a63d60bebfaf",
+                "clientId": "1",
+                "cargo": {
+                    "unit": "good",
+                    "count": 2,
+                    "description": "велосипед",
+                    "price": 100
                 },
-                "order": {
-                    "devisionName": "Подразделение А"
+                "deadline": {
+                    "noDeadline": true,
+                    "beginDate": 0,
+                    "endDate": 0
                 },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Кемерово"
-                    },
-                    "unloadingAddress": {
-                        "address": "Бийск"
-                    }
+                "waypoints": {
+                    "points": [
+                        {
+                            "latitude": "55.023403",
+                            "longitude": "82.900044",
+                            "address": "Новосибирск, Дмитровский мост",
+                            "pointType": "i",
+                            "_id": "65b9e9187ce6a63d60bebfb0"
+                        },
+                        {
+                            "latitude": "53.354615",
+                            "longitude": "83.770137",
+                            "address": "Барнаул, Дом под шпилем",
+                            "pointType": "o",
+                            "_id": "65b9e9187ce6a63d60bebfb1"
+                        }
+                    ]
+                },
+                "done": false,
+                "isSingle": false,
+                "distance": 229965.7,
+                "duration": 12289.9
+            }
+        ],
+        "waypoints": {
+            "points": [
+                {
+                    "latitude": "55.023403",
+                    "longitude": "82.900044",
+                    "address": "Новосибирск, Дмитровский мост",
+                    "pointType": "i",
+                    "_id": "65b9e9187ce6a63d60bebfb0"
+                },
+                {
+                    "latitude": "53.354615",
+                    "longitude": "83.770137",
+                    "address": "Барнаул, Дом под шпилем",
+                    "pointType": "o",
+                    "_id": "65b9e9187ce6a63d60bebfb1"
                 }
-            },
-        ]
+            ]
+        },
+        "distance": 229965.7,
+        "clients": [
+            "1"
+        ],
+        "vanger": "Баринов Виктор Петрович",
+        "time": {
+            "noDeadline": true,
+            "beginDate": 0,
+            "endDate": 0
+        },
+        "totalPrice": 100
     },
     {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
+        "id": "65b9fe3d7ce6a63d60bebfde",
+        "orders": [
+            {
+                "id": "65b9fe027ce6a63d60bebfd0",
+                "clientId": "2",
+                "cargo": {
+                    "unit": "good",
+                    "count": 10,
+                    "description": "ноутбук",
+                    "price": 110
+                },
+                "deadline": {
+                    "noDeadline": true,
+                    "beginDate": 0,
+                    "endDate": 0
+                },
+                "waypoints": {
+                    "points": [
+                        {
+                            "latitude": "54.763048",
+                            "longitude": "83.112711",
+                            "address": "Бердск, вокзал",
+                            "pointType": "i",
+                            "_id": "65b9fe027ce6a63d60bebfd1"
+                        },
+                        {
+                            "latitude": "53.53111",
+                            "longitude": "83.84017",
+                            "address": "Казачий, остановка",
+                            "pointType": "o",
+                            "_id": "65b9fe027ce6a63d60bebfd2"
+                        }
+                    ]
+                },
+                "done": false,
+                "isSingle": false,
+                "distance": 157034.6,
+                "duration": 8010.2
+            }
+        ],
+        "waypoints": {
+            "points": [
+                {
+                    "latitude": "54.763048",
+                    "longitude": "83.112711",
+                    "address": "Бердск, вокзал",
+                    "pointType": "i",
+                    "_id": "65b9fe027ce6a63d60bebfd1"
+                },
+                {
+                    "latitude": "53.53111",
+                    "longitude": "83.84017",
+                    "address": "Казачий, остановка",
+                    "pointType": "o",
+                    "_id": "65b9fe027ce6a63d60bebfd2"
+                }
+            ]
         },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1699422138
-                },
-                "order": {
-                    "devisionName": "Подразделение А"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Новосибирск"
-                    },
-                    "unloadingAddress": {
-                        "address": "Барнаул"
-                    }
-                }
-            },
-        ]
-    },
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
+        "distance": 157034.6,
+        "clients": [
+            "2"
+        ],
+        "vanger": "Баринов Виктор Петрович",
+        "time": {
+            "noDeadline": true,
+            "beginDate": 0,
+            "endDate": 0
         },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Подразделение Б"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Рубцовск"
-                    },
-                    "unloadingAddress": {
-                        "address": "Новоалтайск"
-                    }
-                }
-            },
-        ]
-    },
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1698554538
-                },
-                "order": {
-                    "devisionName": "Подразделение В"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Тальменка"
-                    },
-                    "unloadingAddress": {
-                        "address": "Новоалтайск"
-                    }
-                }
-            },
-            {
-                "date": {
-                    "loadingTime": 1698837798
-                },
-                "order": {
-                    "devisionName": "Подразделение А"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Тальменка"
-                    },
-                    "unloadingAddress": {
-                        "address": "Барнаул"
-                    }
-                }
-            },
-        ]
-    },
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1698981798
-                },
-                "order": {
-                    "devisionName": "Подразделение А"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Новосибирск"
-                    },
-                    "unloadingAddress": {
-                        "address": "Новосибирск"
-                    }
-                }
-            },
-        ]
-    },
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1698837798
-                },
-                "order": {
-                    "devisionName": "Подразделение Г"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Барнаул"
-                    },
-                    "unloadingAddress": {
-                        "address": "Кемерово"
-                    }
-                }
-            },
-        ]
-    },
+        "totalPrice": 110
+    }
 ]
