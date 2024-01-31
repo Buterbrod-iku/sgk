@@ -16,39 +16,9 @@ import trash from '../../../assets/images/mdi_trash.svg'
 import {ReversRoutePoint} from "@/components/utils/refactorUtil/ReversRoutePoint";
 import NoneRequests from "@/components/utils/refactorUtil/NoneRequests/NoneRequests";
 
-const findNewPath = async (allRoutes, newPath, setNewPath ,routerId) => {
-    if(allRoutes.length > 1){
-         await allRoutes.map(item => {
-            if((item.route._id !== routerId) && (item.route.status !== 'merged') && (item.route.status !== 'built')){
-                //console.log(newPath)
-                setNewPath((res) => [
-                    ...res,
-                    {
-                        routeId: item.route._id,
-                        path: ReversRoutePoint(item)
-                    }
-                ])
-            }
-        })
-    }
-}
-
 export default function OpenRequest (props) {
-    const location = usePathname()
-
     // стэйт для основной заявки, которая будет выводиться
     let [newRequest, setPost] = useState({})
-    let [server, setServer] = useState(true)
-
-    if(location.split('/')[2] === "qasd4jcyd74hwbnc482"){
-        let hello = testRequest()
-        newRequest = hello
-        server = false
-    } else if(location.split('/')[2] === "vbjn2cvkj532cvjk3df"){
-        let qwe = testRequestMerged()
-        newRequest = qwe
-        server = false
-    }
 
     const router = useParams()
     let routerId = router.id
@@ -65,42 +35,23 @@ export default function OpenRequest (props) {
         }
     }, [])
 
-
-    // ответ с сервера (приходит массив). Первый объект - сама заявка, остальные - похожие
-    const [allRoutes, setAllRoutes] = useState([])
-
     // массив похожих заявок. Тут будет только id и маршрут
     const [newPath, setNewPath] = useState([])
+
+    const [fetchNewPath, isLoadingNewPath, errorNewPath] = useFetching(async (id) => {
+        const response = await PostService.getById(id)
+
+        setPost(response)
+    })
+
     const [title, setTitle] = useState('')
 
     // хук для запроса на сервер
-    const [fetchPostById, isLoading, error] = useFetching(async (id) => {
+    const [fetchPostById, isLoadingPostById, errorPostById] = useFetching(async (id) => {
         const response = await PostService.getById(id)
 
-        setAllRoutes(response.data)
-
-        response.data.map(item => {
-            if(item.route._id === routerId){
-                setPost(item)
-            }
-        })
+        setPost(response)
     })
-
-
-    useEffect(() => {
-        // если есть похожие заявки, то проходим по ним и достаём id и маршрут
-        findNewPath(allRoutes, newPath, setNewPath ,routerId)
-
-        setNewPath(
-            [
-                {
-                    "routeId": "vbjn2cvkj532cvjk3df",
-                    "path": "Тальменка - Новоалтайск (Это пример как должно выдаваться)"
-                }
-            ]
-        )
-
-    }, [allRoutes])
 
 
 
@@ -110,11 +61,6 @@ export default function OpenRequest (props) {
         }
         renameTitle()
     }, [newRequest])
-
-    // хз почему, но после запроса может случится такое, что в массиве orders будет null последним элементом
-    // в постмене такого нет, но когда получем объект, то он появляется.
-    // если null есть, то удаляем его
-    // newRequest.orders?.map((item, index) => item === null ? delete newRequest.orders[index] : '')
 
     const [openInfo, setOpenInfo] = useState(true);
     const [map, setMap] = useState(false);
@@ -166,12 +112,12 @@ export default function OpenRequest (props) {
     return (
         <div className={style.main} style={props.style}>
             {
-                isLoading
+                isLoadingPostById
                     ? (<Loading style={{width: '80vw', height: '80vh'}}/>)
                     :
                     (<>
                         {
-                            confirm ? <ModalConfirm setConfirm={openConfirm} routeId={newRequest?.route?._id} orders={newRequest?.route?.route.orders}/> : ""
+                            confirm ? <ModalConfirm setConfirm={openConfirm} routeId={newRequest.id} orders={newRequest.orders}/> : ""
                         }
                         <div className={style.block} style={props.addStyle}>
                             {
@@ -187,7 +133,7 @@ export default function OpenRequest (props) {
 
                             {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                             <h4 className={style.title}>
-                                {newRequest?.route?.isSingle ? (<div className={style.locked}></div>) : ''}
+                                {newRequest.orders.isSingle ? (<div className={style.locked}></div>) : ''}
 
                                 {
                                     title.length > 90
@@ -207,7 +153,7 @@ export default function OpenRequest (props) {
                                         <button onClick={swichInfo} disabled={!openInfo} style={openInfo ? {backgroundColor: "#ececec", color: "black"} : {backgroundColor: "rgb(0, 120, 168)", color: "white"}}>Перевозчик</button>
                                     </div>
 
-                                    <MainInfoRequest server={server} setValFunc={setValues} values={values} edit={edit} openInfo={openInfo} allInfo={newRequest}/>
+                                    <MainInfoRequest setValFunc={setValues} values={values} edit={edit} openInfo={openInfo} allInfo={newRequest}/>
                                 </div>
 
                                 <div className={style.path}>
@@ -225,10 +171,9 @@ export default function OpenRequest (props) {
 
                                     <div className={style.route} style={map ? {display: "none"} : {display: "block"}}>
                                         {/*промежуточные точки*/}
-                                        <RoutePoint point={newRequest?.orders[0]?.route.loadingAddress.address}/>
                                         {
-                                            newRequest?.orders?.map((item, index) => (
-                                                <RoutePoint key={index} point={item.route.unloadingAddress.address}/>
+                                            newRequest.waypoints.points.map((item, index) => (
+                                                <RoutePoint key={index} point={item.address}/>
                                             ))
                                         }
                                     </div>
@@ -254,7 +199,7 @@ export default function OpenRequest (props) {
 
 
                             {
-                                newRequest?.route?.isSingleNEW ?
+                                newRequest.orders.isSingle ?
                                     ""
                                     :
                                     props.newPath ? "" : (
@@ -263,7 +208,6 @@ export default function OpenRequest (props) {
                                                 <p>Доступные маршруты</p>
                                             </div>
                                             {
-                                                // TODO: если доступных маршрутов нет, то надо вывести надпись
                                                 newPath.length > 0
                                                     ? newPath.map(item => (
                                                         <NewPath key={item.routeId} title={item.path} routeId={item.routeId} mainRouteId={routerId}/>

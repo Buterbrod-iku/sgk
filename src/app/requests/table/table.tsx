@@ -71,12 +71,12 @@ export default function Table(props) {
                                 :  current?.map(item => {
                                     return (
                                         <LineTable history={props.history}
-                                                   key={item.route._id}
-                                                   requestID={item.route._id}
-                                                   date={ReversDateTime(item?.orders[0]?.date.loadingTime)}
-                                                   name={item?.orders[0]?.order?.devisionName}
+                                                   key={item.id}
+                                                   requestID={item.id}
+                                                   date={ReversDateTime(item.time.beginDate)}
+                                                   name={item.vanger}
                                                    path={ReversRoutePoint(item)}
-                                                   isSingle={item.route.isSingle} />
+                                                   isSingle={item.orders.isSingle} />
                                     )
                                 })
                         )

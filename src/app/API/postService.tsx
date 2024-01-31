@@ -2,18 +2,18 @@ import axios from "axios";
 
 export default class PostService {
     static async getAll() {
-        const apiUrl = 'http://localhost:5000/routes/complex/';
+        const apiUrl = 'http://localhost:5000/routes/std/';
         let response;
         await axios.get(apiUrl).then((resp) => {
-            response = resp.data;
+            response = resp.data.results;
         });
 
         return response
     }
 
     static async getById(id) {
-        const response = await axios.get('http://localhost:5000/routes/complex/' + id)
-        return response
+        const response = await axios.get('http://localhost:5000/routes/std/' + id)
+        return response.data
     }
 
     static async sendRequest(object) {

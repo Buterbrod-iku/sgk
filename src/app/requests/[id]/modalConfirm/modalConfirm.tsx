@@ -11,6 +11,7 @@ export default function ModalConfirm(props) {
     const deleteRoute = async (e) => {
         e.preventDefault()
 
+        // TODO: удалять по id
         await props.orders.map(item => {
             PostService.deleteOrder(item)
         })

@@ -14,9 +14,8 @@ export default function Request() {
     const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
         let response = await PostService.getAll()
 
-        response = response.filter(item => (item.route?.status !== 'merged'))
-
-        setAppState(test.concat(response))
+        setAppState(response)
+        console.log(response)
     })
 
     useEffect(() => {
@@ -37,62 +36,3 @@ export default function Request() {
         </div>
     )
 }
-
-let test = [
-    {
-        route: {
-            "_id": "qasd4jcyd74hwbnc482",
-            "isSingle": false
-        },
-        orders: [
-            {
-                "date": {
-                    "loadingTime": 1
-                },
-                "order": {
-                    "devisionName": "Пример"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Новосибирск"
-                    },
-                    "unloadingAddress": {
-                        "address": "Тальменка"
-                    }
-                }
-            },
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Структура структура"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Тальменка"
-                    },
-                    "unloadingAddress": {
-                        "address": "Барнаул"
-                    }
-                }
-            },
-            {
-                "date": {
-                    "loadingTime": 1696271100
-                },
-                "order": {
-                    "devisionName": "Структура структура"
-                },
-                "route": {
-                    "loadingAddress": {
-                        "address": "Барнаул"
-                    },
-                    "unloadingAddress": {
-                        "address": "Бийск"
-                    }
-                }
-            }
-        ]
-    }
-]
