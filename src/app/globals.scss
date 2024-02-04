@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("../assets/fonts/OpenSans.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "RG-StandardSemibold";
+  src: url("../assets/fonts/RG-StandardSemibold.ttf") format("truetype");
+  font-weight: 400;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,11 +17,16 @@
 }
 
 .content {
-  padding: 15vh 0 20vh 15vw;
+  padding: 5vh 0 20vh 15vw;
   height: 100vh;
+  background-color: #F0F3F9;
 }
 html {
   overflow-y: overlay;
+}
+
+body{
+  background-color: #F0F3F9;
 }
 @media (max-width: 768px) {
   .content{

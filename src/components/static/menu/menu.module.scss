@@ -1,22 +1,29 @@
 .menu{
   width: 15vw;
-  height: auto;
-  background: rgb(0, 66, 92);
+  height: 100%;
+  background: #00425C;
   position: fixed;
   color: rgb(255, 255, 255);
   z-index: 6;
 }
+.positionLogo{
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
 .logoBlock{
   width: 100%;
   height: 10vh;
-  background: rgb(0, 51, 71);
   display: flex;
   align-items: center;
 }
 .logo{
-  width: 12vw;
+  width: 52px;
   height: auto;
-  margin-left: 10px;
+}
+.logoText{
+  font-size: 14px;
+  margin-left: 16px;
 }
 .burger{
   height: 87vh;
@@ -25,13 +32,18 @@
 .itemBlock{
   width: 100%;
   height: auto;
-  margin-top: 3vh;
+  margin-top: 2vh;
   animation: fadeInFromNone 0.7s ease-out;
+}
+.typeMenu{
+  font-size: 16px;
+  color: white;
+  font-family: "Open Sans";
+  margin: 15px 16px 10px 16px;
 }
 .userBlock{
   width: 90%;
   height: 8vh;
-  border-top: 2px solid rgb(17, 97, 129);
   position: absolute;
   bottom: 0;
   display: flex;
@@ -47,16 +59,16 @@
 }
 .nameUser{
   font-size: 1.1em;
-  margin-left: 10px;
+  margin-left: 16px;
 }
 .exit{
-  width: 30px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   // background: #b7b7b7;
   position: absolute;
   background-position: center;
   right: 0;
-  transition: all 0.3s;
+  transition: all 0.2s;
   display: inline-block;
   &:hover {
     transform: scale(1.1);
