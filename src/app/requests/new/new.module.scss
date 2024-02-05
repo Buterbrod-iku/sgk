@@ -1,18 +1,40 @@
 .form{
-  width: 100%;
+  width: calc(100% - 100px);
   height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  margin: 20px 50px;
+}
+.titlePage{
+  font-size: 20px;
+  font-family: "RG-StandardSemibold", serif;
+  margin: 20px 50px;
+}
 
+.headerPage{
+  width: 100%;
+  height: 7vh;
+  border-bottom: 1px solid #E2E5ED;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.styleElement{
+  width: 3px;
+  height: 28px;
+  background-color: #00425C;
+  position: absolute;
+  top: calc(100% - 28px - 14px);
 }
 .title{
-  text-align: center;
-  margin: 3vh 0 2vh 0;
-  font-size: 1.7em;
-  font-weight: normal;
-  color: #4F4F4F;
+  font-family: RG-StandardSemibold, serif;
+  font-size: 18px;
+  color: #2E2E2E;
+  margin-left: 20px;
 }
+
 
 
 .close {

@@ -1,0 +1,12 @@
+.main{
+  width: calc(100% - 40px);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  border-bottom: 1px solid #E2E5ED;
+}
+.text{
+  font-family: RG-StandardSemibold, serif;
+  font-size: 18px;
+}

@@ -2,16 +2,13 @@
 
 import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
-import {use, useEffect, useState, Fragment} from "react";
+import {useEffect, useState, Fragment} from "react";
 import InputButton from "./inputButton/inputButton";
-import {ObjectRestructuring} from "@/components/utils/objectRestructuring";
 import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
-import {useFetching} from "@/components/utils/hooks/useFetching";
-import PostService from "@/app/API/postService";
 import {useRouter} from "next/navigation";
-import successIcon from '@/assets/images/success.svg'
+import TitleBlock from "@/app/requests/new/titleBlock/titleBlock";
 
 export default function New() {
     const [keys, setKeys] = useState(0);
@@ -450,8 +447,15 @@ export default function New() {
 
     return (
         <Fragment>
+            <p className={style.titlePage}>Формирование Заявки</p>
             <form className={style.form}>
-                <h3 className={style.title}>Составление заявки</h3>
+                <div className={style.headerPage}>
+                    <div className={style.styleElement}></div>
+                    <h3 className={style.title}>Сведения о Заявке</h3>
+                </div>
+
+                <TitleBlock text={"Основные данные"} fontSize={"18px"}/>
+
                 {
                     sectionsInputs.map((item, index) => {
                         if (item.component == "section") {
@@ -524,13 +528,9 @@ export default function New() {
                          <br></br><br></br><br></br><br></br><br></br>
                      </div>
                      <div className={style.modalContent2}>
-                         
-                        <h1></h1>
-                        
                         <h2>Ваша заявка была успешно создана</h2>
                         <br></br><br></br><br></br>
                         <button onClick={() => link.push('/requests')}>К заявкам</button>
-                        
                     </div>
                     
                 </div> : null
