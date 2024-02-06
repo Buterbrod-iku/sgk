@@ -97,8 +97,10 @@ export default function New() {
 
     const [modalOpened, setModalOpened] = useState(false);
 
+    const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
+
     return (
-        <Fragment>
+        <>
             <p className={style.titlePage}>Формирование Заявки</p>
             <form className={style.form}>
                 <div className={style.headerPage}>
@@ -109,12 +111,14 @@ export default function New() {
                 <TitleBlock text={"Основные данные"} fontSize={"18px"}/>
 
                 <div className={style.pos}>
-                    <BlockInput gridName={"A"} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} type={'text'}/>
-                    <Checkbox gridName={"B"} text={"Сделать поездку приватной"}/>
-                    <BlockInput gridName={"C"} text={"Тип перевозки"} placeholder={"Не выбран"} require={true} type={'text'}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} />
+                    <BlockInput gridName={"B"} type={'checkbox'} text={"Сделать поездку приватной"} require={false} />
+                    <BlockInput gridName={"C"} type={'select'} text={"Тип перевозки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} />
 
-                    <BlockInput gridName={"D"} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={true} type={'text'}/>
+                    <BlockInput gridName={"D"} type={'textarea'} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={false} />
                 </div>
+
+                <TitleBlock text={"Маршрутная карта"} fontSize={"18px"}/>
 
             </form>
 
@@ -123,6 +127,6 @@ export default function New() {
                     <ModalConfirm />
                     : null
             }
-        </Fragment>
+        </>
     )
 }
