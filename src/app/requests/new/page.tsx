@@ -28,7 +28,6 @@ export default function New() {
         passengersInfo: {
         },
         // comment: ""
-        cargoInfo: null
     });
 
     // key и id будут определены в цикле
@@ -346,7 +345,7 @@ export default function New() {
         setValues(prev => {
             return {...prev,
                 "cargoInfo": {...prev.cargoInfo,
-                     [id]: null,
+                    [id]: null,
                 },
             }
         })
@@ -407,7 +406,7 @@ export default function New() {
         // let startCoords = await getCoordsByAddress(values.carStartPoint_address);
         // console.log('startCoords: ', startCoords);
         
-        let valuesCopy = values; // Не изменяем values, а дополняем копию
+        // let valuesCopy = values; // Не изменяем values, а дополняем копию
     
         // // Перебор всех пунктов назначения (создание объекта)
         // // TODO: Проверка на !null
@@ -425,8 +424,8 @@ export default function New() {
         // }
 
         // // 3. Реструктурирование values в требуемый вид и вывод данных
-        console.log('первая версия...');
-        console.log(valuesCopy);
+        // console.log('первая версия...');
+        // console.log(valuesCopy);
         // console.log('результат...');
         // console.log(ObjectRestructuring(valuesCopy));
 
@@ -460,7 +459,6 @@ export default function New() {
                 {
                     sectionsInputs.map((item, index) => {
                         if (item.component == "section") {
-                            //TODO : !!!!!!!!!!!!!!!!!!!!!!!!!!!
                             return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                         }
 

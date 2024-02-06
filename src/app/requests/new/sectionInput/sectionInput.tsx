@@ -1,14 +1,6 @@
 import style from './sectionInput.module.scss'
 import InputForm from "../inputForm/inputForm";
 
-const InputLabel = (props) => {
-    return(
-        <label htmlFor={props.forID} className={style.textPoint} style={props.styles}>
-            {props.text} {props.require ? <span style={{color: "darkred"}}>*</span> : ""}
-        </label>
-    )
-}
-
 export default function SectionInput(props) {
     const isCheckbox = (props.customStruct == "checkbox");
 
