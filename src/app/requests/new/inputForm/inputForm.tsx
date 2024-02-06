@@ -56,35 +56,10 @@ export default function InputForm(props) {
         }
     }, [inputValue, event]);
 
-    if (props.type == "select") {
-        return (
-            <Fragment>
-                <select className={style.select}>
-                    <option>Не выбран</option>
-                    <option>Барнаул</option>
-                    <option>Бийск</option>
-                    <option>Тальменка</option>
-                    <option>Новосибирск</option>
-                </select>
-            </Fragment>
-        )
-    } else if (props.type == "select2") {
-        return (
-            <Fragment>
-                <select className={style.select}>
-                    <option>Не выбран</option>
-                    <option>Пассажирская</option>
-                    <option>Грузовая</option>
-                    <option>Грузо-пассажирская</option>
-                </select>
-            </Fragment>
-        )
-    } else {
-        return (
-            <Fragment>
-                <input {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
-            </Fragment>
-        )   
-    }
+    return (
+        <Fragment>
+            <input {...additionalProps} data-section-id={`${props.dataSectionID}`} name={props.name} id={props.forID} type={props.type ? props.type : "text"} className={style.input} placeholder={props.placeholder} style={props.styles}/>
+        </Fragment>
+    )
 }
 
