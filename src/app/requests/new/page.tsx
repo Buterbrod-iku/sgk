@@ -3,56 +3,228 @@
 import style from './new.module.scss';
 import SectionInput from "./sectionInput/sectionInput";
 import {useEffect, useState, Fragment} from "react";
-import InputButton from "./inputButton/inputButton";
 import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
 import axios from 'axios';
 import { XMLParser, XMLBuilder, XMLValidator} from "fast-xml-parser";
 import {useRouter} from "next/navigation";
 import TitleBlock from "@/app/requests/new/titleBlock/titleBlock";
 import ModalConfirm from "@/app/requests/new/modalConfirm/modalConfirm";
-import InputForm from "@/app/requests/new/inputForm/inputForm";
 import BlockInput from "@/app/requests/new/blockInput/blockInput";
 import PageBlock from "@/app/requests/new/pageBlock/pageBlock";
+import getCoordsByAddress from "@/app/API/geocoder";
 
 export default function New() {
+    const [values, setValues] = useState({
+        divisionName: ""
+    });
 
-    // Получение адреса с символом "-" вместо пробелов (вспомогательная для submitHandler)
-    function getFormattedAddress(prevAddress) {
-        let newAddress = prevAddress.
-            split(' ').
-            join('-');
+    // Объект с точками назначения
+    const [distPoints, setDistPoints] = useState([]);
 
-        return encodeURI(newAddress);
-    }
+    // Необходим для скрывания крестика удаления компонента
+    const [isOnlyOneDist, setIsOnlyOneDist] = useState(false);
 
-    // Отправка запроса для получения геоданных от Яндекса
-    function getCoordsByAddress(address) {
-        return axios.get(`https://geocode-maps.yandex.ru/1.x/?apikey=09ffa4b8-a280-4606-a6f2-91f74c2bba7b&geocode=${getFormattedAddress(address)}`)
-        .then(response => {
-            // console.log("yandex", parser.parse(response.data));
-            // console.log("yandex", `https://geocode-maps.yandex.ru/1.x/?apikey=09ffa4b8-a280-4606-a6f2-91f74c2bba7b&geocode=${getFormattedAddress(address)}`);
-            
-            let dataParsed = parser.parse(response.data);
-            let coordsArr;
-            if (Array.isArray(dataParsed.ymaps.GeoObjectCollection.featureMember)) {
-                coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
-            } else {
-                coordsArr = parser.parse(response.data).ymaps.GeoObjectCollection.featureMember.GeoObject.Point.pos.split(' ');
-            }
-            
-            return (
+    // Обновляет isOnlyOneDist
+    useEffect(() => {
+        if (distPoints.length === 1) {
+            setIsOnlyOneDist(true)
+        } else {
+            setIsOnlyOneDist(false)
+        }
+    }, [distPoints])
+
+
+    function addDistPointHandler () {
+        console.log('point added');
+
+        let repObjStruct = {
+            component: "section",
+            sectionLabel: "Пункт назначения",
+            require: true,
+            closable: true,
+            customStruct: "dateTime",
+            inputs: [
                 {
-                    long: coordsArr[0],
-                    lat: coordsArr[1]
+                    name: "destinationPoint_address",
+                    type: "text",
+                    placeholder: "Адрес"
+                },
+                {
+                    name: "destinationPoint_date",
+                    type: "date",
+                    inputLabel: "Дата подачи"
+                },
+                {
+                    name: "destinationPoint_arriveTime",
+                    type: "time",
+                    inputLabel: "Время подачи"
+                },
+                {
+                    name: "destinationPoint_waitingTime",
+                    type: "time",
+                    inputLabel: "Время ожидания"
                 }
-            )
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            ]
+        }
+
+        let idKey = "dist_" + (distPoints.length + 1);
+
+        //TODO: !!!!!!!!!!!!!!
+        //setDistPoints([...distPoints, <SectionInput key={idKey} id={idKey} closeHandler={closeDistHandler} {...repObjStruct} onChange={(e) => onListChange(e, "destinationPoints", setValues)}/>])
     }
 
-    // Получение координат через геокодер Яндекса 
+
+    function closeDistHandler(e, id) {
+        setDistPoints(prevEndPoint => {
+            return prevEndPoint.filter(item => {
+                return item.key !== id
+            });
+        });
+
+        setValues(prev => {
+            return {...prev,
+                "destinationPoints": {...prev.destinationPoints,
+                    [id]: null,
+                },
+            }
+        })
+    }
+
+
+    // Объект с пассажирами
+    const [passengers, setPassengers] = useState([]);
+
+    function addPassengerHandler () {
+        console.log('passenger added');
+
+        let repObjStruct = {
+            component: "section",
+            sectionLabel: "Данные пассажира",
+            require: true,
+            closable: true,
+            inputs: [
+                {
+                    name: "passengersInfo_fullName",
+                    type: "text",
+                    placeholder: "ФИО сотрудника"
+                },
+                {
+                    name: "passengersInfo_phoneNumber",
+                    type: "tel",
+                    placeholder: "Номер телефона"
+                },
+                {
+                    name: "passengersInfo_from",
+                    type: "select",
+                    placeholder: "Откуда едет"
+                },
+                {
+                    name: "passengersInfo_to",
+                    type: "select",
+                    placeholder: "Куда едет"
+                }
+            ]
+        }
+
+        let idKey = "passenger_" + (passengers.length + 1);
+
+        //TODO: !!!!!!!!!!!!!!!!!!!!!!!
+        //setPassengers([...passengers, <SectionInput key={idKey} id={idKey} closeHandler={closePassengerHandler} {...repObjStruct} onChange={(e) => onListChange(e, "passengersInfo", setValues)}/>])
+    }
+
+    // Объект с пассажирами
+    const [cargo, setCargo] = useState([]);
+
+    function addCargoHandler () {
+        console.log('cargo added');
+
+        let repObjStruct = {
+            component: "section",
+            sectionLabel: "Информация о грузе",
+            require: true,
+            closable: true,
+            inputs: [
+                {
+                    name: "cargo_description",
+                    type: "text",
+                    placeholder: "Характер груза"
+                },
+                {
+                    name: "cargo_volume",
+                    type: "text",
+                    placeholder: "Объем груза"
+                },
+                {
+                    name: "cargo_weight",
+                    type: "text",
+                    placeholder: "Вес груза"
+                },
+                {
+                    name: "cargo_from",
+                    type: "select",
+                    placeholder: "Откуда едет"
+                },
+                {
+                    name: "cargo_to",
+                    type: "select",
+                    placeholder: "Куда едет"
+                }
+            ]
+        }
+
+        let idKey = "cargo_" + (cargo.length + 1);
+
+        //TODO: !!!!!!!!!!!!!
+        //setCargo([...cargo, <SectionInput key={idKey} id={idKey} closeHandler={closeCargoHandler} {...repObjStruct} onChange={(e) => onListChange(e, "cargoInfo", setValues)}/>])
+    }
+
+
+    // Инициализирует sections точки назначения и информации о пассажире
+    const [firstCreated, setFirstCreated] = useState(true);
+    if (firstCreated) {
+        setFirstCreated(false);
+
+        addDistPointHandler(); // TODO: Убрать аргумент e из функции
+        addPassengerHandler(); // TODO: Убрать аргумент e из функции
+        addCargoHandler(); // TODO: Убрать аргумент e из функции
+    }
+
+    function closePassengerHandler(e, id) {
+        console.log("closed " + id);
+        setPassengers(prevEndPoint => {
+            return prevEndPoint.filter(item => {
+                return item.key !== id
+            });
+        });
+
+        setValues(prev => {
+            return {...prev,
+                "passengersInfo": {...prev.passengersInfo,
+                    [id]: null,
+                },
+            }
+        })
+    }
+
+    function closeCargoHandler(e, id) {
+        console.log("closed " + id);
+        setCargo(prevEndPoint => {
+            return prevEndPoint.filter(item => {
+                return item.key !== id
+            });
+        });
+
+        setValues(prev => {
+            return {...prev,
+                "cargoInfo": {...prev.cargoInfo,
+                    [id]: null,
+                },
+            }
+        })
+    }
+
+
+    // Получение координат через геокодер Яндекса
     // TODO: заменить на собственный
     const parser = new XMLParser();
 
@@ -61,16 +233,16 @@ export default function New() {
     async function submitHandler (e) {
         e.preventDefault();
         // 1. Попытка получения геоданных из всех адресов
-        // let startCoords = await getCoordsByAddress(values.carStartPoint_address);
+        //let startCoords = await getCoordsByAddress(values.carStartPoint_address, parser);
         // console.log('startCoords: ', startCoords);
-        
-        // let valuesCopy = values; // Не изменяем values, а дополняем копию
-    
+
+        let valuesCopy = values; // Не изменяем values, а дополняем копию
+
         // // Перебор всех пунктов назначения (создание объекта)
         // // TODO: Проверка на !null
-        // let destinationsCoords = {} 
+        // let destinationsCoords = {}
         // for (let value in valuesCopy.destinationPoints) {
-        //     destinationsCoords[value] = await getCoordsByAddress(valuesCopy.destinationPoints[value].destinationPoint_address);
+        //     destinationsCoords[value] = await getCoordsByAddress(valuesCopy.destinationPoints[value].destinationPoint_address, parser);
         // }
         // console.log(destinationsCoords);
         // // TODO: Добавить проверки на удачное получение координат и прекратить отправку запроса в случае неудачи
@@ -82,13 +254,11 @@ export default function New() {
         // }
 
         // // 3. Реструктурирование values в требуемый вид и вывод данных
-        // console.log('первая версия...');
-        // console.log(valuesCopy);
-        // console.log('результат...');
-        // console.log(ObjectRestructuring(valuesCopy));
+        console.log('первая версия...');
+        console.log(values);
 
 
-        // await PostService.sendRequest(ObjectRestructuring(valuesCopy))
+        // await PostService.sendRequest(valuesCopy)
         setTimeout(() => {
             setModalOpened(true);
         }, 500);
@@ -111,17 +281,20 @@ export default function New() {
                 <TitleBlock text={"Основные данные"} fontSize={"18px"}/>
 
                 <div className={style.pos}>
-                    <BlockInput gridName={"A"} type={'text'} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} />
-                    <BlockInput gridName={"B"} type={'checkbox'} text={"Сделать поездку приватной"} require={false} />
-                    <BlockInput gridName={"C"} type={'select'} text={"Тип перевозки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} />
+                    <BlockInput gridName={"A"} type={'text'} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} name={"divisionName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"B"} type={'checkbox'} text={"Сделать поездку приватной"} require={false} name={"isSingle"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"C"} type={'select'} text={"Тип перевозки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} name={"typeCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
 
-                    <BlockInput gridName={"D"} type={'textarea'} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={false} />
+                    <BlockInput gridName={"D"} type={'textarea'} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={false} name={"comment"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                 </div>
 
                 <TitleBlock text={"Маршрутная карта"} fontSize={"18px"}/>
 
                 <PageBlock />
 
+                <div className={style.positionButton}>
+                    <button className={style.buttonConfirm} onClick={submitHandler}>Создать заявку</button>
+                </div>
             </form>
 
             {

@@ -5,15 +5,15 @@ import {integerFormatter, phoneFormatter} from "@/components/utils/formUtils";
 export function TextArea(props) {
     return (
         <>
-            <textarea placeholder={props.placeholder} className={style.textarea}/>
+            <textarea placeholder={props.placeholder} className={style.textarea} onChange={props.onChange} name={props.name}/>
         </>
     )
 }
 
-export function Checkbox() {
+export function Checkbox(props) {
     return (
         <>
-            <input type="checkbox" className={style.checkbox}/>
+            <input type="checkbox" className={style.checkbox} onChange={props.onChange} name={props.name}/>
         </>
     )
 }
@@ -21,12 +21,12 @@ export function Checkbox() {
 export function Select(props) {
     return (
         <>
-            <select className={style.select}>
+            <select className={style.select} onChange={props.onChange} name={props.name}>
                 <option disabled selected hidden>{props.placeholder}</option>
 
                 {
                     props.selectArray.map((item) =>
-                            <option>{item}</option>
+                            <option key={item} value={item}>{item}</option>
                        )
                 }
             </select>

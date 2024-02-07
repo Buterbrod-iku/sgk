@@ -15,16 +15,16 @@ export default function BlockInput(props) {
 
     useEffect(() => {
         if (props.type === "textarea"){
-            setInput(<TextArea placeholder={props.placeholder}/>)
+            setInput(<TextArea placeholder={props.placeholder} onChange={props.onChange} name={props.name}/>)
         }
         else if (props.type === "checkbox"){
-            setInput(<Checkbox />)
+            setInput(<Checkbox onChange={props.onChange} name={props.name}/>)
         }
         else if (props.type === "select"){
-            setInput(<Select selectArray={props.selectArray} placeholder={props.placeholder}/>)
+            setInput(<Select selectArray={props.selectArray} placeholder={props.placeholder} onChange={props.onChange} name={props.name}/>)
         }
         else {
-            setInput(<DefaultInput placeholder={props.placeholder} type={props.type}/>)
+            setInput(<DefaultInput placeholder={props.placeholder} type={props.type} onChange={props.onChange} name={props.name}/>)
         }
     }, [])
 

@@ -11,7 +11,7 @@ export const PassengersContent = (props) => {
 
             <div className={style.pos}>
                 <BlockInput gridName={"A"} type={'text'} text={"ФИО сотрудника"} placeholder={"Фамилия Имя Отчество"} require={true} />
-                <BlockInput gridName={"B"} type={'text'} text={"Телефонный номер"} placeholder={"+7 (000) 000-00-00"} require={true} />
+                <BlockInput gridName={"B"} type={'tel'} text={"Телефонный номер"} placeholder={"+7 (000) 000-00-00"} require={true} />
                 <BlockInput gridName={"C"} type={'select'} text={"Пункт доставки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} />
             </div>
         </div>
