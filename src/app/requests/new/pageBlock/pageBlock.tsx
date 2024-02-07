@@ -56,12 +56,23 @@ export default function PageBlock(props) {
                 ))
             }
 
-            <TitleBlock text={"Пассажиры"} fontSize={"16px"}/>
-            <PageBlockForPass />
+            {
+                buttonArray.map((item, index) => (
+                    <div key={index} style={page !== index ? {display: "none"} : {display: "block"}}>
+                        <TitleBlock text={"Пассажиры"} fontSize={"16px"}/>
+                        <PageBlockForPass />
+                    </div>
+                ))
+            }
 
-            <TitleBlock text={"Грузы"} fontSize={"16px"}/>
-            <PageBlockForCargo />
-
+            {
+                buttonArray.map((item, index) => (
+                    <div key={index} style={page !== index ? {display: "none"} : {display: "block"}}>
+                        <TitleBlock text={"Грузы"} fontSize={"16px"}/>
+                        <PageBlockForCargo />
+                    </div>
+                ))
+            }
         </div>
     )
 }
