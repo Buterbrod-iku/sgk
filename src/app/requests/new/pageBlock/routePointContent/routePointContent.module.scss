@@ -1,0 +1,15 @@
+.mainTest{
+
+}
+.pos{
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "A A A   B C D"
+    "A A A   B C D"
+    "A A A   E E E";
+  column-gap: 30px;
+  row-gap: 10px;
+  padding: 0 20px;
+  grid-auto-columns: 1.2fr 1fr;
+}

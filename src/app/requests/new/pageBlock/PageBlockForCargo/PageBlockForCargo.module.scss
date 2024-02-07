@@ -1,0 +1,24 @@
+.main{
+  width: calc(100% - 40px);
+  height: 300px;
+  margin: 0 20px;
+}
+.tabPosition{
+  width: 100%;
+  height: auto;
+  position: relative;
+  font-family: "Open Sans", serif;
+  font-size: 14px;
+  button{
+    background: white;
+    border-radius: 0;
+    border: 1px solid #DBDDE3;
+    padding: 5px 15px 5px 10px;
+    cursor: pointer;
+    border-bottom: none;
+    border-right: none;
+  }
+  button:last-child{
+    border-right: 1px solid #DBDDE3;
+  }
+}
