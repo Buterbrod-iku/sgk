@@ -12,7 +12,7 @@ import TitleBlock from "@/app/requests/new/titleBlock/titleBlock";
 import ModalConfirm from "@/app/requests/new/modalConfirm/modalConfirm";
 import InputForm from "@/app/requests/new/inputForm/inputForm";
 import BlockInput from "@/app/requests/new/blockInput/blockInput";
-import Checkbox from "@/app/requests/new/checkbox/checkbox";
+import PageBlock from "@/app/requests/new/pageBlock/pageBlock";
 
 export default function New() {
 
@@ -119,6 +119,8 @@ export default function New() {
                 </div>
 
                 <TitleBlock text={"Маршрутная карта"} fontSize={"18px"}/>
+
+                <PageBlock />
 
             </form>
 
