@@ -40,7 +40,7 @@ export default function PageBlockForPass(props) {
             <div className={style.tabPosition}>
                 {
                     buttonArray.map((item, index) => (
-                        <button onClick={() => switchHandler(event, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                        <button key={index} onClick={() => switchHandler(event, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
                             {item.name}
                         </button>
                     ))
