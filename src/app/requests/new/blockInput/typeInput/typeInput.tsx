@@ -21,7 +21,7 @@ export function Checkbox(props) {
 export function Select(props) {
     return (
         <>
-            <select className={style.select} onChange={props.onChange} name={props.name}>
+            <select className={style.select} onChange={props.onChange} name={props.name} defaultValue={props.placeholder}>
                 <option disabled selected hidden>{props.placeholder}</option>
 
                 {

@@ -15,7 +15,7 @@ import getCoordsByAddress from "@/app/API/geocoder";
 
 export default function New() {
     const [values, setValues] = useState({
-        divisionName: ""
+        "waypoints": {}
     });
 
     // Объект с точками назначения
@@ -290,7 +290,7 @@ export default function New() {
 
                 <TitleBlock text={"Маршрутная карта"} fontSize={"18px"}/>
 
-                <PageBlock />
+                <PageBlock values={values} setValues={setValues}/>
 
                 <div className={style.positionButton}>
                     <button className={style.buttonConfirm} onClick={submitHandler}>Создать заявку</button>
