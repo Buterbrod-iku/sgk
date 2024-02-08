@@ -15,7 +15,7 @@ export default function BlockInput(props) {
 
     useEffect(() => {
         if (props.type === "textarea"){
-            setInput(<TextArea placeholder={props.placeholder} onChange={props.onChange} name={props.name}/>)
+            setInput(<TextArea placeholder={props.placeholder} onChange={props.onChange} name={props.name} dataSectionID={props.dataSectionID}/>)
         }
         else if (props.type === "checkbox"){
             setInput(<Checkbox onChange={props.onChange} name={props.name}/>)

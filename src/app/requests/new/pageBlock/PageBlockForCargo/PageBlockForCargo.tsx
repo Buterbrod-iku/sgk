@@ -9,14 +9,6 @@ export default function PageBlockForCargo(props) {
             index: 1,
             name: "Груз № 1"
         },
-        {
-            index: 2,
-            name: "Груз № 2"
-        },
-        {
-            index: 3,
-            name: "Груз № 3"
-        },
     ]);
 
     const switchHandler = (e, index) => {
@@ -44,12 +36,12 @@ export default function PageBlockForCargo(props) {
                         </button>
                     ))
                 }
-                <button onClick={() => addPage(event, buttonArray)} style={{padding: "5px 15px"}}>+</button>
+                <button onClick={() => addPage(event, buttonArray)} style={{padding: "5px 15px", background: "#0078A8", color: "white"}}>+</button>
             </div>
 
             {
                 buttonArray.map((item, index) => (
-                    <CargoContent key={index} text={`hello ${index}`} style={page !== index ? {display: "none"} : {display: "block"}}/>
+                    <CargoContent key={index} text={`hello ${index}`} style={page !== index ? {display: "none"} : {display: "block"}}  values={props.values} setValues={props.setValues}/>
                 ))
             }
 
