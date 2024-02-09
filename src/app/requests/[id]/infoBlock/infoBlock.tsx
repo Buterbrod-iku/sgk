@@ -1,5 +1,5 @@
 import style from './infoBlock.module.scss'
-import InputForm from "@/app/requests/new/inputForm/inputForm";
+import {DefaultInput} from "@/app/requests/new/blockInput/typeInput/typeInput";
 import {phoneFormatter} from "@/components/utils/formUtils";
 import {Waiting} from "@/components/utils/refactorUtil/WaitingToString";
 import {addZero} from "@/components/utils/refactorUtil/getDataTime";
@@ -40,7 +40,7 @@ export default function InfoBlock(props) {
                     <div>
                         <p className={style.info}>
                             {props.edit ? (
-                                    <InputForm dataSectionID={props.dataSectionID} onChange={props.onChange} name={props.name} value={(props.waiting ? Waiting(props.info) : props.info)} type={typeInput}/>
+                                    <DefaultInput dataSectionID={props.dataSectionID} onChange={props.onChange} name={props.name} value={(props.waiting ? Waiting(props.info) : props.info)} type={typeInput}/>
                                 )
                                 // TODO: Избавиться от этого ужаса
                                 : (props.name === "passengersInfo_phoneNumber") ?
@@ -55,11 +55,11 @@ export default function InfoBlock(props) {
                 props.dataTime ? (
                     <div className={style.dataTime}>
                         {/*пофиксить чтоб при переходе на инпут значением выдавало дату*/}
-                        <p className={style.info}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_date"} max={"2050-12-31"} onChange={props.onChange} value={dateInput} type={typeInput}/>) : date}</p>
+                        <p className={style.info}>{props.edit ? (<DefaultInput dataSectionID={props.dataSectionID} name={props.name + "_date"} max={"2050-12-31"} onChange={props.onChange} value={dateInput} type={typeInput}/>) : date}</p>
                         {
                             props.edit ? '' : <p style={{marginLeft: "10px"}}></p>
                         }
-                        <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<InputForm dataSectionID={props.dataSectionID} name={props.name + "_time"} onChange={props.onChange} value={time} type='time'/>) : time}</p>
+                        <p className={style.info} style={props.edit ? {margin: '-2px 8px'} : {}}>{props.edit ? (<DefaultInput dataSectionID={props.dataSectionID} name={props.name + "_time"} onChange={props.onChange} value={time} type='time'/>) : time}</p>
                         {
                             props.edit ? '' : ""
                         }
