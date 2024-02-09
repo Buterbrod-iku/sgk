@@ -31,12 +31,12 @@ export default function PageBlockForCargo(props) {
             <div className={style.tabPosition}>
                 {
                     buttonArray.map((item, index) => (
-                        <button key={index} onClick={() => switchHandler(event, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                        <button key={index} onClick={(e) => switchHandler(e, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
                             {item.name}
                         </button>
                     ))
                 }
-                <button onClick={() => addPage(event, buttonArray)} style={{padding: "5px 15px", background: "#0078A8", color: "white"}}>+</button>
+                <button onClick={(e) => addPage(e, buttonArray)} style={{padding: "5px 15px", background: "#0078A8", color: "white"}}>+</button>
             </div>
 
             {
