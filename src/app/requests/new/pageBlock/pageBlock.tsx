@@ -68,8 +68,7 @@ export default function PageBlock(props) {
 
     const search = (array, page, deleted) => {
         if(array.length - 1 === 0){
-            setPage(0)
-            return;
+            return 0;
         }
 
         console.log(array)
@@ -79,15 +78,14 @@ export default function PageBlock(props) {
             for (let i = array.length - 1; i >= 0; i--){
                 if(array[i].index === deleted){
                     console.log("111111111111111111111")
-                    setPage(array[i - 1].index)
+                    return array[i - 1].index
                 }
             }
         } else{
             for (let i = 0; i < array.length; i++){
                 if(array[i].index === page){
                     console.log("2222222")
-                    setPage(page)
-                    return
+                    return page
                 }
             }
         }
@@ -116,21 +114,22 @@ export default function PageBlock(props) {
             <div className={style.tabPosition}>
                 {
                     buttonArray.map((item, index) => (
-                        <button key={item.index} onClick={(e) => switchHandler(e, item.index)} style={item.index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
-                            <div className={style.pageButton}>
-                                {
-                                    item.index !== 0 ?
-                                        item.name + index : item.name
+                        <div className={style.pos}>
+                            <button key={item.index} onClick={(e) => switchHandler(e, item.index)} style={item.index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                                <div className={style.pageButton}>
+                                    {
+                                        item.index !== 0 ?
+                                            item.name + index : item.name
 
-                                }
-
-                                {
-                                    item.index !== 0 ? (
-                                        <div className={style.close} onClick={(e) => {closeHandler(e, item.index)}}>+</div>
-                                    ) : null
-                                }
-                            </div>
-                        </button>
+                                    }
+                                </div>
+                            </button>
+                            {
+                                item.index !== 0 ? (
+                                    <div className={style.close} onClick={(e) => {closeHandler(e, item.index)}}>+</div>
+                                ) : null
+                            }
+                        </div>
                     ))
                 }
                 <button onClick={(e) => addPage(e)} style={{padding: "7px 15px", background: "#0078A8", color: "white"}}>+</button>

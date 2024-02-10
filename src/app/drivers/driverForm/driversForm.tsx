@@ -1,7 +1,7 @@
 import style from './driversForm.module.scss';
-import {onChangeDefault} from "@/components/utils/formUtils";
-//import SectionInput from "@/app/requests/new/sectionInput/sectionInput";
 import {useState} from "react";
+import BlockInput from "@/app/requests/new/blockInput/blockInput";
+import {onChangeDefault} from "@/components/utils/formUtils";
 import InputButton from "@/app/requests/new/inputButton/inputButton";
 
 export default function DriversForm(props) {
@@ -17,90 +17,6 @@ export default function DriversForm(props) {
         console.log(values);
     }
 
-    const sectionsInputs = [
-        {
-            component: "section",
-            sectionLabel: "ФИО водителя",
-            require: true,
-            inputs: [
-                {
-                    name: "specialMarks",
-                    type: "text",
-                    placeholder: "Иванов Иван Иванович"
-                }
-            ]
-        },
-        {
-            // ввод графика
-            component: "section",
-            sectionLabel: "График работы",
-            require: true,
-            inputs: [
-                {
-                    name: "tsNumber",
-                    type: "text",
-                    placeholder: "2 через 2"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Категория транспортного средства",
-            require: true,
-            inputs: [
-                {
-                    name: "typeCapacity",
-                    type: "text",
-                    placeholder: "Грузовой, пассажирский, грузопассажирский"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Номер телефона",
-            require: true,
-            inputs: [
-                {
-                    name: "phoneNumber",
-                    type: "tel",
-                    placeholder: "+7 (999) 999-99-99"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "E-mail водителя",
-            require: true,
-            inputs: [
-                {
-                    name: "loadCapacity",
-                    type: "email",
-                    placeholder: ""
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Дополнительная информация",
-            require: false,
-            inputs: [
-                {
-                    name: "comment",
-                    type: "text",
-                    placeholder: "Комментарий",
-                    textarea: true
-                }
-            ]
-        },
-        {
-            component: "input",
-            type: "submit",
-            value: "Создать",
-            onClick: submitHandler,
-        }
-
-    ]
-
 
     return (
         <div className={style.main}>
@@ -108,18 +24,16 @@ export default function DriversForm(props) {
 
                 <button className={style.close} onClick={close} style={{zIndex: '99'}}>+</button>
 
-                {
-                    sectionsInputs.map((item, index) => {
-                        if (item.component == "section") {
-                            return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
-                        }
+                <p>Регистрация водителя</p>
 
-                        // Кнопки (например добавление пункта назначения)
-                        if (item.component == "input") {
-                            return <InputButton key={`${index}`} id={index} color={{padding: "10px 0"}} {...item}/>
-                        }
-                    })
-                }
+                <div className={style.pos}>
+                    <BlockInput gridName={"A"} type={'text'} text={"Фамилия водителя"} placeholder={""} require={true} name={"firstName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Имя водителя"} placeholder={""} require={true} name={"lastName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Категория"} placeholder={"С, В, Е..."} require={true} name={"category"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Адрес автопарка"} placeholder={""} require={true} name={"location"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                </div>
+
+                <div className={style.button} onClick={submitHandler}>Создать водителя</div>
             </div>
         </div>
     )

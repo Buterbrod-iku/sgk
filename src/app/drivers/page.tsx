@@ -2,13 +2,31 @@
 
 import style from './drivers.module.scss';
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Pagination from "@/app/requests/pagination/pagination";
 import DriversBlock from "@/app/drivers/driverBlock/driversBlock";
 import DriversForm from "@/app/drivers/driverForm/driversForm";
+import {useFetching} from "@/components/utils/hooks/useFetching";
+import PostService from "@/app/API/postService";
+import Loading from "@/app/requests/loading/loading";
+import PostCar from "@/app/API/postCar";
+import PostDrivers from "@/app/API/postDrivers";
 
 export default function Drivers() {
     const [openForm, setOpenForm] = useState(false)
+
+    const [appState, setAppState] = useState([]);
+
+    const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
+        let response = await PostDrivers.getAll()
+
+        setAppState(response)
+    })
+
+    useEffect(() => {
+        fetchPostGetAll()
+        console.log(appState)
+    }, [isLoading])
 
     const funOpenForm = (e) => {
         e.preventDefault()
@@ -30,10 +48,10 @@ export default function Drivers() {
 
     // функции для кнопок в пагинации
     const prevPage = () => setCurrentPage(prev => prev <= 1 ? prev : prev - 1)
-    const nextPage = () => setCurrentPage(prev => prev >= array.length / perPage ? prev : prev + 1)
+    const nextPage = () => setCurrentPage(prev => prev >= appState.length / perPage ? prev : prev + 1)
     const startPage = () => setCurrentPage(1)
 
-    current = array.slice(firstIndex, lastIndex)
+    current = appState.slice(firstIndex, lastIndex)
 
     return (
         <div className={style.main}>
@@ -48,14 +66,17 @@ export default function Drivers() {
 
             <div className={style.position}>
                 {
-                    current.map(item => (
-                        <DriversBlock info={item}/>
-                    ))
+                    isLoading ?
+                        <Loading />
+                        :
+                        current.map(item => (
+                            <DriversBlock key={item.id} id={item.id} info={item}/>
+                        ))
                 }
             </div>
             {
                 // компонент пагинации, если страница одна, то ничего не выводим
-                array.length < perPage ? "" : <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
+                appState.length < perPage ? "" : <Pagination startPage={startPage} currentPage={currentPage} perPage={perPage} totalCount={array.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
             }
         </div>
     )
