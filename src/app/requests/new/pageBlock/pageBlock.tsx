@@ -8,29 +8,33 @@ import {onChangeDefault} from "@/components/utils/formUtils";
 
 export default function PageBlock(props) {
     const [page, setPage] = useState(0);
+    const [indexCount, setIndexCount] = useState(2);
     const [buttonArray, setButtonArray] = useState([
         {
-            index: 1,
+            index: 0,
             name: "Пункт подачи"
         },
         {
-            index: 2,
-            name: "Пункт назначения № 1"
+            index: 1,
+            name: "Пункт назначения № "
         },
     ]);
+
 
     const switchHandler = (e, index) => {
         e.preventDefault()
         setPage(index)
     }
 
-    const addPage = (e, array) => {
+    const addPage = (e, indexCount) => {
+        setIndexCount(prev => prev + 1)
         e.preventDefault()
         let obj = {
-            index: 1,
-            name: `Пункт назначения ${array.length + 1}`
+            index: indexCount,
+            name: `Пункт назначения № `
         }
         setButtonArray(oldArray => [...oldArray, obj])
+        setPage(indexCount)
     }
 
     //TODO: переписать тк сейчас баг с тем что создаётся много пассажиров
@@ -53,29 +57,82 @@ export default function PageBlock(props) {
         props.setValues(obj)
     }, [cargoContent])
 
+    const search = (array, page, deleted) => {
+        if(array.length - 1 === 0){
+            setPage(0)
+        }
+
+        console.log(array)
+        console.log(page)
+        console.log(deleted)
+        if(deleted === page){
+            for (let i = 0; i < array.length; i++){
+                if(array[i].index === deleted){
+                    console.log("111111111111111111111")
+                    setPage(array[i - 1].index)
+                }
+            }
+        } else{
+            for (let i = 0; i < array.length; i++){
+                if(array[i].index === page){
+                    setPage(page)
+                    return
+                }
+            }
+        }
+
+    }
+
+    const closeHandler = (e, index) => {
+        e.preventDefault()
+        setPage(prev => (prev > 0) ? search(buttonArray, prev, index) : 0)
+
+        setButtonArray(
+            prevEndPoint => {
+                return prevEndPoint.filter(item => {
+                    return item.index !== index
+                });
+            }
+        )
+
+        let delPoint = routePointContent.filter((number) => number.index !== index);
+        setRoutePointContent(delPoint)
+    }
 
     return (
         <div className={style.main}>
             <div className={style.tabPosition}>
                 {
                     buttonArray.map((item, index) => (
-                        <button key={index} onClick={(e) => switchHandler(e, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
-                            {item.name}
+                        <button key={item.index} onClick={(e) => switchHandler(e, item.index)} style={item.index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                            <div className={style.pageButton}>
+                                {
+                                    item.index !== 0 ?
+                                        item.name + index : item.name
+
+                                }
+
+                                {
+                                    item.index !== 0 ? (
+                                        <div className={style.close} onClick={(e) => {closeHandler(e, item.index)}}>+</div>
+                                    ) : null
+                                }
+                            </div>
                         </button>
                     ))
                 }
-                <button onClick={(e) => addPage(e, buttonArray)} style={{padding: "5px 15px", background: "#0078A8", color: "white"}}>+</button>
+                <button onClick={(e) => addPage(e, indexCount)} style={{padding: "7px 15px", background: "#0078A8", color: "white"}}>+</button>
             </div>
 
             {
                 buttonArray.map((item, index) => (
-                    <RoutePointContent key={index} text={`hello ${index}`} style={page !== index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent}/>
+                    <RoutePointContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent}/>
                 ))
             }
 
             {
                 buttonArray.map((item, index) => (
-                    <div key={index} style={page !== index ? {display: "none"} : {display: "block"}}>
+                    <div key={index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Пассажиры"} fontSize={"16px"}/>
                         <PageBlockForPass values={passengersContent} setValues={setPassengersContent}/>
                     </div>
@@ -84,7 +141,7 @@ export default function PageBlock(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <div key={index} style={page !== index ? {display: "none"} : {display: "block"}}>
+                    <div key={index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Грузы"} fontSize={"16px"}/>
                         <PageBlockForCargo values={cargoContent} setValues={setCargoContent} />
                     </div>

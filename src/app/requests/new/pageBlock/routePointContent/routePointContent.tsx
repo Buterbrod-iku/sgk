@@ -5,7 +5,10 @@ import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
 import {useEffect, useState} from "react";
 
 export const RoutePointContent = (props) => {
-    const [routePointContent, setRoutePointContent] = useState({});
+    const [routePointContent, setRoutePointContent] = useState({
+        "index": props.index,
+    });
+
 
     useEffect(() => {
         let obj = props.values
@@ -20,10 +23,16 @@ export const RoutePointContent = (props) => {
             <div className={style.pos}>
                 <BlockInput gridName={"A"} type={'text'} text={"Адрес подачи"} placeholder={"Барнаул..."} require={true} name={"address"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
 
-                <BlockInput gridName={"B"} type={'date'} text={"Дата подачи"} require={false} name={"date"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
-                <BlockInput gridName={"C"} type={'time'} text={"Время подачи"} require={false} name={"time"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
-                <BlockInput gridName={"D"} type={'time'} text={"Время ожидания"} require={false} name={"wait"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
-                <BlockInput gridName={"E"} type={'checkbox'} text={"Выбрать день автоматически"} require={false} name={"check"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
+                {
+                    props.index === 0 ?
+                        (<>
+                            <BlockInput gridName={"B"} type={'date'} text={"Дата подачи"} require={false} name={"date"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
+                            <BlockInput gridName={"C"} type={'time'} text={"Время подачи"} require={false} name={"time"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
+                            <BlockInput gridName={"D"} type={'time'} text={"Время ожидания"} require={false} name={"wait"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
+                            <BlockInput gridName={"E"} type={'checkbox'} text={"Выбрать день автоматически"} require={false} name={"check"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
+                        </>)
+                        : null
+                }
             </div>
         </div>
     )

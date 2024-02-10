@@ -32,7 +32,11 @@ export default function PageBlockForCargo(props) {
                 {
                     buttonArray.map((item, index) => (
                         <button key={index} onClick={(e) => switchHandler(e, index)} style={index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
-                            {item.name}
+                            <div className={style.pageButton}>
+                                {item.name}
+
+                                <div className={style.close}>+</div>
+                            </div>
                         </button>
                     ))
                 }
