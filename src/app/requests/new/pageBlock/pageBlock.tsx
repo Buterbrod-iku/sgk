@@ -114,8 +114,8 @@ export default function PageBlock(props) {
             <div className={style.tabPosition}>
                 {
                     buttonArray.map((item, index) => (
-                        <div className={style.pos}>
-                            <button key={item.index} onClick={(e) => switchHandler(e, item.index)} style={item.index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                        <div className={style.pos} style={item.index === page ? {background: 'white'} : {background: '#E6E6E6'}}>
+                            <button key={item.index} onClick={(e) => switchHandler(e, item.index)}>
                                 <div className={style.pageButton}>
                                     {
                                         item.index !== 0 ?

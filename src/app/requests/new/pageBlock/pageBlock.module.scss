@@ -17,16 +17,20 @@
   button{
     position: relative;
     border: none;
-    background: white;
   }
   button:last-child{
-    border-right: 1px solid #00425C;
+    cursor: pointer;
+    user-select: none;
   }
 }
 .pageButton{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+  cursor: pointer;
+  user-select: none;
 }
 .close{
   font-size: 1.5em;
@@ -41,14 +45,16 @@
   transition: 0.1s;
   &:hover{
     background: #b0b0b0;
-  }
+  }  
+  cursor: pointer;
+  user-select: none;
 }
 .pos{
   display: flex;
   align-items: center;
   width: auto;
   height: 30px;
-  background: white;
+  background: aqua;
   border-radius: 0;
   border: 1px solid #00425C;
   padding: 0 10px;
@@ -57,6 +63,6 @@
   border-right: none;
   button{
     border: none;
-    background: white;
+    background: transparent;
   }
 }
