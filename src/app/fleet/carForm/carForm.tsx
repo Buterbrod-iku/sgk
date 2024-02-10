@@ -1,6 +1,5 @@
 import style from './carForm.module.scss';
 import {onChangeDefault} from "@/components/utils/formUtils";
-import SectionInput from "@/app/requests/new/sectionInput/sectionInput";
 import {useState} from "react";
 import InputButton from "@/app/requests/new/inputButton/inputButton";
 
@@ -101,9 +100,9 @@ export default function CarForm(props) {
 
                 {
                     sectionsInputs.map((item, index) => {
-                        if (item.component == "section") {
-                            return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
-                        }
+                        // if (item.component == "section") {
+                        //     return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                        // }
 
                         // Кнопки (например добавление пункта назначения)
                         if (item.component == "input") {
