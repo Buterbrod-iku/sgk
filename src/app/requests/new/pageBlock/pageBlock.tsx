@@ -24,17 +24,26 @@ export default function PageBlock(props) {
     const switchHandler = (e, index) => {
         e.preventDefault()
         setPage(index)
+        console.log("switchHandler", page, index, indexCount)
     }
 
-    const addPage = (e, indexCount) => {
-        setIndexCount(prev => prev + 1)
+    const addPage = (e) => {
         e.preventDefault()
         let obj = {
             index: indexCount,
             name: `Пункт назначения № `
         }
-        setButtonArray(oldArray => [...oldArray, obj])
-        setPage(indexCount)
+
+        setIndexCount(prev => {
+            setButtonArray(oldArray => [...oldArray, obj])
+            setPage(indexCount)
+            return prev + 1
+        })
+
+        console.log("addPage", page, "-", indexCount)
+
+        console.log(indexCount)
+        console.log(page)
     }
 
     //TODO: переписать тк сейчас баг с тем что создаётся много пассажиров
@@ -60,13 +69,14 @@ export default function PageBlock(props) {
     const search = (array, page, deleted) => {
         if(array.length - 1 === 0){
             setPage(0)
+            return;
         }
 
         console.log(array)
         console.log(page)
         console.log(deleted)
         if(deleted === page){
-            for (let i = 0; i < array.length; i++){
+            for (let i = array.length - 1; i >= 0; i--){
                 if(array[i].index === deleted){
                     console.log("111111111111111111111")
                     setPage(array[i - 1].index)
@@ -75,6 +85,7 @@ export default function PageBlock(props) {
         } else{
             for (let i = 0; i < array.length; i++){
                 if(array[i].index === page){
+                    console.log("2222222")
                     setPage(page)
                     return
                 }
@@ -94,6 +105,7 @@ export default function PageBlock(props) {
                 });
             }
         )
+        console.log("closeHandler", page, index, indexCount)
 
         let delPoint = routePointContent.filter((number) => number.index !== index);
         setRoutePointContent(delPoint)
@@ -121,7 +133,7 @@ export default function PageBlock(props) {
                         </button>
                     ))
                 }
-                <button onClick={(e) => addPage(e, indexCount)} style={{padding: "7px 15px", background: "#0078A8", color: "white"}}>+</button>
+                <button onClick={(e) => addPage(e)} style={{padding: "7px 15px", background: "#0078A8", color: "white"}}>+</button>
             </div>
 
             {
