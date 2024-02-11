@@ -4,6 +4,10 @@ import style from "./mainInfoRequest.module.scss";
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useEffect, useState, Fragment} from "react";
 import {onChangeDefault, onListChange} from "@/components/utils/formUtils";
+import PostVanger from "@/app/API/postVanger";
+import {useFetching} from "@/components/utils/hooks/useFetching";
+import PostService from "@/app/API/postService";
+import Loading from "@/app/requests/loading/loading";
 
 export default function MainInfoRequest({allInfo, ...props}) {
     const [fullPassenger, setFullPassenger] = useState(false);
@@ -23,10 +27,26 @@ export default function MainInfoRequest({allInfo, ...props}) {
         }
     }, [props.edit])
 
+    const [vanger, setVanger] = useState({});
+
+    const [fetchVanger, isLoadingVanger, errorVanger] = useFetching(async (id) => {
+        const response = await PostVanger.getById(allInfo.vanger)
+
+        setVanger(response)
+    })
+
+    useEffect(() => {
+        if(allInfo.vanger !== "0"){
+            fetchVanger()
+        }
+        console.log()
+        console.log(vanger)
+    }, [])
+
     
     // Вывод измененных значений
     useEffect(() =>{
-        console.log(props.values);
+
     }, [props.values])
 
     // Short onChangeDefault()
@@ -34,83 +54,10 @@ export default function MainInfoRequest({allInfo, ...props}) {
         onChangeDefault(e, props.values, props.setValFunc);
     }
 
-    // const [firstCreated, setFirstCreated] = useState(true);
-    // if (firstCreated) {
-    //     setFirstCreated(false);
-    //
-    //     props.setValFunc({
-    //         destinationPoints: {},
-    //         passengersInfo: {},
-    //         devisionName: props.allInfo?.orders[0]?.order?.devisionName,
-    //         carStartPoint_address: props.allInfo?.orders[0].route.loadingAddress.address,
-    //         carStartPoint_dateTime_date: getDate(props.allInfo?.orders[0].date.loadingTime),
-    //         carStartPoint_dateTime_time: getTime(props.allInfo?.orders[0].date.loadingTime),
-    //         cargoWeight: props.allInfo?.route.cargoInRoute,
-    //         passengersAmount: props.allInfo?.route.passengersInRoute
-    //     });
-    //
-    //     props.allInfo?.orders.map((order, index) => (
-    //         props.setValFunc(prev => {
-    //             return {...prev,
-    //                 destinationPoints: {...prev.destinationPoints,
-    //                     ["dest_" + index]: {
-    //                         "destinationPoint_address": order.route.unloadingAddress.address,
-    //                         "destinationPoint_date": getDate(order.date.unloadingTime),
-    //                         "destinationPoint_time": getTime(order.date.unloadingTime),
-    //                         "destinationPoint_waitingTime": Waiting(order.date.unloadingWaiting)
-    //                     },
-    //                 },
-    //             }
-    //         })))
-    //
-    //     props.allInfo?.orders[0].order.passengers.map((passenger, index) => (
-    //         props.setValFunc(prev => {
-    //             return {...prev,
-    //                 passengersInfo: {...prev.passengersInfo,
-    //                     ["passenger_" + index]: {
-    //                         "passengersInfo_fullName": passenger.fullName,
-    //                         "passengersInfo_phoneNumber": phoneFormatter(passenger.phoneNumber)
-    //                     },
-    //                 },
-    //             }
-    //         })))
-    // }
-
-    // пережиток плохого кода
-    const from = (index) => {
-        switch (index){
-            case 0:
-                return "Новосибирск"
-            case 1:
-                return "Тальменка"
-            case 2:
-                return "Барнаул"
-            case 3:
-                return "Тальменка"
-            case 4:
-                return "Тальменка"
-        }
-    }
-
-    const to = (index) => {
-        switch (index){
-            case 0:
-                return "Бийск"
-            case 1:
-                return "Бийск"
-            case 2:
-                return "Бийск"
-            case 3:
-                return "Новоалтайск"
-            case 4:
-                return "Новоалтайск"
-        }
-    }
-
     return (
         <>
             <div className={style.infoBlock} style={props.openInfo ? {display: "block"} : {display: "none"}}>
-                <InfoBlock title="Структурное подразделение" name="devisionName" onChange={(e) => oCD(e)} info={allInfo.vanger} edit={props.edit}/>
+                <InfoBlock title="Структурное подразделение" name="devisionName" onChange={(e) => oCD(e)} info={allInfo.orders[0].cargo.department} edit={props.edit}/>
                 <InfoBlock title="Адрес подачи авто" name="carStartPoint_address" onChange={(e) => oCD(e)} info={allInfo.waypoints.points[0].address} edit={props.edit}/>
                 {/*превести из unix time*/}
                 <InfoBlock title="Подача авто" name="carStartPoint_dateTime" onChange={(e) => oCD(e)} dataTime={allInfo.time.beginDate} edit={props.edit}/>
@@ -123,8 +70,8 @@ export default function MainInfoRequest({allInfo, ...props}) {
                             <div className={style.openInfo} data-section-id={"destination_" + index}>
                                 <InfoBlock title="Адрес назначения авто" name="destinationPoint_address" dataSectionID={"dest_" + index} info={order.address} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "destinationPoints", props.setValFunc)}/>
                                 {/*TODO: Тут надо не забыть поменять время*/}
-                                <InfoBlock title="Прибытие авто" name="destinationPoint" dataSectionID={"dest_" + index} dataTime={1} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "destinationPoints", props.setValFunc)}/>
-                                <InfoBlock title="Время ожидания" name="destinationPoint_waitingTime" dataSectionID={"dest_" + index} waiting={true} info={1} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "destinationPoints", props.setValFunc)}/>
+                                {/*<InfoBlock title="Прибытие авто" name="destinationPoint" dataSectionID={"dest_" + index} dataTime={1} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "destinationPoints", props.setValFunc)}/>*/}
+                                {/*<InfoBlock title="Время ожидания" name="destinationPoint_waitingTime" dataSectionID={"dest_" + index} waiting={true} info={1} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "destinationPoints", props.setValFunc)}/>*/}
                             </div>
                             {
                                 index === allInfo.orders.length ? '' : <hr className={style.hr}/>
@@ -160,15 +107,24 @@ export default function MainInfoRequest({allInfo, ...props}) {
             </div>
 
             <div className={style.infoBlock} style={props.openInfo ? {display: "none"} : {display: "block"}}>
-                <InfoBlock title="Тип перевозки" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"}/>
-                <InfoBlock title="Номер автомобиля" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"}/>
-                <InfoBlock title="Грузоподъемность" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"}/>
-                <InfoBlock title="Количество посадочных мест" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"}/>
+                {
+                    isLoadingVanger ?
+                        <Loading />
+                        :
+                        (
+                            <>
+                                <InfoBlock title="Тип перевозки" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.car?.title}/>
+                                <InfoBlock title="Номер автомобиля" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.car?.numberOfTransport}/>
+                                <InfoBlock title="Грузоподъемность" onChange={(e) => oCD(e)} name="asd" info={String(vanger?.car?.maxAmountOfCargoInCar)}/>
+                                <InfoBlock title="Количество посадочных мест" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.car?.maxNumberOfPassengersInCar}/>
 
-                <InfoBlock title="ФИО водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"} edit={props.edit}/>
-                <InfoBlock title="Номер телефона" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"} edit={props.edit}/>
-                <InfoBlock title="Почта водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={"Пока нет"} edit={props.edit}/>
-                <InfoBlock title="Комментарий" onChange={(e) => oCD(e)} name="comment" info={allInfo.orders[0].cargo.description} edit={props.edit}/>
+                                <InfoBlock title="ФИО водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.driver?.name} edit={props.edit}/>
+                                <InfoBlock title="Номер телефона" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.driver?.phoneNumber} edit={props.edit}/>
+                                <InfoBlock title="Почта водителя" onChange={(e) => oCD(e)} name="cargoWeight" info={vanger?.driver?.mail} edit={props.edit}/>
+                                <InfoBlock title="Категория" onChange={(e) => oCD(e)} name="comment" info={allInfo.orders[0].cargo.description} edit={props.edit}/>
+                            </>
+                        )
+                }
             </div>
         </>
     )
