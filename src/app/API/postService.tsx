@@ -18,6 +18,14 @@ export default class PostService {
                 let order = resp.data.orders
                 response = order.concat(route);
             }
+            else if(query === "?done=true"){
+                response = resp.data.routes;
+            }
+            else {
+                let route = resp.data.routes
+                let order = resp.data.orders
+                response = order.concat(route);
+            }
         });
 
         return response
@@ -64,8 +72,8 @@ export default class PostService {
         return response
     }
 
-    static async mergeRoute(object) {
-        const response = await axios.post(`${this.host}5000/routes/std/merge`, object)
-        return response
+    static async mergeRoute(query) {
+        const response = await axios.post(`${this.host}5000/routes/std/automerge/${query}`)
+        return response.data
     }
 }

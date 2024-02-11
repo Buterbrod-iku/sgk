@@ -79,19 +79,56 @@ export default function MainInfoRequest({allInfo, ...props}) {
                         </div>))
                 }
 
-                <InfoBlock title="НЕТ ИНФЫ ПО ПАССАЖИРАМ" close={true} bool={fullPassenger} setBool={setFullPassenger} edit={props.edit}/>
+                <InfoBlock title="Пассажиры" close={true} bool={fullPassenger} setBool={setFullPassenger} edit={props.edit}/>
+
+                {
+                    allInfo.orders.map((orders, index) => (
+                        orders.cargo.passengers.map((passenger, i) => (
+                            <div key={index} className={style.openInfo} style={fullPassenger ? {display: "block"} : {display: "none"}}>
+                                <InfoBlock title="ФИО сотрудника" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={passenger.name} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Телефон для оповещения" name="passengersInfo_phoneNumber" dataSectionID={"passenger_" + index} phone={true} info={passenger.phoneNumber} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={orders.waypoints.points[passenger.startIndex].address} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={orders.waypoints.points[passenger.endIndex].address} noBorder={true} edit={props.edit}/>
+                            </div>))
+                    ))
+                }
+                {/*{*/}
+                {/*    allInfo.orders.map((orders, index) => {*/}
+                {/*        orders.cargo.passengers.map((passenger, i) => (*/}
+                {/*            <div key={index} className={style.openInfo} style={fullPassenger ? {display: "block"} : {display: "none"}}>*/}
+                {/*                <InfoBlock title="ФИО сотрудника" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={passenger.fullName} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
+                {/*                <InfoBlock title="Телефон для оповещения" name="passengersInfo_phoneNumber" dataSectionID={"passenger_" + index} phone={true} info={passenger.phoneNumber} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
+                {/*                <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={orders.waypoints.points[passenger.startIndex].address} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
+                {/*                <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={orders.waypoints.points[passenger.endIndex].address} noBorder={true} edit={props.edit}/>*/}
+                {/*            </div>))*/}
+                {/*    })*/}
+                {/*}*/}
+
                 {/*{*/}
                 {/*    allInfo.orders[0].order.passengers.map((passenger, index) => (*/}
                 {/*        <div key={index} className={style.openInfo} data-section-id={"passenger_" + index}  style={fullPassenger ? {display: "block"} : {display: "none"}}>*/}
                 {/*            <InfoBlock title="ФИО сотрудника" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={passenger.fullName} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
                 {/*            <InfoBlock title="Телефон для оповещения" name="passengersInfo_phoneNumber" dataSectionID={"passenger_" + index} phone={true} info={passenger.phoneNumber} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
-                {/*            <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={from(index)} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
-                {/*            <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={to(index)} noBorder={true} edit={props.edit}/>*/}
+                {/*            <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>*/}
+                {/*            <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={} noBorder={true} edit={props.edit}/>*/}
                 {/*        </div>))*/}
                 {/*}*/}
 
 
-                <InfoBlock title="НЕТ ИНФЫ ПО ГРУЗУ" close={true} bool={fullCargo} setBool={setFullCargo} edit={props.edit}/>
+                <InfoBlock title="Грузы" close={true} bool={fullCargo} setBool={setFullCargo} edit={props.edit}/>
+
+                {
+                    allInfo.orders.map((orders, index) => (
+                        orders.cargo.freights.map((cargo, i) => (
+                            <div key={index} className={style.openInfo} data-section-id={"cargo_" + index}  style={fullCargo ? {display: "block"} : {display: "none"}}>
+                                <InfoBlock title="Характер груза" name="cargo_volumeCargo" dataSectionID={"cargo_" + index} phone={true} info={cargo.description} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Вес груза" name="cargo_weightCargo" dataSectionID={"cargo_" + index} info={cargo.weight} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Объём груза" name="cargo_volumeCargo" dataSectionID={"cargo_" + index} phone={true} info={cargo.volume} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Откуда едет" name="passengersInfo_fullName" dataSectionID={"passenger_" + index} info={orders.waypoints.points[cargo.startIndex].address} noBorder={true} edit={props.edit} onChange={(e) => onListChange(e, "passengersInfo", props.setValFunc)}/>
+                                <InfoBlock title="Куда едет" name="jkfjkdj" dataSectionID={"passenger_" + index} info={orders.waypoints.points[cargo.endIndex].address} noBorder={true} edit={props.edit}/>
+                            </div>))
+                    ))
+                }
                 {/*{*/}
                 {/*    allInfo.orders[0].order.cargo.map((cargo, index) => (*/}
                 {/*    <div key={index} className={style.openInfo} data-section-id={"cargo_" + index}  style={fullCargo ? {display: "block"} : {display: "none"}}>*/}

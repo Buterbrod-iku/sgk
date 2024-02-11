@@ -9,6 +9,7 @@ export default function InfoBlock(props) {
     function openClose(e){
         e.preventDefault();
         props.setBool(!props.bool);
+        console.log("sadkasdjaskd")
     }
 
     const dateTime = new Date(props.dataTime * 1000);

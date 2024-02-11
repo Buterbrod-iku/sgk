@@ -2,6 +2,7 @@ import style from './newPath.module.scss'
 import OpenRequest from "@/app/requests/[id]/page";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import PostService from "@/app/API/postService";
 
 export default function NewPath(props) {
     const [modal, setModal] = useState([]);
@@ -30,17 +31,12 @@ export default function NewPath(props) {
     const mergeRequest = async (e) => {
         e.preventDefault()
 
-        link.push(`/requests/${props.routeId}`);
-
         // Запрос на сервер на слияние заявок
-        // const response = await PostService.mergeRoute({
-        //     "routes": [
-        //         props.mainRouteId,
-        //         props.routeId
-        //     ]
-        // })
-        //
-        // await link.push(`/requests/${response.data._id}`)
+        const response = await PostService.mergeRoute(`?first=${props.mainRouteId}&second=${props.routeId}&first_type=route&second_type=route`)
+
+        console.log("Hello", response.data)
+
+        await link.push(`/requests/${response.data}`)
     }
 
 
