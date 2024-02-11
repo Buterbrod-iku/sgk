@@ -1,4 +1,3 @@
-
 // Заполняет объект значений полей при изменении (обычные инпуты)
 export const onChangeDefault = (event, values, setFunc) => {
     // Обработка чекбокса

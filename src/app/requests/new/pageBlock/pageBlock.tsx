@@ -20,10 +20,25 @@ export default function PageBlock(props) {
         },
     ]);
 
+    const reversToSelect = (array) => {
+        let select = []
+
+        for (let i = 0; i < array?.length; i++){
+            let obj = {}
+            obj["text"] = array[i].address
+            obj["value"] = array[i].index
+            select.push(obj)
+        }
+
+        return select
+    }
+
+
 
     const switchHandler = (e, index) => {
         e.preventDefault()
         setPage(index)
+        setSelectArray(reversToSelect(routePointContent))
     }
 
     const addPage = (e) => {
@@ -44,10 +59,18 @@ export default function PageBlock(props) {
     const [routePointContent, setRoutePointContent] = useState([]);
     const [passengersContent, setPassengersContent] = useState([]);
     const [cargoContent, setCargoContent] = useState([]);
+    const [selectArray, setSelectArray] = useState([
+        {
+            text: "hello",
+            value: "1"
+        }
+    ])
     useEffect(() => {
         let obj = Object.assign(props.values)
         obj["waypoints"] = routePointContent
         props.setValues(obj)
+
+        setSelectArray(reversToSelect(routePointContent))
     }, [routePointContent])
     useEffect(() => {
         let obj = Object.assign(props.values)
@@ -101,6 +124,8 @@ export default function PageBlock(props) {
         setCargoContent(delCargo)
     }
 
+
+
     return (
         <div className={style.main}>
             <div className={style.tabPosition}>
@@ -112,7 +137,6 @@ export default function PageBlock(props) {
                                     {
                                         item.index !== 0 ?
                                             item.name + index : item.name
-
                                     }
                                 </div>
                             </button>
@@ -129,7 +153,7 @@ export default function PageBlock(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <RoutePointContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent} passengersContent={passengersContent}/>
+                    <RoutePointContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent} setSelectArray={setSelectArray} passengersContent={passengersContent}/>
                 ))
             }
 
@@ -137,7 +161,7 @@ export default function PageBlock(props) {
                 buttonArray.map((item, index) => (
                     <div key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Пассажиры"} fontSize={"16px"}/>
-                        <PageBlockForPass values={passengersContent} setValues={setPassengersContent} index={item.index}/>
+                        <PageBlockForPass values={passengersContent} setValues={setPassengersContent} index={item.index} selectArray={selectArray}/>
                     </div>
                 ))
             }
@@ -146,7 +170,7 @@ export default function PageBlock(props) {
                 buttonArray.map((item, index) => (
                     <div key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Грузы"} fontSize={"16px"}/>
-                        <PageBlockForCargo values={cargoContent} setValues={setCargoContent} index={item.index}/>
+                        <PageBlockForCargo values={cargoContent} setValues={setCargoContent} index={item.index} selectArray={selectArray}/>
                     </div>
                 ))
             }

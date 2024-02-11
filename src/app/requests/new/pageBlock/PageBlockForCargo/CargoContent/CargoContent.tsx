@@ -5,7 +5,12 @@ import {onChangeDefault} from "@/components/utils/formUtils";
 import {useEffect, useState} from "react";
 
 export const CargoContent = (props) => {
-    const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
+    let selectArray = props.selectArray;
+
+    useEffect(() => {
+        selectArray = props.selectArray
+    }, [props.selectArray])
+
     const [cargoContent, setCargoContent] = useState({
         "index": props.index,
     });

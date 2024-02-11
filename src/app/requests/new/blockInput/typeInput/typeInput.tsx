@@ -26,7 +26,7 @@ export function Select(props) {
 
                 {
                     props.selectArray.map((item) =>
-                            <option key={item} value={item}>{item}</option>
+                            <option key={item.value} value={item.value}>{item.text}</option>
                        )
                 }
             </select>

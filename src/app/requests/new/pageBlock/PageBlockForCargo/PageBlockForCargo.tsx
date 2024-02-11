@@ -94,7 +94,7 @@ export default function PageBlockForCargo(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <CargoContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}  values={props.values} setValues={props.setValues}/>
+                    <CargoContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}  values={props.values} setValues={props.setValues} selectArray={props.selectArray}/>
                 ))
             }
 

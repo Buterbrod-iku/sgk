@@ -12,6 +12,7 @@ import ModalConfirm from "@/app/requests/new/modalConfirm/modalConfirm";
 import BlockInput from "@/app/requests/new/blockInput/blockInput";
 import PageBlock from "@/app/requests/new/pageBlock/pageBlock";
 import getCoordsByAddress from "@/app/API/geocoder";
+import {ReverseObject} from "@/components/utils/objectRestructuring";
 
 export default function New() {
     const [values, setValues] = useState({
@@ -51,17 +52,33 @@ export default function New() {
         console.log('первая версия...');
         console.log(values);
 
+        console.log("result")
+        console.log(ReverseObject(values))
+
 
         // await PostService.sendRequest(valuesCopy)
-        setTimeout(() => {
-            setModalOpened(true);
-        }, 500);
+        // setTimeout(() => {
+        //     setModalOpened(true);
+        // }, 500);
         // link.push('/requests')
     }
 
     const [modalOpened, setModalOpened] = useState(false);
 
-    const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
+    const selectArray = [
+        {
+            text: "Грузовой",
+            value: "cargo"
+        },
+        {
+            text: "Пассажирский",
+            value: "human"
+        },
+        {
+            text: "Грузо-пассажирский",
+            value: "all"
+        },
+    ];
 
     return (
         <>
