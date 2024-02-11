@@ -26,7 +26,7 @@ export default function BlockInput(props) {
         else {
             setInput(<DefaultInput placeholder={props.placeholder} type={props.type} onChange={props.onChange} name={props.name}/>)
         }
-    }, [])
+    }, [props.selectArray])
 
     return (
         <div className={style.main} style={props.type === "checkbox" ? {gridArea: props.gridName, flexDirection: "row-reverse", justifyContent: "left", alignItems: "center"} : {gridArea: props.gridName}}>

@@ -5,9 +5,9 @@
   width: 100%;
   display: grid;
   grid-template-areas:
-    "A A A   B C D"
-    "A A A   B C D"
-    "A A A   E E E";
+    "A A A   B B C C"
+    "A A A   B B C C"
+    "A A A   E E E E";
   column-gap: 30px;
   row-gap: 10px;
   padding: 0 20px;

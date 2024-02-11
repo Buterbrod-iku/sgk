@@ -95,7 +95,7 @@ export default function PageBlockForPass(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <PassengersContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}} values={props.values} setValues={props.setValues}/>
+                    <PassengersContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}} values={props.values} setValues={props.setValues} selectArray={props.selectArray}/>
                 ))
             }
 

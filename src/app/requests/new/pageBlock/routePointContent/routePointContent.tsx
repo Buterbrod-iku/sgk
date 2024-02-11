@@ -15,6 +15,7 @@ export const RoutePointContent = (props) => {
         let obj = props.values
         obj.push(routePointContent)
         props.setValues(obj)
+
     }, [routePointContent])
 
     return (
@@ -29,7 +30,6 @@ export const RoutePointContent = (props) => {
                         (<>
                             <BlockInput gridName={"B"} type={'date'} text={"Дата подачи"} require={false} name={"date"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
                             <BlockInput gridName={"C"} type={'time'} text={"Время подачи"} require={false} name={"time"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
-                            <BlockInput gridName={"D"} type={'time'} text={"Время ожидания"} require={false} name={"wait"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
                             <BlockInput gridName={"E"} type={'checkbox'} text={"Выбрать день автоматически"} require={false} name={"check"} onChange={(e) => onChangeDefault(e, routePointContent, setRoutePointContent)}/>
                         </>)
                         : null
