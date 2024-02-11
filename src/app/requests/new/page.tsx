@@ -75,11 +75,11 @@ export default function New() {
                 <TitleBlock text={"Основные данные"} fontSize={"18px"}/>
 
                 <div className={style.pos}>
-                    <BlockInput gridName={"A"} type={'text'} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} name={"divisionName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Структурное подразделение"} placeholder={"Название подразделения"} require={true} name={"department"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"B"} type={'checkbox'} text={"Сделать поездку приватной"} require={false} name={"isSingle"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
-                    <BlockInput gridName={"C"} type={'select'} text={"Тип перевозки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} name={"typeCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"C"} type={'select'} text={"Тип перевозки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} name={"unit"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
 
-                    <BlockInput gridName={"D"} type={'textarea'} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={false} name={"comment"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"D"} type={'textarea'} text={"Комментарий к заявке"} placeholder={"Комментарий к заявке"} require={false} name={"description"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                 </div>
 
                 <TitleBlock text={"Маршрутная карта"} fontSize={"18px"}/>

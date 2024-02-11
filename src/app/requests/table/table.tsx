@@ -72,7 +72,7 @@ export default function Table(props) {
                                                key={item.id}
                                                requestID={item.id}
                                                date={ReversDateTime(item.time.beginDate)}
-                                               name={item.vanger}
+                                               name={item.cargo?.department}
                                                path={ReversRoutePoint(item)}
                                                isSingle={item.orders.isSingle} />
                                 )

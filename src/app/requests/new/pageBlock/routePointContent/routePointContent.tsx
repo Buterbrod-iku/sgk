@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 export const RoutePointContent = (props) => {
     const [routePointContent, setRoutePointContent] = useState({
         "index": props.index,
+        "passengers": props.passengersContent,
     });
 
 

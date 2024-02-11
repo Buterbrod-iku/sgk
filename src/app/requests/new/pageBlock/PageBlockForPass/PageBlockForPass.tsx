@@ -37,20 +37,15 @@ export default function PageBlockForPass(props) {
             return 0;
         }
 
-        console.log(array)
-        console.log(page)
-        console.log(deleted)
         if(deleted === page){
             for (let i = array.length - 1; i >= 0; i--){
                 if(array[i].index === deleted){
-                    console.log("111111111111111111111")
                     return array[i - 1].index
                 }
             }
         } else{
             for (let i = 0; i < array.length; i++){
                 if(array[i].index === page){
-                    console.log("2222222")
                     return page
                 }
             }
@@ -61,7 +56,6 @@ export default function PageBlockForPass(props) {
     const closeHandler = (e, index) => {
         e.preventDefault()
         setPage(prev => (prev > 0) ? search(buttonArray, prev, index) : 0)
-        console.log("page index", page, index)
         setButtonArray(
             prev => {
                 return prev.filter(item => {
@@ -69,10 +63,9 @@ export default function PageBlockForPass(props) {
                 });
             }
         )
-        console.log("closeHandler", page, index, indexCount)
 
-        // let delPoint = routePointContent.filter((number) => number.index !== index);
-        // setRoutePointContent(delPoint)
+        let delPoint = props.values.filter((number) => number.index !== index);
+        props.setValues(delPoint)
     }
 
 
@@ -85,7 +78,7 @@ export default function PageBlockForPass(props) {
                             <button key={item.index} onClick={(e) => switchHandler(e, item.index)}>
                                 <div className={style.pageButton}>
                                     {
-                                        item.name + (index) 
+                                        item.name + (index + 1)
                                     }
                                 </div>
                             </button>
@@ -102,7 +95,7 @@ export default function PageBlockForPass(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <PassengersContent key={item.index} text={`hello ${item.index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={props.values} setValues={props.setValues}/>
+                    <PassengersContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}} values={props.values} setValues={props.setValues}/>
                 ))
             }
 
