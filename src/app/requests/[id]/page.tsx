@@ -59,11 +59,7 @@ export default function OpenRequest (props) {
             }
         }
         fetchNewPath(routerId)
-        console.log("newPath")
-        console.log("newPath")
 
-        console.log(newPath)
-        console.log(newRequest)
     }, [])
 
     // массив похожих заявок. Тут будет только id и маршрут
