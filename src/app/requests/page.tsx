@@ -34,6 +34,13 @@ export default function Request() {
     }, [])
 
 
+    useEffect(() => {
+        const inter = setInterval(() => {
+            fetchGetActive()
+        }, 2000)
+
+        return () => clearInterval(inter);
+    }, []);
 
     const selectType = (e) => {
         fetchPostGetAll(e.target.value)
