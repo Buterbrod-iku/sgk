@@ -2,95 +2,33 @@ import style from './carForm.module.scss';
 import {onChangeDefault} from "@/components/utils/formUtils";
 import {useState} from "react";
 import InputButton from "@/app/requests/new/inputButton/inputButton";
+import {useRouter} from "next/navigation";
+import PostDrivers from "@/app/API/postDrivers";
+import PostCar from "@/app/API/postCar";
+import BlockInput from "@/app/requests/new/blockInput/blockInput";
 
 export default function CarForm(props) {
     const close = (e) => {
         e.preventDefault()
         props.setOpenForm(!props.openForm)
     }
+
     const [values, setValues] = useState({});
 
+    let link = useRouter()
     async function submitHandler (e) {
         e.preventDefault();
-        console.log('первая версия...');
-        console.log(values);
+
+        await PostCar.sendRequest(values);
+
+        props.setOpenForm(!props.openForm)
+        setTimeout(() => {
+            props.fun()
+            link.push('/fleet');
+        }, 100)
     }
 
-    const sectionsInputs = [
-        {
-            component: "section",
-            sectionLabel: "Марка автомобиля",
-            require: true,
-            inputs: [
-                {
-                    name: "specialMarks",
-                    type: "text",
-                    placeholder: "Название"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Номер автомобиля",
-            require: true,
-            inputs: [
-                {
-                    name: "tsNumber",
-                    type: "text",
-                    placeholder: "а000аа"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Грузоподъемность и количество посадочных мест",
-            require: true,
-            inputs: [
-                {
-                    name: "loadCapacity",
-                    type: "integer",
-                    placeholder: "Грузоподъемность кг/м3"
-                },
-                {
-                    name: "numberOfSeats",
-                    type: "integer",
-                    placeholder: "Количество посадочных мест"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Цена за 1 километр",
-            require: true,
-            inputs: [
-                {
-                    name: "pricePerKm",
-                    type: "integer",
-                    placeholder: "Рубли"
-                }
-            ]
-        },
-        {
-            component: "section",
-            sectionLabel: "Дополнительная информация",
-            require: false,
-            inputs: [
-                {
-                    name: "comment",
-                    type: "text",
-                    placeholder: "Комментарий",
-                    textarea: true
-                }
-            ]
-        },
-        {
-            component: "input",
-            type: "submit",
-            value: "Создать",
-            onClick: submitHandler,
-        }
-
-    ]
+    const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
 
     return (
         <div className={style.main}>
@@ -98,18 +36,17 @@ export default function CarForm(props) {
 
                 <button className={style.close} onClick={close} style={{zIndex: '99'}}>+</button>
 
-                {
-                    sectionsInputs.map((item, index) => {
-                        // if (item.component == "section") {
-                        //     return <SectionInput key={`${index}`} id={index} {...item} onChange={(e) => onChangeDefault(e, values, setValues)}/>
-                        // }
+                <p>Регистрация автомобиля</p>
 
-                        // Кнопки (например добавление пункта назначения)
-                        if (item.component == "input") {
-                            return <InputButton key={`${index}`} id={index} color={{padding: "10px 0"}} {...item}/>
-                        }
-                    })
-                }
+                <div>
+                    <BlockInput gridName={"A"} type={'integer'} text={"Номер автомобиля"} placeholder={"а123аа"} require={true} name={"numberOfTransport"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'select'} text={"Тип автомобиля"} placeholder={"Не выбран"} require={true} name={"title"} selectArray={selectArray} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'integer'} text={"Максимальное количество посадочных мест"} placeholder={""} require={true} name={"maxNumberOfPassengersInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'integer'} text={"Максимальная грузопдъёмность"} placeholder={""} require={true} name={"maxAmountOfCargoInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Адрес автопарка"} placeholder={""} require={true} name={"location"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                </div>
+
+                <div className={style.button} onClick={submitHandler}>Создать автомобиль</div>
             </div>
         </div>
     )

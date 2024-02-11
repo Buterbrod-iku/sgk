@@ -11,8 +11,8 @@ export default function DriversForm(props) {
         e.preventDefault()
         props.setOpenForm(!props.openForm)
     }
-    const [values, setValues] = useState({});
 
+    const [values, setValues] = useState({});
 
     let link = useRouter()
     async function submitHandler (e) {
@@ -26,7 +26,6 @@ export default function DriversForm(props) {
             link.push('/drivers');
         }, 100)
     }
-
 
     return (
         <div className={style.main}>

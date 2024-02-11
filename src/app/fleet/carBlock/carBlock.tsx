@@ -1,21 +1,26 @@
 import style from './carBlock.module.scss';
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
-export default function CarBlock({info}) {
+export default function CarBlock({id, info}) {
+    const router = useRouter();
+
+    const openRequestHandler = e => {
+        router.push(`/fleet/${id}`);
+    };
+
     return (
         <>
-            <Link href={'/openCar'} className={style.link}>
+            <div onClick={openRequestHandler} className={style.link}>
                 <div className={style.main}>
-                        <p className={style.name}>{info.fioName}</p>
-                        <p className={style.phone}>{info.phone}</p>
+                        <p className={style.name}>{info.numberOfTransport}</p>
+                        <p className={style.phone}>{info.title}</p>
                         <hr/>
-                        <p className={style.car} style={{marginTop: '15px'}}>{info.carName}</p>
-                        <p className={style.car}>{info.carNumber}</p>
-                        <p className={style.car}>{info.price}</p>
+                        <p className={style.car} style={{marginTop: '15px'}}>{info.location}</p>
 
                         <button className={style.button}>Подробнее</button>
                 </div>
-            </Link>
+            </div>
         </>
 
     )

@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export default class PostCar {
-    public host = "http://192.168.1.2:"
+    private static host: string = "http://192.168.118.114:";
 
     static async getAll() {
-        const apiUrl = 'http://localhost:8008/cars/all';
+        const apiUrl = `${this.host}8008/cars/all`;
         let response;
         await axios.get(apiUrl).then((resp) => {
             response = resp.data;
@@ -14,39 +14,21 @@ export default class PostCar {
     }
 
     static async getById(id) {
-        const response = await axios.get('http://localhost:5000/routes/std/' + id)
-        return response.data
-    }
-
-    static async getNewPath(id) {
-        const response = await axios.get('http://localhost:5000/routes/std/' + id)
-        return response.data
+        return await axios.get(`${this.host}8008/cars/` + id)
     }
 
     // TODO
     static async sendRequest(object) {
-        const response = await axios.post('http://localhost:5000/routes/complex/', object)
-        return response
+        return await axios.post(`${this.host}8008/cars`, object)
     }
 
     // привязать удаление
-    static async deleteOrder(orderId) {
-        return await axios.delete('http://localhost:5000/orders/' + orderId)
-    }
-
-    // привязать удаление
-    static async deleteRoute(routeId) {
-        return await axios.delete(`http://localhost:5000/routes/std/${routeId}`)
+    static async deleteCar(id) {
+        return await axios.delete(`${this.host}8008/cars/` + id)
     }
 
     // TODO
-    static async switchRoute(routeId, object) {
-        const response = await axios.patch('http://localhost:5000/routes/complex/' + routeId, object)
-        return response
-    }
-
-    static async mergeRoute(object) {
-        const response = await axios.post('http://localhost:5000/routes/std/merge', object)
-        return response
+    static async switchCar(id, object) {
+        return await axios.patch(`${this.host}8008/cars/` + id, object)
     }
 }
