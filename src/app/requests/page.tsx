@@ -7,21 +7,37 @@ import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostService from "@/app/API/postService";
 import Table from "@/app/requests/table/table";
 import Loading from "@/app/requests/loading/loading";
+import BlockInput from "@/app/requests/new/blockInput/blockInput";
+import {onChangeDefault} from "@/components/utils/formUtils";
 
 export default function Request() {
     // import data allRequest from server
     const [appState, setAppState] = useState([]);
 
-    const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
-        let response = await PostService.getAll()
+    const [fetchPostGetAll, isLoading, error] = useFetching(async (query) => {
+        let response = await PostService.getAll(query)
 
         setAppState(response)
     })
 
+    const [activeState, setActiveState] = useState()
+
+    const [fetchGetActive, isLoadingGetActive, errorGetActive] = useFetching(async () => {
+        let response = await PostService.getActive()
+
+        setActiveState(response)
+    })
+
     useEffect(() => {
-        fetchPostGetAll()
-        console.log(appState)
+        fetchPostGetAll("?active=false")
+        fetchGetActive()
     }, [])
+
+
+
+    const selectType = (e) => {
+        fetchPostGetAll(e.target.value)
+    }
 
     return (
         <div className={style.main}>
@@ -34,10 +50,32 @@ export default function Request() {
             </div>
 
             {
+
+                    isLoadingGetActive ?
+                        <Loading />
+                        :
+                        activeState.length !== 0 ?
+                            (
+                                <div className={style.pos}>
+                                    <h2>Активные</h2>
+                                    <Table array={activeState} fetchPostGetAll={fetchGetActive} isLoading={isLoadingGetActive} perPage={3}/>
+                                </div>
+                            )
+                    : null
+            }
+
+            {
                 isLoading ?
                     <Loading />
                     :
-                    <Table array={appState} fetchPostGetAll={fetchPostGetAll} isLoading={isLoading}/>
+                    <>
+                        <select className={style.select} onChange={(e) => selectType(e)}>
+                            <option value={"?active=false"}>Все</option>
+                            <option value={"?type=order&active=false"}>Заявки</option>
+                            <option value={"?type=route&active=false"}>Маршруты</option>
+                        </select>
+                        <Table array={appState} perPage={11}/>
+                    </>
             }
         </div>
     )

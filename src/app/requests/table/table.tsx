@@ -15,12 +15,12 @@ export default function Table(props) {
 
     useEffect(() => {
         setAppState(props.array)
-    }, [])
+    }, [props.array])
 
     // currentPage - текущая страница пагинации
     const [currentPage, setCurrentPage] = useState(1)
     // perPage - сколько объектов будет на одной странице
-    const perPage = 11
+    const perPage = props.perPage
 
     const lastIndex = currentPage * perPage
     const firstIndex = lastIndex - perPage
@@ -41,7 +41,7 @@ export default function Table(props) {
 
     return (
         <>
-            <table className={style.table}>
+            <table className={style.table} style={props.perPage === 3 ? {border: "1px solid rgb(0, 168, 77)"} : {}}>
                 <thead>
                     <tr className={style.tr} style={props.history ? {gridTemplateColumns: "1fr 2fr 4fr 1fr"} : {gridTemplateColumns: "1fr 2fr 5fr"}}>
                         <th className={style.date}>
@@ -67,15 +67,29 @@ export default function Table(props) {
                                 </tr>
                             )
                             :  current?.map((item, index) => {
-                                return (
-                                    <LineTable history={props.history}
-                                               key={item.id}
-                                               requestID={item.id}
-                                               date={ReversDateTime(item.time.beginDate)}
-                                               name={item.cargo?.department}
-                                               path={ReversRoutePoint(item)}
-                                               isSingle={item.orders.isSingle} />
-                                )
+                                if("orders" in item){
+                                    return (
+                                        <LineTable route={true}
+                                                   history={props.history}
+                                                   key={item.id}
+                                                   requestID={item.id}
+                                                   date={ReversDateTime(item.orders[0].deadline.beginDate)}
+                                                   name={item.orders[0].cargo.department}
+                                                   path={ReversRoutePoint(item)}
+                                                   isSingle={item.orders[0].isSingle}/>
+                                    )
+                                } else{
+                                    return (
+                                        <LineTable route={false}
+                                                   history={props.history}
+                                                   key={item.id}
+                                                   requestID={item.id}
+                                                   date={ReversDateTime(item.deadline.beginDate)}
+                                                   name={item.cargo.department}
+                                                   path={ReversRoutePoint(item)}
+                                                   isSingle={item.isSingle}/>
+                                    )
+                                }
                             })
                     }
                 </tbody>

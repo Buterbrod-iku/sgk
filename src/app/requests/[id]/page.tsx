@@ -20,19 +20,50 @@ export default function OpenRequest (props) {
     // стэйт для основной заявки, которая будет выводиться
     let [newRequest, setPost] = useState({})
 
+    // хук для запроса на сервер
+    const [fetchRouteById, isLoadingRouteById, errorPostById] = useFetching(async (id) => {
+        const response = await PostService.getById(id)
+
+        setPost(response)
+    })
+    const [fetchOrderById, isLoadingOrderById, errorOrderById] = useFetching(async (id) => {
+        const response = await PostService.getByIdOrder(id)
+
+        setPost(response)
+    })
+
+
     const router = useParams()
     let routerId = router.id
 
     useEffect(() => {
         // тк мы можем посмотреть подходящую заявку, при нажатии на кнопку
         // в newPath пропсом в этот компонент передаётся id если пропс есть, то он прогонит его
-        if(props.pathId){
-            routerId = props.pathId
-            fetchPostById(routerId)
+        fetchRouteById(routerId)
+
+        if(props.route){
+            if(props.pathId){
+                routerId = props.pathId
+                fetchRouteById(routerId)
+            }
+            else {
+                fetchRouteById(routerId)
+            }
+        } else {
+            if(props.pathId){
+                routerId = props.pathId
+                fetchOrderById(routerId)
+            }
+            else {
+                fetchOrderById(routerId)
+            }
         }
-        else {
-            fetchPostById(routerId)
-        }
+        fetchNewPath(routerId)
+        console.log("newPath")
+        console.log("newPath")
+
+        console.log(newPath)
+        console.log(newRequest)
     }, [])
 
     // массив похожих заявок. Тут будет только id и маршрут
@@ -44,20 +75,7 @@ export default function OpenRequest (props) {
         setNewPath(response)
     })
 
-    useEffect(() => {
-        fetchNewPath()
-        console.log("newPath")
-        console.log(newPath)
-    }, [])
-
     const [title, setTitle] = useState('')
-
-    // хук для запроса на сервер
-    const [fetchPostById, isLoadingPostById, errorPostById] = useFetching(async (id) => {
-        const response = await PostService.getById(id)
-
-        setPost(response)
-    })
 
     useEffect(() => {
         const renameTitle = async () => {
@@ -116,7 +134,7 @@ export default function OpenRequest (props) {
     return (
         <div className={style.main} style={props.style}>
             {
-                isLoadingPostById
+                isLoadingRouteById
                     ? (<Loading style={{width: '80vw', height: '80vh'}}/>)
                     :
                     (<>
@@ -137,7 +155,7 @@ export default function OpenRequest (props) {
 
                             {/*надо пофиксить при просмотре предложенных заявок. Роутинг*/}
                             <h4 className={style.title}>
-                                {newRequest.orders.isSingle ? (<div className={style.locked}></div>) : ''}
+                                {newRequest.orders?.isSingle ? (<div className={style.locked}></div>) : ''}
 
                                 {
                                     title.length > 90
@@ -217,7 +235,7 @@ export default function OpenRequest (props) {
                                                     :
                                                     newPath.length > 0
                                                         ? newPath.map(item => (
-                                                            <NewPath key={item.id} title={item.orders[0].department} routeId={item.id} mainRouteId={routerId}/>
+                                                            <NewPath key={item.id} title={ReversRoutePoint(item.route)} routeId={item.id} mainRouteId={routerId}/>
                                                         ))
                                                         : (<NoneRequests />)
                                             }
