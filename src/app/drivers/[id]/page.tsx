@@ -79,14 +79,15 @@ export default function OpenCar(props) {
 
                             <div style={{display: 'flex'}}>
                                 <div className={style.posLeft}>
-                                    <InfoBlock title="Фамилия водителя" name="lastName" info={appState.lastName} edit={edit} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Имя водителя" name="firstName" info={appState.firstName} edit={edit} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Категория водительских прав" name="category" info={appState.category} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="ФИО водителя" name="lastName" info={appState.name} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Номер телефона" name="phoneNumber" info={appState.phoneNumber} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Почта водителя" name="mail" info={appState.mail} edit={edit} onChange={(e) => oCD(e)}/>
                                 </div>
 
                                 <div className={style.posRight}>
                                     <InfoBlock title="График работы" name="gr" info={"2 через 2"} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Адрес автопарка" name="location" info={appState.location} edit={edit} onChange={(e) => oCD(e)}/>
+                                    {/*<InfoBlock title="Адрес автопарка" name="location" info={appState.location} edit={edit} onChange={(e) => oCD(e)}/>*/}
+                                    <InfoBlock title="Категория водительских прав" name="category" info={appState.category} edit={edit} onChange={(e) => oCD(e)}/>
                                 </div>
                             </div>
 

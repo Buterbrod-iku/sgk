@@ -73,10 +73,10 @@ export default function Table(props) {
                                                    history={props.history}
                                                    key={item.id}
                                                    requestID={item.id}
-                                                   date={ReversDateTime(item.orders[0].deadline.beginDate)}
-                                                   name={item.orders[0].cargo.department}
+                                                   date={ReversDateTime(item.orders[0]?.deadline.beginDate)}
+                                                   name={item.orders[0]?.cargo.department}
                                                    path={ReversRoutePoint(item)}
-                                                   isSingle={item.orders[0].isSingle}/>
+                                                   isSingle={item.orders[0]?.isSingle}/>
                                     )
                                 } else{
                                     return (

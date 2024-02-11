@@ -6,6 +6,8 @@ import {useRouter} from "next/navigation";
 import PostDrivers from "@/app/API/postDrivers";
 import PostCar from "@/app/API/postCar";
 import BlockInput from "@/app/requests/new/blockInput/blockInput";
+import getCoordsByAddress from "@/app/API/geocoder";
+import {XMLParser} from "fast-xml-parser";
 
 export default function CarForm(props) {
     const close = (e) => {
@@ -384,11 +386,23 @@ export default function CarForm(props) {
         ]
     });
 
+    const parser = new XMLParser();
+    const rever = async (start) => {
+        let result = {
+            ...start
+        }
+        let loc = await getCoordsByAddress(start.location, parser)
+        result["latitude"] = loc.lats;
+        result["longitude"] = loc.long;
+
+        return result
+    }
+
     let link = useRouter()
     async function submitHandler (e) {
         e.preventDefault();
 
-        await PostCar.sendRequest(values);
+        await PostCar.sendRequest(await rever(values));
 
         props.setOpenForm(!props.openForm)
         setTimeout(() => {
@@ -397,7 +411,20 @@ export default function CarForm(props) {
         }, 100)
     }
 
-    const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
+    const selectArray = [
+        {
+            text: "Грузовой",
+            value: "cargo"
+        },
+        {
+            text: "Пассажирский",
+            value: "human"
+        },
+        {
+            text: "Грузо-пассажирский",
+            value: "all"
+        },
+    ];
 
     return (
         <div className={style.main}>
@@ -408,7 +435,8 @@ export default function CarForm(props) {
                 <p>Регистрация автомобиля</p>
 
                 <div>
-                    <BlockInput gridName={"A"} type={'integer'} text={"Номер автомобиля"} placeholder={"а123аа"} require={true} name={"numberOfTransport"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Номер автомобиля"} placeholder={"а123аа"} require={true} name={"numberOfTransport"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'text'} text={"Название автомобиля"} placeholder={"Лада Гранта"} require={true} name={"name"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'select'} text={"Тип автомобиля"} placeholder={"Не выбран"} require={true} name={"title"} selectArray={selectArray} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'integer'} text={"Максимальное количество посадочных мест"} placeholder={""} require={true} name={"maxNumberOfPassengersInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'integer'} text={"Максимальная грузопдъёмность"} placeholder={""} require={true} name={"maxAmountOfCargoInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>

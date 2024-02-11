@@ -47,7 +47,6 @@ export default function OpenCar() {
         "maxAmountOfCargoInCar": appState.maxAmountOfCargoInCar,
         "numberOfPassengersInCar": 0,
         "amountOfCargoInCar": 0,
-        "location": appState.location
     })
 
     let link = useRouter()
@@ -84,10 +83,10 @@ export default function OpenCar() {
                             <div style={{display: 'flex'}}>
                                 <div className={style.posLeft}>
                                     <InfoBlock title="Номер автомобиля" name="numberOfTransport" info={appState.numberOfTransport} edit={edit} onChange={(e) => oCD(e)}/>
-                                    {/*<InfoBlock title="Номер телефона" name="name" info={"+7 (909) 555-44-33"} edit={edit} onChange={(e) => oCD(e)}/>*/}
-                                    {/*<InfoBlock title="E-mail водителя" name="name" info={"vodila@mail.ru"} edit={edit} onChange={(e) => oCD(e)}/>*/}
+                                    <InfoBlock title="Название автомобиля" name="numberOfTransport" info={appState.name} edit={edit} onChange={(e) => oCD(e)}/>
+                                    {/*<InfoBlock title="Номер телефона" name="name" info={appState.phoneNumber} edit={edit} onChange={(e) => oCD(e)}/>*/}
+                                    {/*<InfoBlock title="E-mail водителя" name="name" info={appState.phoneNumber} edit={edit} onChange={(e) => oCD(e)}/>*/}
                                     <InfoBlock title="Тип автомобиля" name="title" info={appState.title} edit={edit} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Адрес автопарка" name="location" info={appState.location} edit={edit} onChange={(e) => oCD(e)}/>
                                 </div>
 
                                 <div className={style.posRight}>
