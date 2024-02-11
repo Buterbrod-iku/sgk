@@ -3,6 +3,8 @@ import {useState} from "react";
 import BlockInput from "@/app/requests/new/blockInput/blockInput";
 import {onChangeDefault} from "@/components/utils/formUtils";
 import InputButton from "@/app/requests/new/inputButton/inputButton";
+import PostDrivers from "@/app/API/postDrivers";
+import {useRouter} from "next/navigation";
 
 export default function DriversForm(props) {
     const close = (e) => {
@@ -11,10 +13,18 @@ export default function DriversForm(props) {
     }
     const [values, setValues] = useState({});
 
+
+    let link = useRouter()
     async function submitHandler (e) {
         e.preventDefault();
-        console.log('первая версия...');
-        console.log(values);
+
+        await PostDrivers.sendRequest(values);
+
+        props.setOpenForm(!props.openForm)
+        setTimeout(() => {
+            props.fun()
+            link.push('/drivers');
+        }, 100)
     }
 
 
@@ -26,7 +36,7 @@ export default function DriversForm(props) {
 
                 <p>Регистрация водителя</p>
 
-                <div className={style.pos}>
+                <div>
                     <BlockInput gridName={"A"} type={'text'} text={"Фамилия водителя"} placeholder={""} require={true} name={"firstName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'text'} text={"Имя водителя"} placeholder={""} require={true} name={"lastName"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'text'} text={"Категория"} placeholder={"С, В, Е..."} require={true} name={"category"} onChange={(e) => onChangeDefault(e, values, setValues)}/>

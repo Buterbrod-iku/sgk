@@ -17,7 +17,7 @@ export default function Drivers() {
 
     const [appState, setAppState] = useState([]);
 
-    const [fetchPostGetAll, isLoading, error] = useFetching(async (id) => {
+    const [fetchPostGetAll, isLoading, error] = useFetching(async () => {
         let response = await PostDrivers.getAll()
 
         setAppState(response)
@@ -25,7 +25,6 @@ export default function Drivers() {
 
     useEffect(() => {
         fetchPostGetAll()
-        console.log(appState)
     }, [isLoading])
 
     const funOpenForm = (e) => {
@@ -56,9 +55,8 @@ export default function Drivers() {
     return (
         <div className={style.main}>
             {
-                openForm ? (<DriversForm openForm={openForm} setOpenForm={setOpenForm}/>) : ''
+                openForm ? (<DriversForm openForm={openForm} setOpenForm={setOpenForm} fun={fetchPostGetAll}/>) : ''
             }
-
             <div className={style.positionTitle}>
                 <h2 className={style.title}>Водители</h2>
                 <button onClick={funOpenForm} className={style.button}>Загрузить данные водителя</button>
