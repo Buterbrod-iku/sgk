@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class PostCar {
-    private static host: string = "http://192.168.118.114:";
+    private static host: string = "http://192.168.1.9:";
 
     static async getAll() {
         const apiUrl = `${this.host}8008/cars/all`;

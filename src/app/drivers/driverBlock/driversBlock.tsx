@@ -12,7 +12,7 @@ export default function DriversBlock({id, info}) {
         <>
             <div onClick={openRequestHandler} className={style.link}>
                 <div className={style.main}>
-                    <p className={style.name}>{info.lastName + " " + info.firstName}</p>
+                    <p className={style.name}>{info.name}</p>
                     <p className={style.phone}>Категория - {info.category}</p>
                     <button className={style.button}>Подробнее</button>
                 </div>
