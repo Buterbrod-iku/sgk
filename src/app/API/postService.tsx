@@ -25,8 +25,7 @@ export default class PostService {
 
     // TODO
     static async sendRequest(object) {
-        const response = await axios.post(`${this.host}5000/routes/complex/`, object)
-        return response
+        return await axios.post(`${this.host}5000/orders/advanced/`, object)
     }
 
     // привязать удаление

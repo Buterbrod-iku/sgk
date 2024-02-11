@@ -1,3 +1,6 @@
+import {XMLParser} from "fast-xml-parser";
+import getCoordsByAddress from "@/app/API/geocoder";
+
 const TransformationWaitingTime = (waiting: string) => {
     if (!(/^\d{2}:\d{2}$/.test(waiting))) return -1;
 
@@ -46,145 +49,7 @@ function ReformatPhoneNumber(formattedPhone: string) {
 }
 
 
-export function ReverseObject(startObj) {
-    let start = {
-        "waypoints": [
-            {
-                "index": 0,
-                "passengers": [
-                    {
-                        "index": 0,
-                        "name": "11111111111111",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 1,
-                        "name": "ннн ннн ннн",
-                        "contact": "+7 (565) 656-56-56",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 2,
-                        "name": "",
-                        "contact": ""
-                    },
-                    {
-                        "index": 0,
-                        "name": "2222222222",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    }
-                ],
-                "address": "Бийск, улица Антона Чехова, 1523",
-                "date": "2024-02-15",
-                "time": "21:18"
-            },
-            {
-                "index": 1,
-                "passengers": [
-                    {
-                        "index": 0,
-                        "name": "11111111111111",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 1,
-                        "name": "ннн ннн ннн",
-                        "contact": "+7 (565) 656-56-56",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 2,
-                        "name": "",
-                        "contact": ""
-                    },
-                    {
-                        "index": 0,
-                        "name": "2222222222",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    }
-                ],
-                "address": "Бийск, Каховская улица, 128"
-            },
-            {
-                "index": 2,
-                "passengers": [
-                    {
-                        "index": 0,
-                        "name": "11111111111111",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 1,
-                        "name": "ннн ннн ннн",
-                        "contact": "+7 (565) 656-56-56",
-                        "endIndex": "2"
-                    },
-                    {
-                        "index": 2,
-                        "name": "",
-                        "contact": ""
-                    },
-                    {
-                        "index": 0,
-                        "name": "2222222222",
-                        "contact": "+7 (222) 222-22-22",
-                        "endIndex": "2"
-                    }
-                ],
-                "address": "Рубцовск, улица Федоренко, 6"
-            }
-        ],
-        "passengers": [
-            {
-                "index": 0,
-                "name": "11111111111111",
-                "contact": "+7 (222) 222-22-22",
-                "endIndex": "2"
-            },
-            {
-                "index": 1,
-                "name": "ннн ннн ннн",
-                "contact": "+7 (565) 656-56-56",
-                "endIndex": "2"
-            },
-            {
-                "index": 2,
-                "name": "",
-                "contact": ""
-            },
-            {
-                "index": 0,
-                "name": "2222222222",
-                "contact": "+7 (222) 222-22-22",
-                "endIndex": "2"
-            }
-        ],
-        "cargo": [
-            {
-                "index": 0,
-                "description": "велосипед",
-                "weight": "12",
-                "volume": "12",
-                "endIndex": "1"
-            },
-            {
-                "index": 1
-            },
-            {
-                "index": 2
-            }
-        ],
-        "department": "структура",
-        "description": "коммент",
-        "isSingle": false,
-        "unit": "cargo"
-    }
-
+export async function ReverseObject(start) {
     let end = {
         "clientId": "1",
         "cargo": {
@@ -240,10 +105,87 @@ export function ReverseObject(startObj) {
 
     for (let i = 0; i < start.cargo.length; i++){
         if(Object.hasOwn(start.cargo[i], 'description')){
-            start.cargo[i].index
-            cargo.push(start.cargo[i])
+            let obj = {
+                "startIndex": start.cargo[i].index,
+                "description": start.cargo[i].description,
+                "weight": start.cargo[i].weight,
+                "volume": start.cargo[i].volume,
+                "endIndex": Number(start.cargo[i].endIndex)
+            }
+            cargo.push(obj)
         }
     }
+
+    let pass = []
+
+    for (let i = 0; i < start.passengers.length; i++){
+        if(Object.hasOwn(start.passengers[i], 'name') && !isNaN(start.passengers[i].endIndex)){
+            let obj = {
+                "startIndex": start.passengers[i].index,
+                "name": start.passengers[i].name,
+                "contact": start.passengers[i].contact,
+                "endIndex": Number(start.passengers[i].endIndex)
+            }
+            pass.push(obj)
+        }
+    }
+
+    const parser = new XMLParser();
+
+    let points = []
+
+    for (let i = 0; i < start.waypoints.length; i++){
+        let lon
+        if(Object.hasOwn(start.waypoints[i], 'address')){
+            lon = await getCoordsByAddress(start.waypoints[i].address, parser)
+            let obj = {
+                "address": start.waypoints[i].address,
+                "latitude": lon.lats,
+                "longitude": lon.long,
+                "city": lon.city,
+                "pointType": "n"
+            }
+            points.push(obj)
+        }
+    }
+
+    for (let i = 0; i < points.length; i++){
+        let load = 0
+        let unload = 0
+        for (let j = 0; j < pass.length; j++){
+            if(pass[j].startIndex === i){
+                load++
+            }
+
+            if(pass[j].endIndex === i){
+                unload++
+            }
+        }
+
+        for (let k = 0; k < cargo.length; k++){
+            if(cargo[k].startIndex === i){
+                load++
+            }
+
+            if(cargo[k].endIndex === i){
+                unload++
+            }
+        }
+
+        if(load > 0 && unload > 0){
+            points[i].pointType = "b"
+        }
+        else if(load > 0 && unload === 0){
+            points[i].pointType = "i"
+        }
+        else if(load === 0 && unload > 0){
+            points[i].pointType = "0"
+        }
+        else {
+            points[i].pointType = "n"
+        }
+    }
+
 
     let result = {
         "clientId": "1",
@@ -251,16 +193,17 @@ export function ReverseObject(startObj) {
         "deadline": deadlineBool,
         "cargo": {
             "unit": start.unit,
-            "numberOfPassengersInCar": 0,
-            "amountOfCargoInCar": 0,
+            "numberOfPassengersInCar": pass.length,
+            "amountOfCargoInCar": cargo.length,
             "freights": cargo,
-            "passengers": [
-                "string"
-            ],
+            "passengers": pass,
             "department": start.department,
             "description": start.description
         },
+        "waypoints": {
+            "points": points
+        }
     }
 
-    return startObj;
+    return result;
 }
