@@ -19,7 +19,7 @@ export default class PostService {
     }
 
     static async getNewPath(id) {
-        const response = await axios.get(`${this.host}5000/routes/std/` + id)
+        const response = await axios.get(`${this.host}5000/similar/` + id + "?type=route")
         return response.data
     }
 

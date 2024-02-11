@@ -39,10 +39,16 @@ export default function OpenRequest (props) {
     const [newPath, setNewPath] = useState([])
 
     const [fetchNewPath, isLoadingNewPath, errorNewPath] = useFetching(async (id) => {
-        const response = await PostService.getById(id)
+        const response = await PostService.getNewPath(id)
 
-        setPost(response)
+        setNewPath(response)
     })
+
+    useEffect(() => {
+        fetchNewPath()
+        console.log("newPath")
+        console.log(newPath)
+    }, [])
 
     const [title, setTitle] = useState('')
 
@@ -53,14 +59,11 @@ export default function OpenRequest (props) {
         setPost(response)
     })
 
-
-
     useEffect(() => {
         const renameTitle = async () => {
             await setTitle(ReversRoutePoint(newRequest))
         }
         renameTitle()
-        console.log(newRequest)
     }, [newRequest])
 
     const [openInfo, setOpenInfo] = useState(true);
@@ -209,11 +212,14 @@ export default function OpenRequest (props) {
                                                 <p>Доступные маршруты</p>
                                             </div>
                                             {
-                                                newPath.length > 0
-                                                    ? newPath.map(item => (
-                                                        <NewPath key={item.routeId} title={item.path} routeId={item.routeId} mainRouteId={routerId}/>
-                                                    ))
-                                                    : (<NoneRequests />)
+                                                isLoadingNewPath ?
+                                                    <Loading />
+                                                    :
+                                                    newPath.length > 0
+                                                        ? newPath.map(item => (
+                                                            <NewPath key={item.id} title={item.orders[0].department} routeId={item.id} mainRouteId={routerId}/>
+                                                        ))
+                                                        : (<NoneRequests />)
                                             }
                                         </div>)
                             }
