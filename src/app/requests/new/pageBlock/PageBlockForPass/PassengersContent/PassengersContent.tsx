@@ -6,7 +6,9 @@ import {useEffect, useState} from "react";
 
 export const PassengersContent = (props) => {
     const selectArray = ["Грузовой", "Пассажирский", "Грузо-пассажирский"];
-    const [passengersContent, setPassengersContent] = useState({});
+    const [passengersContent, setPassengersContent] = useState({
+        "index": props.index,
+    });
 
     useEffect(() => {
         let obj = props.values
@@ -19,9 +21,9 @@ export const PassengersContent = (props) => {
             <TitleBlock text={"Данные пассажира"} fontSize={"16px"}/>
 
             <div className={style.pos}>
-                <BlockInput gridName={"A"} type={'text'} text={"ФИО сотрудника"} placeholder={"Фамилия Имя Отчество"} require={true} name={"fullName"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
-                <BlockInput gridName={"B"} type={'tel'} text={"Телефонный номер"} placeholder={"+7 (000) 000-00-00"} require={true} name={"phoneNumber"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
-                <BlockInput gridName={"C"} type={'select'} text={"Пункт доставки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} name={"end"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
+                <BlockInput gridName={"A"} type={'text'} text={"ФИО сотрудника"} placeholder={"Фамилия Имя Отчество"} require={true} name={"name"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
+                <BlockInput gridName={"B"} type={'tel'} text={"Телефонный номер"} placeholder={"+7 (000) 000-00-00"} require={true} name={"contact"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
+                <BlockInput gridName={"C"} type={'select'} text={"Пункт доставки"} placeholder={"Не выбран"} selectArray={selectArray} require={true} name={"endIndex"} onChange={(e) => onChangeDefault(e, passengersContent, setPassengersContent)}/>
             </div>
         </div>
     )

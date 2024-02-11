@@ -60,6 +60,7 @@ export default function OpenRequest (props) {
             await setTitle(ReversRoutePoint(newRequest))
         }
         renameTitle()
+        console.log(newRequest)
     }, [newRequest])
 
     const [openInfo, setOpenInfo] = useState(true);

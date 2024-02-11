@@ -15,7 +15,6 @@ export default function PageBlockForCargo(props) {
     const switchHandler = (e, index) => {
         e.preventDefault()
         setPage(index)
-        console.log("switchHandler", page, index, indexCount)
     }
 
  
@@ -30,9 +29,7 @@ export default function PageBlockForCargo(props) {
             setButtonArray(oldArray => [...oldArray, obj])
             setPage(indexCount)
             return prev + 1
-        }) 
-        
-        console.log("addPage", page, "-", indexCount)
+        })
     }
     
     const search = (array, page, deleted) => {
@@ -40,20 +37,15 @@ export default function PageBlockForCargo(props) {
             return 0;
         }
 
-        console.log(array)
-        console.log(page)
-        console.log(deleted)
         if(deleted === page){
             for (let i = array.length - 1; i >= 0; i--){
                 if(array[i].index === deleted){
-                    console.log("111111111111111111111")
                     return array[i - 1].index
                 }
             }
         } else{
             for (let i = 0; i < array.length; i++){
                 if(array[i].index === page){
-                    console.log("2222222")
                     return page
                 }
             }
@@ -64,7 +56,6 @@ export default function PageBlockForCargo(props) {
     const closeHandler = (e, index) => {
         e.preventDefault()
         setPage(prev => (prev > 0) ? search(buttonArray, prev, index) : 0)
-        console.log("page index", page, index)
         setButtonArray(
             prev => {
                 return prev.filter(item => {
@@ -72,10 +63,9 @@ export default function PageBlockForCargo(props) {
                 });
             }
         )
-        console.log("closeHandler", page, index, indexCount)
 
-        // let delPoint = routePointContent.filter((number) => number.index !== index);
-        // setRoutePointContent(delPoint)
+        let delPoint = props.values.filter((number) => number.index !== index);
+        props.setValues(delPoint)
     }
 
     return (
@@ -87,7 +77,7 @@ export default function PageBlockForCargo(props) {
                             <button key={item.index} onClick={(e) => switchHandler(e, item.index)}>
                                 <div className={style.pageButton}>
                                     {
-                                        item.name + (index) 
+                                        item.name + (index + 1)
                                     }
                                 </div>
                             </button>
@@ -104,7 +94,7 @@ export default function PageBlockForCargo(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <CargoContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}}  values={props.values} setValues={props.setValues}/>
+                    <CargoContent index={props.index} key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}  values={props.values} setValues={props.setValues}/>
                 ))
             }
 

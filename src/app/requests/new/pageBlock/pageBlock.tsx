@@ -24,7 +24,6 @@ export default function PageBlock(props) {
     const switchHandler = (e, index) => {
         e.preventDefault()
         setPage(index)
-        console.log("switchHandler", page, index, indexCount)
     }
 
     const addPage = (e) => {
@@ -39,11 +38,6 @@ export default function PageBlock(props) {
             setPage(indexCount)
             return prev + 1
         })
-
-        console.log("addPage", page, "-", indexCount)
-
-        console.log(indexCount)
-        console.log(page)
     }
 
     //TODO: переписать тк сейчас баг с тем что создаётся много пассажиров
@@ -71,20 +65,15 @@ export default function PageBlock(props) {
             return 0;
         }
 
-        console.log(array)
-        console.log(page)
-        console.log(deleted)
         if(deleted === page){
             for (let i = array.length - 1; i >= 0; i--){
                 if(array[i].index === deleted){
-                    console.log("111111111111111111111")
                     return array[i - 1].index
                 }
             }
         } else{
             for (let i = 0; i < array.length; i++){
                 if(array[i].index === page){
-                    console.log("2222222")
                     return page
                 }
             }
@@ -103,10 +92,13 @@ export default function PageBlock(props) {
                 });
             }
         )
-        console.log("closeHandler", page, index, indexCount)
 
         let delPoint = routePointContent.filter((number) => number.index !== index);
         setRoutePointContent(delPoint)
+        let delPass = passengersContent.filter((number) => number.index !== index);
+        setPassengersContent(delPass)
+        let delCargo = cargoContent.filter((number) => number.index !== index);
+        setCargoContent(delCargo)
     }
 
     return (
@@ -137,24 +129,24 @@ export default function PageBlock(props) {
 
             {
                 buttonArray.map((item, index) => (
-                    <RoutePointContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent}/>
+                    <RoutePointContent key={item.index} index={item.index} text={`hello ${index}`} style={page !== item.index ? {display: "none"} : {display: "block"}} values={routePointContent} setValues={setRoutePointContent} passengersContent={passengersContent}/>
                 ))
             }
 
             {
                 buttonArray.map((item, index) => (
-                    <div key={index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
+                    <div key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Пассажиры"} fontSize={"16px"}/>
-                        <PageBlockForPass values={passengersContent} setValues={setPassengersContent}/>
+                        <PageBlockForPass values={passengersContent} setValues={setPassengersContent} index={item.index}/>
                     </div>
                 ))
             }
 
             {
                 buttonArray.map((item, index) => (
-                    <div key={index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
+                    <div key={item.index} style={page !== item.index ? {display: "none"} : {display: "block"}}>
                         <TitleBlock text={"Грузы"} fontSize={"16px"}/>
-                        <PageBlockForCargo values={cargoContent} setValues={setCargoContent} />
+                        <PageBlockForCargo values={cargoContent} setValues={setCargoContent} index={item.index}/>
                     </div>
                 ))
             }

@@ -20,6 +20,7 @@ export default function Request() {
 
     useEffect(() => {
         fetchPostGetAll()
+        console.log(appState)
     }, [])
 
     return (
