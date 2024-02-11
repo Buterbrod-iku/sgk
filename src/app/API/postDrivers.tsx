@@ -14,14 +14,12 @@ export default class PostDrivers {
     }
 
     static async getById(id) {
-        const response = await axios.get(`${this.host}8008/drivers/` + id)
-        return response
+        return await axios.get(`${this.host}8008/drivers/` + id)
     }
 
     // TODO
     static async sendRequest(object) {
-        const response = await axios.post(`${this.host}8008/drivers`, object)
-        return response
+        return await axios.post(`${this.host}8008/drivers`, object)
     }
 
     // привязать удаление
@@ -31,8 +29,6 @@ export default class PostDrivers {
 
     // TODO
     static async switchDriver(id, object) {
-        const response = await axios.patch(`${this.host}8008/drivers/` + id, object)
-        return response
+        return await axios.patch(`${this.host}8008/drivers/` + id, object)
     }
-
 }

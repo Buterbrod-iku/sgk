@@ -48,7 +48,7 @@ const pathAdaptive = (location) => {
             break
         case 'fleet':
             path.push('Автопарк')
-            path.push('Машины')
+            path.push('Автомобили')
 
             if(arrayPath[2]?.length >= 6){
                 // здесь будет марка автомобиля
@@ -56,7 +56,7 @@ const pathAdaptive = (location) => {
             break
         case 'openCar':
             path.push('Автопарк')
-            path.push('Машины')
+            path.push('Автомобили')
 
             if(arrayPath[2]?.length >= 6){
                 // здесь будет фамилия водителя (Иванов) (по айди)

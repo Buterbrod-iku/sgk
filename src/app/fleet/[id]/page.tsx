@@ -1,23 +1,24 @@
 'use client'
 
-import style from './openDrivers.module.scss';
+import style from './openCar.module.scss';
 import InfoBlock from "@/app/requests/[id]/infoBlock/infoBlock";
 import {useEffect, useState} from "react";
 import ModalConfirm from "@/app/requests/[id]/modalConfirm/modalConfirm";
+import {useParams, useRouter} from "next/navigation";
 import {useFetching} from "@/components/utils/hooks/useFetching";
 import PostDrivers from "@/app/API/postDrivers";
-import {useParams, useRouter} from "next/navigation";
-import Loading from "@/app/requests/loading/loading";
 import {onChangeDefault} from "@/components/utils/formUtils";
+import Loading from "@/app/requests/loading/loading";
+import PostCar from "@/app/API/postCar";
 
-export default function OpenCar(props) {
+export default function OpenCar() {
     const [appState, setAppState] = useState([]);
 
     const router = useParams()
     let routerId = router.id
 
     const [fetchGetDriver, isLoading, error] = useFetching(async (id) => {
-        let response = await PostDrivers.getById(id)
+        let response = await PostCar.getById(id)
 
         setAppState(response.data)
     })
@@ -40,9 +41,12 @@ export default function OpenCar(props) {
     }
 
     const [values, setValues] = useState({
-        "firstName": appState.firstName,
-        "lastName": appState.lastName,
-        "category": appState.category,
+        "numberOfTransport": appState.numberOfTransport,
+        "title": appState.title,
+        "maxNumberOfPassengersInCar": appState.maxNumberOfPassengersInCar,
+        "maxAmountOfCargoInCar": appState.maxAmountOfCargoInCar,
+        "numberOfPassengersInCar": 0,
+        "amountOfCargoInCar": 0,
         "location": appState.location
     })
 
@@ -50,9 +54,9 @@ export default function OpenCar(props) {
     const createEdit = async (e) => {
         e.preventDefault()
 
-        await PostDrivers.switchDriver(routerId, values)
+        await PostCar.switchCar(routerId, values)
 
-        await link.push(`/drivers/${routerId}`)
+        await link.push(`/fleet/${routerId}`)
 
         fetchGetDriver(routerId)
 
@@ -66,7 +70,7 @@ export default function OpenCar(props) {
     return (
         <div className={style.main}>
             {
-                confirm ? <ModalConfirm setConfirm={openConfirm} funDelete={PostDrivers.deleteDriver(routerId)} path={'/drivers'}/> : ""
+                confirm ? <ModalConfirm setConfirm={openConfirm} funDelete={PostCar.deleteCar(routerId)} path={'/fleet'}/> : ""
             }
             {
                 isLoading ?
@@ -74,19 +78,21 @@ export default function OpenCar(props) {
                     :
                     (
                         <div className={style.block}>
-                            <h2 className={style.title}>Данные водителя</h2>
-                            <button onClick={openConfirm} className={style.cancelButton}>Удалить данные</button>
+                            <h2 className={style.title}>Лада гранта</h2>
+                            <button onClick={openConfirm} className={style.cancelButton}>Удалить машину</button>
 
                             <div style={{display: 'flex'}}>
                                 <div className={style.posLeft}>
-                                    <InfoBlock title="Фамилия водителя" name="lastName" info={appState.lastName} edit={edit} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Имя водителя" name="firstName" info={appState.firstName} edit={edit} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Категория водительских прав" name="category" info={appState.category} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Номер автомобиля" name="numberOfTransport" info={appState.numberOfTransport} edit={edit} onChange={(e) => oCD(e)}/>
+                                    {/*<InfoBlock title="Номер телефона" name="name" info={"+7 (909) 555-44-33"} edit={edit} onChange={(e) => oCD(e)}/>*/}
+                                    {/*<InfoBlock title="E-mail водителя" name="name" info={"vodila@mail.ru"} edit={edit} onChange={(e) => oCD(e)}/>*/}
+                                    <InfoBlock title="Тип автомобиля" name="title" info={appState.title} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Адрес автопарка" name="location" info={appState.location} edit={edit} onChange={(e) => oCD(e)}/>
                                 </div>
 
                                 <div className={style.posRight}>
-                                    <InfoBlock title="График работы" name="gr" info={"2 через 2"} onChange={(e) => oCD(e)}/>
-                                    <InfoBlock title="Адрес автопарка" name="location" info={appState.location} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Количество посадочных мест" name="maxNumberOfPassengersInCar" info={appState.maxNumberOfPassengersInCar} edit={edit} onChange={(e) => oCD(e)}/>
+                                    <InfoBlock title="Грузоподъемность" name="maxAmountOfCargoInCar" info={appState.maxAmountOfCargoInCar} edit={edit} onChange={(e) => oCD(e)}/>
                                 </div>
                             </div>
 
