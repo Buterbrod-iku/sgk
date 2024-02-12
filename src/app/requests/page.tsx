@@ -68,6 +68,7 @@ export default function Request() {
                                     <Table array={activeState} fetchPostGetAll={fetchGetActive} isLoading={isLoadingGetActive} perPage={3}/>
                                 </div>
                             )
+
                     : null
             }
 
