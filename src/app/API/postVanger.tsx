@@ -1,7 +1,8 @@
 import axios from "axios";
+import {HOST} from "./CONST/const"
 
 export default class PostVanger {
-    private static host: string = "http://192.168.1.9:";
+    private static host: string = HOST;
 
     static async getById(id) {
         let response = await axios.get(`${this.host}8008/vangers/` + id)
