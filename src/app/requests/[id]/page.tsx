@@ -33,12 +33,9 @@ export default function OpenRequest (props) {
         setPost(response)
     })
 
-    const routerQuery = useRouter()
-    const {
-        query: { route },
-    } = routerQuery
     const router = useParams()
     let routerId = router.id
+    let route = router.isRoute
 
 
     useEffect(() => {

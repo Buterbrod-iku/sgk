@@ -9,9 +9,7 @@ export default function LineTable(props) {
     const {download} = useDownloader();
 
     return (
-        <Link href={{
-            pathname: `/requests/${props.requestID}`,
-            query: { route: props.route }
+        <Link href={ `/requests/${props.requestID}?isRoute=${props.route}`}>
         }}>
             <tr className={style.tr} style={props.history ? {gridTemplateColumns: "1fr 2fr 4fr 1fr"} : {gridTemplateColumns: "1fr 2fr 5fr"}}>
                 {
