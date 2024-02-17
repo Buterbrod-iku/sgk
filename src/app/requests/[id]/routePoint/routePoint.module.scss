@@ -2,6 +2,7 @@
   width: 80%;
   height: auto;
   margin-bottom: 30px;
+
 }
 .point{
   position: relative;
@@ -26,7 +27,7 @@
     background-image: linear-gradient(black, grey);
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: relative;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

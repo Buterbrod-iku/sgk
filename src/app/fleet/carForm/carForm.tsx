@@ -439,7 +439,7 @@ export default function CarForm(props) {
                     <BlockInput gridName={"A"} type={'text'} text={"Название автомобиля"} placeholder={"Лада Гранта"} require={true} name={"name"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'select'} text={"Тип автомобиля"} placeholder={"Не выбран"} require={true} name={"title"} selectArray={selectArray} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'integer'} text={"Максимальное количество посадочных мест"} placeholder={""} require={true} name={"maxNumberOfPassengersInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
-                    <BlockInput gridName={"A"} type={'integer'} text={"Максимальная грузопдъёмность"} placeholder={""} require={true} name={"maxAmountOfCargoInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
+                    <BlockInput gridName={"A"} type={'integer'} text={"Максимальная грузоподъёмность"} placeholder={"кг"} require={true} name={"maxAmountOfCargoInCar"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                     <BlockInput gridName={"A"} type={'text'} text={"Адрес автопарка"} placeholder={""} require={true} name={"location"} onChange={(e) => onChangeDefault(e, values, setValues)}/>
                 </div>
 

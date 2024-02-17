@@ -8,13 +8,13 @@ export default class PostService {
         const apiUrl = `${this.host}5000/deals/${query}`;
         let response;
         await axios.get(apiUrl).then((resp) => {
-            if(query === "?type=order&active=false"){
+            if(query === "?type=order&active=false&done=false"){
                 response = resp.data.orders;
             }
-            else if(query === "?type=route&active=false"){
+            else if(query === "?type=route&active=false&done=false"){
                 response = resp.data.routes;
             }
-            else if(query === "?active=false"){
+            else if(query === "?active=false&done=false"){
                 let route = resp.data.routes
                 let order = resp.data.orders
                 response = order.concat(route);
@@ -47,9 +47,14 @@ export default class PostService {
         return response.data
     }
 
-    static async getNewPath(id) {
-        const response = await axios.get(`${this.host}5000/similar/` + id + "?type=route&match=0.5")
+    static async getNewPathRoute(id) {
+        const response = await axios.get(`${this.host}5000/similar/65cb10ce952f124987aa1892?type=route&match=0.5`)
         return response.data.routes
+    }
+
+    static async getNewPathOrder(id) {
+        const response = await axios.get(`${this.host}5000/similar/` + id + "?type=order&match=0.5")
+        return response.data.order
     }
 
     // TODO

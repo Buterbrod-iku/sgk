@@ -29,7 +29,7 @@ export default function Request() {
     })
 
     useEffect(() => {
-        fetchPostGetAll("?active=false")
+        fetchPostGetAll("?active=false&done=false")
         fetchGetActive()
     }, [])
 
@@ -78,9 +78,9 @@ export default function Request() {
                     :
                     <>
                         <select className={style.select} onChange={(e) => selectType(e)}>
-                            <option value={"?active=false"}>Все</option>
-                            <option value={"?type=order&active=false"}>Заявки</option>
-                            <option value={"?type=route&active=false"}>Маршруты</option>
+                            <option value={"?active=false&done=false"}>Все</option>
+                            <option value={"?type=order&active=false&done=false"}>Заявки</option>
+                            <option value={"?type=route&active=false&done=false"}>Маршруты</option>
                         </select>
                         <Table array={appState} perPage={11}/>
                     </>
