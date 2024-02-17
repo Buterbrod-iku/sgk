@@ -9,8 +9,7 @@ export default function LineTable(props) {
     const {download} = useDownloader();
 
     return (
-        <Link href={ `/requests/${props.requestID}?isRoute=${props.route}`}>
-        }}>
+        <Link href={ `/requests/${props.requestID}?isRoute=${props.route}`} className={style.link}>
             <tr className={style.tr} style={props.history ? {gridTemplateColumns: "1fr 2fr 4fr 1fr"} : {gridTemplateColumns: "1fr 2fr 5fr"}}>
                 {
                     props.isSingle ? (<div className={style.close}></div>) : null

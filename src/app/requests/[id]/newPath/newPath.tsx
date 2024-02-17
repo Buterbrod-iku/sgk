@@ -36,7 +36,7 @@ export default function NewPath(props) {
 
         console.log("Hello", response.data)
 
-        await link.push(`/requests/${response.data}`)
+        await link.push(`/requests/`)
     }
 
 
