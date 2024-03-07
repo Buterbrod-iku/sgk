@@ -1,0 +1,4 @@
+[submodule "sibenco"]
+	path = sibenco
+	url = https://github.com/BigCubeCat/sibenco.git
+	branch = prepare
