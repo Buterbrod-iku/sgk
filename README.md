@@ -42,7 +42,10 @@
   - KOTLIN
   - POSTGRESQL
   - MONGO DB
-
+  - REST API
+  - DOCKER
+  - REDIS
+  - OSM (OpenStreetMap)
 <br/>
 Для корпиративного процесса разработки использовали Git <br/>
 Для записи идей, тасков, вариантов разработки и тд использовали Miro<br/>
