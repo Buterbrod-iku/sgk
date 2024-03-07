@@ -27,3 +27,25 @@
 ![image](https://github.com/Buterbrod-iku/sgk/assets/95047471/02906c79-334f-4d2b-ace1-782ca0c878ff)
 ![image](https://github.com/Buterbrod-iku/sgk/assets/95047471/655a3b5a-83d5-425a-80ac-7cf773145ed1)
 
+### Подходы к разработке
+Стек технологий:
+- Frontend
+  - NEXT.JS
+  - REACT
+  - TYPESCRIPT
+  - SCSS
+  - FIGMA
+- Backend
+  - TYPESCRIPT
+  - EXPRESS.JS
+  - GO
+  - KOTLIN
+  - POSTGRESQL
+  - MONGO DB
+
+<br/>
+Для корпиративного процесса разработки использовали Git <br/>
+Для записи идей, тасков, вариантов разработки и тд использовали Miro<br/>
+Основной подход был основан на методологии Kanban
+
+![image](https://github.com/Buterbrod-iku/sgk/assets/95047471/10ea5e18-5138-4862-a3af-01107280db9b)
