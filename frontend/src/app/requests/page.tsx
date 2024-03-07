@@ -20,7 +20,7 @@ export default function Request() {
         setAppState(response)
     })
 
-    const [activeState, setActiveState] = useState()
+    const [activeState, setActiveState] = useState([])
 
     const [fetchGetActive, isLoadingGetActive, errorGetActive] = useFetching(async () => {
         let response = await PostService.getActive()
