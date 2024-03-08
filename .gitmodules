@@ -2,3 +2,6 @@
 	path = sibenco
 	url = https://github.com/BigCubeCat/sibenco.git
 	branch = prepare
+[submodule "driver-mobile"]
+	path = driver-mobile
+	url = https://github.com/hammmburger/driver-mobile.git
